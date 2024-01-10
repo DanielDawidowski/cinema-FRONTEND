@@ -8,7 +8,9 @@ const Home: FC = (): ReactElement => {
   return (
     <Layout>
       <h1>siemka</h1>
-      <Button color={ButtonColor.primary}>CLICK</Button>
+      <Button color={ButtonColor.primary}>
+        <h5>click</h5>
+      </Button>
     </Layout>
   );
 };

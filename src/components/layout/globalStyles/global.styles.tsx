@@ -40,12 +40,12 @@ img {
 
 export const Container = styled.div<{ $small?: boolean }>`
   margin: 0 auto;
-  max-width: ${(props) => props.theme.breakpoint_small};
+  max-width: ${(props) => props.theme.breakpoint_tablet};
   @media (min-width: ${(props) => props.theme.breakpoint_small}) {
     max-width: ${(props) =>
       props.$small
         ? props.theme.breakpoint_small
-        : props.theme.breakpoint_medium};
+        : props.theme.breakpoint_small};
   }
 `;
 

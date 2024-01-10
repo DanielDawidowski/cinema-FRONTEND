@@ -5,13 +5,23 @@ import IButton from "./Button.interface";
 const COLOR = {
   PRIMARY: css`
     border-radius: 8px;
-    background: linear-gradient(45deg, #ffcc00, #ff6600);
-    color: #fff;
-    border: 2px solid transparent;
-    border-image: linear-gradient(45deg, #ffcc00, #ff6600);
-    border-image-slice: 1;
-    &:hover {
-      background: linear-gradient(45deg, #ff6600, #ffcc00);
+    background: ${(props) => props.theme.primary};
+    color: ${(props) => props.theme.white};
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      background: ${(props) => props.theme.black_light};
+      border-radius: 8px;
+      width: 96%;
+      height: 96%;
+      top: 2%;
+      left: 2%;
+      z-index: -1;
     }
   `,
   SECONDARY: css`
@@ -27,6 +37,10 @@ const DISABLED = css`
   cursor: not-allowed;
 `;
 
+const CHILDREN = css`
+  z-index: 1;
+`;
+
 export const ButtonStyles = styled(motion.button)<IButton>`
   padding: 10px 15px;
   cursor: pointer;
@@ -39,4 +53,5 @@ export const ButtonStyles = styled(motion.button)<IButton>`
 
   ${(props) => props.color && COLOR[props.color]}
   ${(props) => props.disabled && DISABLED}
+  ${(props) => props.children && CHILDREN}
 `;
