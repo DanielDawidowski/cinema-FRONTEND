@@ -9,7 +9,7 @@ const Home: FC = (): ReactElement => {
     <Layout>
       <h1>siemka</h1>
       <Button color={ButtonColor.primary}>
-        <h5>click</h5>
+        <h4>click</h4>
       </Button>
     </Layout>
   );

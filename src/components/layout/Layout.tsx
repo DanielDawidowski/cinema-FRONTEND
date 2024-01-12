@@ -8,6 +8,7 @@ import { LayoutStyles } from "./Layout.styles";
 import { GlobalStyles } from "./globalStyles/global.styles";
 import { TypographyStyles } from "./globalStyles/typography.syles";
 import Header from "../navs/header/Header";
+import withAuth from "./withAuth";
 
 const Layout: FC<ILayout> = (props): ReactElement => {
   const { children } = props;
@@ -29,4 +30,4 @@ Layout.propTypes = {
   children: PropTypes.node,
 };
 
-export default Layout;
+export default withAuth(Layout);

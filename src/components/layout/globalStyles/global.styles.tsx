@@ -82,27 +82,9 @@ export const DisplayMedia = styled.div<{ $media?: boolean }>`
         `}
 `;
 
-export const TextDecoration = styled.span`
-  position: relative;
-  z-index: 1;
-
-  &::before {
-    content: "";
-    position: absolute;
-    bottom: 10%;
-    left: -5%;
-    width: 110%;
-    height: ${(props) => props.theme.size2};
-    z-index: -1;
-    border-radius: 18px;
-  }
-`;
-
-export const Dot = styled.div`
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  background: ${(props) => props.theme.orange};
-  margin-right: ${(props) => props.theme.size2};
-  padding: ${(props) => props.theme.size1};
+export const Line = styled.div<{ $width?: string; $gradient?: boolean }>`
+  background: ${(props) =>
+    props.$gradient ? props.theme.primary : props.theme.grey};
+  width: ${(props) => props.$width};
+  height: 3px;
 `;

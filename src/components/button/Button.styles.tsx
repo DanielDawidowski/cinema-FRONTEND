@@ -5,31 +5,25 @@ import IButton from "./Button.interface";
 const COLOR = {
   PRIMARY: css`
     border-radius: 8px;
+    padding: 1px;
     background: ${(props) => props.theme.primary};
-    color: ${(props) => props.theme.white};
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    position: relative;
-
-    &::after {
-      content: "";
-      position: absolute;
-      background: ${(props) => props.theme.black_light};
+    h4 {
+      padding: ${(props) => props.theme.size3};
       border-radius: 8px;
-      width: 96%;
-      height: 96%;
-      top: 2%;
-      left: 2%;
-      z-index: -1;
+      background: ${(props) => props.theme.black_light};
+      text-transform: uppercase;
     }
   `,
-  SECONDARY: css`
-    color: ${(props) => props.theme.orange};
-    background: ${(props) => props.theme.secondary};
-    border: 2px solid ${(props) => props.theme.orange};
-    box-shadow: 1px 2px 1px ${(props) => props.theme.secondary};
+  SUCCESS: css`
+    background: ${(props) => props.theme.green};
     border-radius: 8px;
+    padding: 1px;
+    h4 {
+      padding: ${(props) => props.theme.size3};
+      border-radius: 8px;
+      background: ${(props) => props.theme.black_light};
+      text-transform: uppercase;
+    }
   `,
 };
 
@@ -44,12 +38,13 @@ const CHILDREN = css`
 export const ButtonStyles = styled(motion.button)<IButton>`
   padding: 10px 15px;
   cursor: pointer;
-  border: none;
-  border-radius: 50px;
   font-weight: 700;
   outline: none;
+  border: none;
   transition: all 0.2s;
   letter-spacing: 1.2px;
+  width: 100%;
+  height: 100%;
 
   ${(props) => props.color && COLOR[props.color]}
   ${(props) => props.disabled && DISABLED}

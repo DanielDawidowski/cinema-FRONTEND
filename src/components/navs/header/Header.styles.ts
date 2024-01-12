@@ -23,6 +23,7 @@ export const Icons = styled.div`
   svg {
     width: 30px;
     height: 30px;
+    fill: ${(props) => props.theme.white};
   }
 `;
 
@@ -44,5 +45,6 @@ export const SearchHeader = styled.div`
     width: 30px;
     height: 30px;
     margin-right: 8px;
+    fill: ${(props) => props.theme.white};
   }
 `;

@@ -6,34 +6,36 @@ export const InputContainer = styled.div`
 `;
 
 export const LableStyles = styled.label`
-  padding: ${(props) => props.theme.size6};
   font-size: ${(props) => props.theme.size3};
-  color: ${(props) => props.theme.dark};
+  color: ${(props) => props.theme.white_opacity};
   pointer-events: none;
   transition: all 0.2s ease-in-out;
 `;
 
 export const InputField = styled.input`
   width: 100%;
-  padding: ${(props) => props.theme.size2};
-  font-size: ${(props) => props.theme.size4};
-  border: 1px solid ${(props) => props.theme.dark};
-  border-radius: 4px;
+  padding: ${(props) => props.theme.size3};
+  border: 1px solid ${(props) => props.theme.grey};
+  border-radius: ${(props) => props.theme.size1};
   outline: none;
-  color: ${(props) => props.theme.purple};
-  box-shadow:
-    inset 0 0 2px ${(props) => props.theme.body},
-    0 0 1px ${(props) => props.theme.dark};
+  color: ${(props) => props.theme.white};
+  background-color: ${(props) => props.theme.black_light};
+  caret-color: ${(props) => props.theme.orange};
+  appearance: none;
+  -webkit-appearance: none;
+  -webkit-text-fill-color: ${(props) => props.theme.white};
+  box-shadow: 0 0 0 1000px ${(props) => props.theme.black_light} inset !important;
+  letter-spacing: 1px;
+  font-size: ${(props) => props.theme.size2};
 
   &:focus {
-    border-color: ${(props) => props.theme.orange};
-    box-shadow:
-      inset 0 0 2px ${(props) => props.theme.orange},
-      1px 0 6px ${(props) => props.theme.orange};
-    color: ${(props) => props.theme.primary_dark};
+    color: ${(props) => props.theme.white};
+    background: ${(props) => props.theme.black_light};
+    border: 1px solid ${(props) => props.theme.white_opacity};
   }
 
-  @media (max-width: ${(props) => props.theme.breakpoint_small}) {
-    font-size: ${(props) => props.theme.size2};
+  &::placeholder {
+    color: ${(props) => props.theme.white};
+    background: ${(props) => props.theme.black_light};
   }
 `;

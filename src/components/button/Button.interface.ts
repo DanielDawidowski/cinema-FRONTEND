@@ -1,9 +1,9 @@
 export enum ButtonColor {
   primary = "PRIMARY",
-  secondary = "SECONDARY",
+  success = "SUCCESS",
 }
 
-export type ButtonTypes = ButtonColor.primary | ButtonColor.secondary;
+export type ButtonTypes = ButtonColor.primary | ButtonColor.success;
 
 export default interface IButton
   extends React.HTMLAttributes<HTMLButtonElement> {

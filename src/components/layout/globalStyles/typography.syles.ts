@@ -14,7 +14,6 @@ b {
     font-weight: 700;
 }
 
-
 h1 {
     font-size: ${(props) => props.theme.size6};
     @media (min-width: ${(props) => props.theme.breakpoint_small}) {
