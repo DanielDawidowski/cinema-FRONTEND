@@ -1,4 +1,11 @@
-import { ChangeEvent, FocusEvent, MouseEvent, CSSProperties, ReactNode, Ref } from "react";
+import {
+  ChangeEvent,
+  FocusEvent,
+  MouseEvent,
+  CSSProperties,
+  ReactNode,
+  Ref,
+} from "react";
 
 export interface IInput {
   id?: string;
@@ -6,7 +13,7 @@ export interface IInput {
   type: string;
   ref?: Ref<HTMLInputElement>;
   labelText?: string | ReactNode;
-  value?: string;
+  value?: string | number;
   className?: string;
   placeholder?: string;
   handleChange?: (event: ChangeEvent<HTMLInputElement>) => void;

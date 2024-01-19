@@ -6,6 +6,8 @@ import ForgotPassword from "./pages/auth/forgot-password/ForgotPassword";
 import ResetPassword from "./pages/auth/reset-password/ResetPassword";
 
 import Home from "./pages/home/Home";
+import ProtectedRoute from "./pages/admin/AdminRoute";
+import CreateHall from "./pages/admin/hall/CreateHall";
 
 export const AppRouter: FC = () => {
   return (
@@ -14,6 +16,14 @@ export const AppRouter: FC = () => {
       <Route path="/login" element={<AuthTabs />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password" element={<ResetPassword />} />
+      <Route
+        path="/admin/hall/create"
+        element={
+          <ProtectedRoute>
+            <CreateHall />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   );
 };

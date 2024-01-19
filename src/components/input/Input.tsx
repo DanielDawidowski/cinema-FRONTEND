@@ -6,7 +6,20 @@ import { InputContainer, InputField, LableStyles } from "./Input.styles";
 
 const Input: FC<IInput> = forwardRef<HTMLInputElement, IInput>(
   (
-    { id, name, type, labelText, value, placeholder, handleChange, onClick, onFocus, onBlur, style, checked },
+    {
+      id,
+      name,
+      type,
+      labelText,
+      value,
+      placeholder,
+      handleChange,
+      onClick,
+      onFocus,
+      onBlur,
+      style,
+      checked,
+    },
     ref: Ref<HTMLInputElement>
   ): ReactElement => {
     return (
@@ -18,7 +31,9 @@ const Input: FC<IInput> = forwardRef<HTMLInputElement, IInput>(
           type={type}
           ref={ref}
           value={value}
-          onChange={handleChange as (event: ChangeEvent<HTMLInputElement>) => void}
+          onChange={
+            handleChange as (event: ChangeEvent<HTMLInputElement>) => void
+          }
           placeholder={placeholder}
           onClick={onClick}
           onFocus={onFocus}
@@ -37,14 +52,14 @@ Input.propTypes = {
   name: propTypes.string.isRequired,
   type: propTypes.string.isRequired,
   labelText: propTypes.string,
-  value: propTypes.string,
+  value: propTypes.oneOfType([propTypes.string, propTypes.number]),
   placeholder: propTypes.string,
   handleChange: propTypes.func,
   onClick: propTypes.func,
   onFocus: propTypes.func,
   onBlur: propTypes.func,
   style: propTypes.object,
-  checked: propTypes.bool
+  checked: propTypes.bool,
 };
 
 Input.displayName = "Input";
