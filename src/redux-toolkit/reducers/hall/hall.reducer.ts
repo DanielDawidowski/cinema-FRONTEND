@@ -15,24 +15,106 @@ const hallSlice = createSlice({
   name: "hall",
   initialState,
   reducers: {
-    changeSeatType: (
-      state,
-      action: PayloadAction<{ seat: ISeat; newType: SeatTypes }>
-    ) => {
-      const { seat, newType } = action.payload;
+    setSelectedSeat: (state, action: PayloadAction<{ seat: ISeat }>) => {
+      const { seat } = action.payload;
+      const isSelected = state.selectedSeats.some(
+        (selectedSeat) =>
+          selectedSeat.row === seat.row && selectedSeat.seat === seat.seat
+      );
 
-      // Implement the logic to change the type of the selected seat in the state
+      if (isSelected) {
+        // Unselect the seat
+        const updatedSelectedSeats = state.selectedSeats.filter(
+          (selectedSeat) =>
+            selectedSeat.row !== seat.row || selectedSeat.seat !== seat.seat
+        );
+
+        return {
+          ...state,
+          selectedSeats: updatedSelectedSeats,
+        };
+      } else {
+        // Select the seat
+        return {
+          ...state,
+          selectedSeats: [...state.selectedSeats, seat],
+        };
+      }
+    },
+    selectRow: (state, action: PayloadAction<{ row: string }>) => {
+      const { row } = action.payload;
+
+      const isSelected = state.selectedSeats.some(
+        (selectedSeat) => selectedSeat.row === row
+      );
+
+      const updatedSelectedSeats = isSelected
+        ? state.selectedSeats.filter((selectedSeat) => selectedSeat.row !== row)
+        : [
+            ...state.selectedSeats,
+            ...state.seats.filter((seat) => seat.row === row),
+          ];
+
+      return {
+        ...state,
+        selectedSeats: updatedSelectedSeats,
+      };
+    },
+    selectColumn: (state, action: PayloadAction<{ column: number }>) => {
+      const { column } = action.payload;
+
+      const isSelected = state.selectedSeats.some(
+        (selectedSeat) => selectedSeat.seat === column
+      );
+
+      const updatedSelectedSeats = isSelected
+        ? state.selectedSeats.filter(
+            (selectedSeat) => selectedSeat.seat !== column
+          )
+        : [
+            ...state.selectedSeats,
+            ...state.seats.filter((seat) => seat.seat === column),
+          ];
+
+      return {
+        ...state,
+        selectedSeats: updatedSelectedSeats,
+      };
+    },
+    changeSeatType: (state, action: PayloadAction<{ newType: SeatTypes }>) => {
+      const { newType } = action.payload;
+
+      // Change the type of all selected seats in the state
       const updatedSeats = state.seats.map((s) =>
-        s.row === seat.row && s.seat === seat.seat ? { ...s, type: newType } : s
+        state.selectedSeats.some(
+          (selectedSeat) =>
+            selectedSeat.row === s.row && selectedSeat.seat === s.seat
+        )
+          ? { ...s, type: newType }
+          : s
       );
 
       return {
         ...state,
         seats: updatedSeats,
+        selectedSeats: [], // Clear selected seats after changing their type
+      };
+    },
+    setSeats: (state, action: PayloadAction<ISeat[]>) => {
+      const generatedSeats = action.payload;
+      return {
+        ...state,
+        seats: generatedSeats,
       };
     },
   },
 });
 
-export const { changeSeatType } = hallSlice.actions;
+export const {
+  setSelectedSeat,
+  changeSeatType,
+  setSeats,
+  selectRow,
+  selectColumn,
+} = hallSlice.actions;
 export default hallSlice.reducer;

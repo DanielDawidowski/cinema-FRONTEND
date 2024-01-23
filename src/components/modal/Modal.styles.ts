@@ -30,13 +30,13 @@ export const ModalWrapper = styled.div`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: ${(props) => props.theme.thirdColor};
-    border: 1px solid ${(props) => props.theme.text};
+    background-color: ${(props) => props.theme.grey};
+    border: 1px solid ${(props) => props.theme.white_opacity};
     border-radius: 6px;
   }
 
   &::-webkit-scrollbar-track {
-    background-color: ${(props) => props.theme.text};
+    background-color: ${(props) => props.theme.grey};
   }
 
   /* Firefox */
@@ -60,7 +60,7 @@ export const ModalWrapper = styled.div`
 
 export const ModalContent = styled(motion.div)`
   position: relative;
-  background: ${(props) => props.theme.body};
+  background: ${(props) => props.theme.black};
   border-radius: 8px;
   box-shadow: 0 0 10px ${(props) => props.theme.dark};
   z-index: 99999;

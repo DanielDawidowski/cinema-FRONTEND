@@ -1,65 +1,63 @@
-import React, { useEffect, useState } from "react";
-import type { ReactElement, FC, Dispatch, SetStateAction } from "react";
-import {
-  DrawerInner,
-  DrawerWrapper,
-  HallDashboard,
-  Main,
-  Row,
-  Rows,
-} from "../CreateHall.styles";
+import React, { useCallback, useEffect } from "react";
+import type {
+  ReactElement,
+  FC,
+  Dispatch as ReactDispatch,
+  SetStateAction,
+} from "react";
+import type { Dispatch as ReduxDispatch } from "@reduxjs/toolkit";
+import { Columns, HallDashboard, Main, Row, Rows } from "../CreateHall.styles";
 import Seat from "../seat/Seat";
-
 import { HallUtils } from "../../../../utils/hall-utils";
-import { ISeat, SeatType } from "../../../../interfaces/hall/hall.interface";
-import { SeatButton } from "../seat/Seat.styles";
+import { ISeat } from "../../../../interfaces/hall/hall.interface";
+import {
+  useAppSelector,
+  useAppDispatch,
+} from "../../../../redux-toolkit/hooks";
+import {
+  selectColumn,
+  selectRow,
+  setSeats,
+  setSelectedSeat,
+} from "../../../../redux-toolkit/reducers/hall/hall.reducer";
 
 interface ICreateHall {
   rows: string;
   columns: string;
   total: ISeat[];
-  setTotal: Dispatch<SetStateAction<ISeat[]>>;
+  setTotal: ReactDispatch<SetStateAction<ISeat[]>>;
 }
 
 const HallCreateDashboard: FC<ICreateHall> = ({
   rows,
   columns,
-  total,
-  setTotal,
 }): ReactElement => {
-  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
-  const [selectedSeats, setSelectedSeats] = useState<ISeat[]>([] as ISeat[]);
+  const { seats } = useAppSelector((state) => state.hall);
+  const dispatch: ReduxDispatch = useAppDispatch();
 
   const parsedRows = parseFloat(rows);
   const parsedColumns = parseFloat(columns);
 
-  const seats = HallUtils.generateBoxes(parsedRows, parsedColumns);
+  const generatedSeats = useCallback(() => {
+    const seats = HallUtils.generateBoxes(parsedRows, parsedColumns);
+    dispatch(setSeats(seats));
+  }, [dispatch, parsedRows, parsedColumns]);
 
-  const changeSeatType = (newSeatType: SeatType) => {
-    const updatedBoxes = selectedSeats.map((box) => ({
-      ...box,
-      type: newSeatType,
-    }));
-    setSelectedSeats(updatedBoxes);
-    const updatedSeats = seats.map((seat) =>
-      selectedSeats.some(
-        (box) => box.row === seat.row && box.seat === seat.seat
-      )
-        ? { ...seat, type: newSeatType }
-        : seat
-    );
-    HallUtils.seats = [...updatedSeats];
-    setSelectedSeats([]);
-    console.log("HallUtils", HallUtils.seats);
+  const handleSeat = (seat: ISeat) => {
+    dispatch(setSelectedSeat({ seat }));
+  };
+
+  const handleRow = (row: string) => {
+    dispatch(selectRow({ row }));
+  };
+
+  const handleColumn = (column: number) => {
+    dispatch(selectColumn({ column }));
   };
 
   useEffect(() => {
-    if (selectedSeats.length > 0) {
-      setIsDrawerOpen(true);
-    } else {
-      setIsDrawerOpen(false);
-    }
-  }, [selectedSeats.length]);
+    generatedSeats();
+  }, [generatedSeats]);
 
   return (
     <Main>
@@ -67,58 +65,32 @@ const HallCreateDashboard: FC<ICreateHall> = ({
         <Rows $length={parsedRows}>
           {Array.from(Array(parsedRows > 0 ? parsedRows : null).keys()).map(
             (i) => (
-              <Row key={i}>{HallUtils.replaceNumberOnLetter(i)}</Row>
+              <Row
+                key={i}
+                onClick={() => handleRow(HallUtils.replaceNumberOnLetter(i))}
+              >
+                {HallUtils.replaceNumberOnLetter(i)}
+              </Row>
             )
           )}
         </Rows>
       ) : null}
+      {parsedColumns ? (
+        <Columns $length={parsedColumns}>
+          {Array.from(
+            Array(parsedColumns > 0 ? parsedColumns : null).keys()
+          ).map((i) => (
+            <Row key={i} onClick={() => handleColumn(i + 1)}>
+              {i + 1}
+            </Row>
+          ))}
+        </Columns>
+      ) : null}
       <HallDashboard $rows={parsedRows} $columns={parsedColumns}>
         {seats.map((seat: ISeat, i) => (
-          <Seat
-            key={i}
-            seat={seat}
-            rows={parsedRows}
-            columns={parsedColumns}
-            total={total}
-            setTotal={setTotal}
-            setIsDrawerOpen={setIsDrawerOpen}
-            selectedSeats={selectedSeats}
-            setSelectedSeats={setSelectedSeats}
-          />
+          <Seat key={i} seat={seat} onClick={() => handleSeat(seat)} />
         ))}
       </HallDashboard>
-      <div>
-        {selectedSeats.map((el, i) => (
-          <div
-            key={i}
-            style={{ border: "1px solid #fff", borderRadius: "8px" }}
-          >
-            {/* <p>nr:{i + 1}</p> */}
-            <p>seat:{el.seat}</p>
-            <p>row:{el.row}</p>
-            <p>row:{el.type}</p>
-          </div>
-        ))}
-      </div>
-
-      {isDrawerOpen ? (
-        <DrawerWrapper>
-          <DrawerInner>
-            <SeatButton onClick={() => changeSeatType(SeatType.standard)}>
-              <h4>Change to Standard</h4>
-            </SeatButton>
-            <SeatButton onClick={() => changeSeatType(SeatType.vip)}>
-              <h4>Change to VIP</h4>
-            </SeatButton>
-            <SeatButton onClick={() => changeSeatType(SeatType.handicapped)}>
-              <h4>Change to Handicapped</h4>
-            </SeatButton>
-            <SeatButton onClick={() => changeSeatType(SeatType.exclusive)}>
-              <h4>Change to Exclusive</h4>
-            </SeatButton>
-          </DrawerInner>
-        </DrawerWrapper>
-      ) : null}
     </Main>
   );
 };

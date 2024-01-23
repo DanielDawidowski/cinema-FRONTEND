@@ -10,7 +10,7 @@ export const SelectContainer = styled.div`
 
 export const SelectLabel = styled.label`
   display: block;
-  margin-left: ${(props) => props.theme.size6};
+  margin-left: ${(props) => props.theme.size1};
 `;
 
 export const SelectButton = styled.div`

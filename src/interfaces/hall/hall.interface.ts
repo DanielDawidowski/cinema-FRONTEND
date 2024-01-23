@@ -1,4 +1,4 @@
-import type { Dispatch, SetStateAction } from "react";
+import type { Dispatch, MouseEventHandler, SetStateAction } from "react";
 
 export interface IHall {
   _id?: string;
@@ -17,17 +17,20 @@ export interface ISeat {
 export enum SeatStatus {
   free = "FREE",
   busy = "BUSY",
-  book = "BOOKED",
+  booked = "BOOKED",
 }
 
-export type SeatStatuses = SeatStatus.free | SeatStatus.busy | SeatStatus.book;
+export type SeatStatuses =
+  | SeatStatus.free
+  | SeatStatus.busy
+  | SeatStatus.booked;
 
 export enum SeatType {
   standard = "STANDARD",
   vip = "VIP",
   handicapped = "HANDICAPPED",
   exclusive = "EXCLUSIVE",
-  disabled = "DISABLED",
+  removed = "REMOVED",
 }
 
 export type SeatTypes =
@@ -35,15 +38,9 @@ export type SeatTypes =
   | SeatType.vip
   | SeatType.handicapped
   | SeatType.exclusive
-  | SeatType.disabled;
+  | SeatType.removed;
 
 export interface ISeatProps {
   seat: ISeat;
-  rows: number;
-  columns: number;
-  total: ISeat[];
-  setTotal: Dispatch<SetStateAction<ISeat[]>>;
-  setIsDrawerOpen: Dispatch<SetStateAction<boolean>>;
-  selectedSeats: ISeat[];
-  setSelectedSeats: Dispatch<SetStateAction<ISeat[]>>;
+  onClick: MouseEventHandler<SVGSVGElement>;
 }

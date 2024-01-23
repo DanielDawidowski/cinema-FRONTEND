@@ -10,6 +10,7 @@ export const LableStyles = styled.label`
   color: ${(props) => props.theme.white_opacity};
   pointer-events: none;
   transition: all 0.2s ease-in-out;
+  margin-left: ${(props) => props.theme.size1};
 `;
 
 export const InputField = styled.input`

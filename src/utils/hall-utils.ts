@@ -1,3 +1,4 @@
+import { themeGlobal } from "../components/layout/globalStyles/variables";
 import {
   ISeat,
   SeatStatus,
@@ -40,15 +41,15 @@ export class HallUtils {
   static emitSeatTypeColor = (name: SeatTypes): string => {
     switch (name) {
       case SeatType.standard:
-        return "#FFFFFF";
+        return themeGlobal.white;
       case SeatType.exclusive:
-        return "#F39F5A";
+        return themeGlobal.green_dark;
       case SeatType.vip:
-        return "#9d0dc9";
+        return themeGlobal.purple;
       case SeatType.handicapped:
-        return "#4477CE";
-      case SeatType.disabled:
-        return "#404258";
+        return themeGlobal.blue;
+      case SeatType.removed:
+        return themeGlobal.grey;
       default:
         return SeatType.standard;
     }

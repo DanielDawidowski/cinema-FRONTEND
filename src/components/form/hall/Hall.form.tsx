@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement } from "react";
 import type { ChangeEvent, FC, FormEvent } from "react";
 import propTypes from "prop-types";
 import Input from "../../input/Input";
@@ -17,11 +17,10 @@ interface ICreateHallForm {
   eventAction: (e: FormEvent) => Promise<void | undefined>;
   loading: boolean;
   hasError: boolean;
-  hall?: IHall;
 }
 
 const HallForm: FC<ICreateHallForm> = (props): ReactElement => {
-  const { values, setValues, loading, eventAction, hasError, hall } = props;
+  const { values, setValues, loading, eventAction, hasError } = props;
   const { city, hallNumber, seats } = values;
 
   const handleChange = (
@@ -62,13 +61,13 @@ const HallForm: FC<ICreateHallForm> = (props): ReactElement => {
             disabled={!city || !hallNumber || !seats}
             onClick={eventAction}
           >
-            {!loading ? (
-              <Flex>
+            {loading ? (
+              <Flex $align="center" $justify="center">
                 <Spinner size={20} />
-                Creating
+                <span>Creating</span>
               </Flex>
             ) : (
-              "Create"
+              <span>Create</span>
             )}
           </Button>
         </FormItemStyles>

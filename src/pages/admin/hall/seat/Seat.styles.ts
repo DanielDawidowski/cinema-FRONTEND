@@ -9,9 +9,9 @@ export const SeatStyles = styled(motion.div)<{
   width: 40px;
   height: 40px;
   padding: 5px;
-  border: 1px solid
-    ${(props) => (props.$color ? props.$color : props.theme.white)};
-  border-radius: 0 0 8px 8px;
+  border: ${(props) => (props.$selected ? "2px" : "1px")} solid
+    ${(props) => (props.$selected ? props.theme.orange : props.theme.white)};
+  border-radius: 8px 8px 0 0;
   display: grid;
   place-items: center;
   color: ${(props) =>
