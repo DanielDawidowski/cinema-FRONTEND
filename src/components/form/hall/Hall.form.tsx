@@ -17,6 +17,7 @@ interface ICreateHallForm {
   eventAction: (e: FormEvent) => Promise<void | undefined>;
   loading: boolean;
   hasError: boolean;
+  errorMessage: string;
 }
 
 const HallForm: FC<ICreateHallForm> = (props): ReactElement => {
@@ -81,6 +82,7 @@ HallForm.propTypes = {
   loading: propTypes.bool.isRequired,
   eventAction: propTypes.func.isRequired,
   hasError: propTypes.bool.isRequired,
+  errorMessage: propTypes.string.isRequired,
 };
 
 export default HallForm;

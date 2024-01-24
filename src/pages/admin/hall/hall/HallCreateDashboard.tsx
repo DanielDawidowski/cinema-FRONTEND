@@ -6,7 +6,13 @@ import type {
   SetStateAction,
 } from "react";
 import type { Dispatch as ReduxDispatch } from "@reduxjs/toolkit";
-import { Columns, HallDashboard, Main, Row, Rows } from "../CreateHall.styles";
+import {
+  Columns,
+  HallDashboard,
+  Dashboard,
+  Row,
+  Rows,
+} from "./HallCreateDashboard.styles";
 import Seat from "../seat/Seat";
 import { HallUtils } from "../../../../utils/hall-utils";
 import { ISeat } from "../../../../interfaces/hall/hall.interface";
@@ -60,7 +66,7 @@ const HallCreateDashboard: FC<ICreateHall> = ({
   }, [generatedSeats]);
 
   return (
-    <Main>
+    <Dashboard>
       {parsedRows ? (
         <Rows $length={parsedRows}>
           {Array.from(Array(parsedRows > 0 ? parsedRows : null).keys()).map(
@@ -91,7 +97,7 @@ const HallCreateDashboard: FC<ICreateHall> = ({
           <Seat key={i} seat={seat} onClick={() => handleSeat(seat)} />
         ))}
       </HallDashboard>
-    </Main>
+    </Dashboard>
   );
 };
 

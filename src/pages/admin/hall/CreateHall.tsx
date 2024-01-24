@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useState, useEffect } from "react";
 import type {
   FC,
   FormEvent,
@@ -20,14 +20,7 @@ import { hallService } from "../../../services/api/hall/hall.service";
 import Input from "../../../components/input/Input";
 import Button from "../../../components/button/Button";
 import { ButtonColor } from "../../../components/button/Button.interface";
-import {
-  Aside,
-  CreateHallStyles,
-  Inner,
-  Legend,
-  LegendList,
-  LegendListItem,
-} from "./CreateHall.styles";
+import { Aside, CreateHallStyles, Inner } from "./CreateHall.styles";
 import HallCreateDashboard from "./hall/HallCreateDashboard";
 import { useAppSelector, useAppDispatch } from "../../../redux-toolkit/hooks";
 import Modal from "../../../components/modal/Modal";
@@ -37,13 +30,10 @@ import {
 } from "../../../redux-toolkit/reducers/modal/modal.reducer";
 import HallForm from "../../../components/form/hall/Hall.form";
 import {
-  Container,
-  Flex,
-  Grid,
+  DisplayMedia,
   Line,
 } from "../../../components/layout/globalStyles/global.styles";
-import SeatSVG from "../../../assets/svg/seatSVG";
-import { changeSeatType } from "../../../redux-toolkit/reducers/hall/hall.reducer";
+import Legend from "../../../components/Legend/Legend";
 
 const initialState: IHall = {
   city: "",
@@ -123,14 +113,33 @@ const CreateHall: FC = (): ReactElement => {
     dispatch(closeModal());
   };
 
-  const handleChangeType = (newType: SeatType) => {
-    dispatch(changeSeatType({ newType }));
-  };
+  useEffect(() => {
+    const handleOrientationChange = () => {
+      if (window.matchMedia("(orientation: portrait)").matches) {
+        document.body.style.transform = "rotate(90deg)";
+        document.body.style.width = "100%";
+        document.body.style.height = "100%";
+      } else {
+        document.body.style.transform = "rotate(0deg)";
+      }
+    };
+
+    // Add event listener for media query change
+    const mediaQueryList = window.matchMedia("(orientation: portrait)");
+    mediaQueryList.addEventListener("change", handleOrientationChange);
+
+    return () => {
+      mediaQueryList.removeEventListener("change", handleOrientationChange);
+    };
+  }, []);
 
   return (
     <Layout>
       <CreateHallStyles>
         <Aside>
+          <DisplayMedia>
+            <Line $gradient $width="100%" />
+          </DisplayMedia>
           <Inner>
             <Input
               name="rows"
@@ -154,48 +163,10 @@ const CreateHall: FC = (): ReactElement => {
             <Button color={ButtonColor.success} onClick={openModal}>
               <h4>{loading ? "Loading..." : "Create"}</h4>
             </Button>
-            <Line $gradient $width="35%" />
-            {selectedSeats.length > 0 ? (
-              <>
-                <Legend>
-                  <LegendList>
-                    <LegendListItem
-                      onClick={() => handleChangeType(SeatType.standard)}
-                    >
-                      <SeatSVG type={SeatType.standard} />
-                      <h4>standard</h4>
-                    </LegendListItem>
-                    <LegendListItem
-                      onClick={() => handleChangeType(SeatType.vip)}
-                    >
-                      <SeatSVG
-                        type={SeatType.vip}
-                        onClick={() => handleChangeType(SeatType.vip)}
-                      />
-                      <h4>VIP</h4>
-                    </LegendListItem>
-                    <LegendListItem
-                      onClick={() => handleChangeType(SeatType.handicapped)}
-                    >
-                      <SeatSVG type={SeatType.handicapped} />
-                      <h4>handicapped</h4>
-                    </LegendListItem>
-                    <LegendListItem
-                      onClick={() => handleChangeType(SeatType.exclusive)}
-                    >
-                      <SeatSVG type={SeatType.exclusive} />
-                      <h4>exclusive</h4>
-                    </LegendListItem>
-                    <LegendListItem
-                      onClick={() => handleChangeType(SeatType.removed)}
-                    >
-                      <SeatSVG type={SeatType.removed} />
-                      <h4>remove</h4>
-                    </LegendListItem>
-                  </LegendList>
-                </Legend>
-              </>
-            ) : null}
+            <DisplayMedia $media>
+              <Line $gradient $width="35%" />
+            </DisplayMedia>
+            {selectedSeats.length > 0 ? <Legend /> : null}
           </Inner>
         </Aside>
         <HallCreateDashboard
@@ -212,6 +183,7 @@ const CreateHall: FC = (): ReactElement => {
               eventAction={createHall}
               loading={loading}
               hasError={hasError}
+              errorMessage={errorMessage}
             />
           </Modal>
         ) : null}

@@ -15,14 +15,13 @@ const COLOR = {
     }
   `,
   SUCCESS: css`
-    background: ${(props) => props.theme.green};
     border-radius: 8px;
-    padding: 1px;
+    border: 1px solid ${(props) => props.theme.green};
     h4 {
-      padding: ${(props) => props.theme.size3};
       border-radius: 8px;
       background: ${(props) => props.theme.black_light};
       text-transform: uppercase;
+      padding: ${(props) => props.theme.size2};
     }
   `,
 };
@@ -36,15 +35,12 @@ const CHILDREN = css`
 `;
 
 export const ButtonStyles = styled(motion.button)<IButton>`
-  padding: 10px 15px;
   cursor: pointer;
   font-weight: 700;
   outline: none;
   border: none;
   transition: all 0.2s;
   letter-spacing: 1.2px;
-  width: 100%;
-  height: 100%;
 
   ${(props) => props.color && COLOR[props.color]}
   ${(props) => props.disabled && DISABLED}
