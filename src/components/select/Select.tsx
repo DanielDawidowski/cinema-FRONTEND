@@ -9,6 +9,7 @@ import {
   SelectOption,
 } from "./Select.styles";
 import useDetectOutsideClick from "../../hooks/useDetectOutsideClick";
+import { IMovieCategories } from "../../interfaces/movie/movie.interface";
 
 const Select: React.FC<SelectProps> = ({ options, onSelect, label }) => {
   const selectRef = useRef<HTMLDivElement>(null);
@@ -22,7 +23,7 @@ const Select: React.FC<SelectProps> = ({ options, onSelect, label }) => {
     setToggleSelect(!toggleSelect);
   };
 
-  const handleSelect = (option: string): void => {
+  const handleSelect = (option: string & IMovieCategories): void => {
     setSelectedOption(option);
     onSelect(option);
     setToggleSelect(false);
@@ -44,7 +45,7 @@ const Select: React.FC<SelectProps> = ({ options, onSelect, label }) => {
             <SelectOption
               whileHover={{ scale: 1.01 }}
               key={option}
-              onClick={() => handleSelect(option)}
+              onClick={() => handleSelect(option as string & IMovieCategories)}
             >
               {option}
             </SelectOption>

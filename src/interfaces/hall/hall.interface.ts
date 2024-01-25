@@ -1,4 +1,4 @@
-import type { Dispatch, MouseEventHandler, SetStateAction } from "react";
+import type { MouseEventHandler } from "react";
 
 export interface IHall {
   _id?: string;

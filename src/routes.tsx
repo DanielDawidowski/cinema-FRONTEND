@@ -8,6 +8,7 @@ import ResetPassword from "./pages/auth/reset-password/ResetPassword";
 import Home from "./pages/home/Home";
 import ProtectedRoute from "./pages/admin/AdminRoute";
 import CreateHall from "./pages/admin/hall/CreateHall";
+import CreateMovie from "./pages/admin/movie/CreateMovie";
 
 export const AppRouter: FC = () => {
   return (
@@ -21,6 +22,14 @@ export const AppRouter: FC = () => {
         element={
           <ProtectedRoute>
             <CreateHall />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/movie/create"
+        element={
+          <ProtectedRoute>
+            <CreateMovie />
           </ProtectedRoute>
         }
       />
