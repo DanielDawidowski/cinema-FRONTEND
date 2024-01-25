@@ -30,22 +30,30 @@ const Menu: FC = (): ReactElement => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
+      <MenuItem>
+        <Link to="/films">
+          <h4>Films</h4>
+        </Link>
+      </MenuItem>
       {!profile ? (
         <MenuItem>
           <Link to="/login">
-            <h3>Login</h3>
+            <h4>Login</h4>
           </Link>
         </MenuItem>
       ) : (
         <>
           <MenuItem>
             <Link to="/admin">
-              <h3>admin</h3>
+              <h4>admin</h4>
             </Link>
           </MenuItem>
           <MenuItem>
             <Link to="/admin/hall/create">
-              <h3>create hall</h3>
+              <h4>create hall</h4>
+            </Link>
+            <Link to="/admin/movie/create">
+              <h4>create movie</h4>
             </Link>
           </MenuItem>
           <MenuItem>

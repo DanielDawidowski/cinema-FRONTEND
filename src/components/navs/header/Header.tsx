@@ -17,6 +17,8 @@ import Logo from "../../logo/Logo";
 import Menu from "../menu/Menu";
 import Navigation from "../navigation/Navigation";
 import Input from "../../input/Input";
+import Dropdown from "../../dropdown/Dropdown";
+import { CityName, cities } from "../../../interfaces/city/city.interface";
 
 const Header: FC<IHeader> = (props): ReactElement => {
   const { toggleMenu, setToggleMenu } = props;
@@ -31,6 +33,11 @@ const Header: FC<IHeader> = (props): ReactElement => {
             <Link to="/">
               <Logo width="65px" height="30px" />
             </Link>
+            <Dropdown Label="Choose cinema">
+              {cities.map((city: CityName, i: number) => (
+                <div key={i}>{city}</div>
+              ))}
+            </Dropdown>
             <DisplayMedia $media>
               <Menu />
             </DisplayMedia>
