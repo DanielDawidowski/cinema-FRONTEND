@@ -13,7 +13,7 @@ import Button from "../../button/Button";
 import { ButtonColor } from "../../button/Button.interface";
 import { FormItemStyles, FormStyles } from "../Form.styles";
 import Spinner from "../../spinner/Spinner";
-import { Flex } from "../../layout/globalStyles/global.styles";
+import { ErrorMessage, Flex } from "../../layout/globalStyles/global.styles";
 import { MovieUtils } from "../../../utils/movie-utils";
 import {
   IMovie,
@@ -87,7 +87,7 @@ const MovieForm: FC<ICreateMovieForm> = (props): ReactElement => {
   return (
     <>
       <FormStyles>
-        {hasError ? <h4>{errorMessage}</h4> : null}
+        {!hasError ? <ErrorMessage>{errorMessage}</ErrorMessage> : null}
         <FormItemStyles>
           <Input
             name="image"

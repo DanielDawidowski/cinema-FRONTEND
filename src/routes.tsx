@@ -9,6 +9,7 @@ import Home from "./pages/home/Home";
 import ProtectedRoute from "./pages/admin/AdminRoute";
 import CreateHall from "./pages/admin/hall/CreateHall";
 import CreateMovie from "./pages/admin/movie/CreateMovie";
+import MovieList from "./pages/admin/movie/MovieList";
 
 export const AppRouter: FC = () => {
   return (
@@ -30,6 +31,14 @@ export const AppRouter: FC = () => {
         element={
           <ProtectedRoute>
             <CreateMovie />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/movies"
+        element={
+          <ProtectedRoute>
+            <MovieList />
           </ProtectedRoute>
         }
       />

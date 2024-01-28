@@ -1,24 +1,12 @@
-import React, { useState, useEffect } from "react";
-import type {
-  FC,
-  ReactElement,
-  FormEvent,
-  ChangeEvent,
-  SetStateAction,
-  Dispatch as ReactDispatch,
-} from "react";
-import type { Dispatch as ReduxDispatch } from "@reduxjs/toolkit";
+import React, { useState } from "react";
+import type { FC, ReactElement, FormEvent } from "react";
 import axios from "axios";
 import Layout from "../../../components/layout/Layout";
-import { useAppDispatch } from "../../../redux-toolkit/hooks";
 import { ValidationError } from "../../../interfaces/error/Error.interface";
 import { movieService } from "../../../services/api/movie/movie.service";
-
 import {
   IMovie,
-  IMovieCategories,
   IMovieCategory,
-  movieCategories as movieCat,
 } from "../../../interfaces/movie/movie.interface";
 import { CreateMovieStyles } from "./CreateMovie.styles";
 import MovieForm from "../../../components/form/movie/Movie.form";

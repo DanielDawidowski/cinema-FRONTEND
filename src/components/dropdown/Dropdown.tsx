@@ -9,7 +9,6 @@ import {
 } from "./Dropdown.styles";
 import { DropdownProps } from "./Dropdown.interface";
 import useDetectOutsideClick from "../../hooks/useDetectOutsideClick";
-import { Grid } from "../layout/globalStyles/global.styles";
 
 // Reusable Dropdown Component
 const Dropdown: React.FC<DropdownProps> = ({ Label, children }) => {

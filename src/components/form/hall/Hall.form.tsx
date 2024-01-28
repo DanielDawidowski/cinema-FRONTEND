@@ -9,7 +9,7 @@ import { FormItemStyles, FormStyles } from "../Form.styles";
 import Select from "../../select/Select";
 import { CityName, cities } from "../../../interfaces/city/city.interface";
 import Spinner from "../../spinner/Spinner";
-import { Flex } from "../../layout/globalStyles/global.styles";
+import { ErrorMessage, Flex } from "../../layout/globalStyles/global.styles";
 
 interface ICreateHallForm {
   values: IHall;
@@ -21,7 +21,8 @@ interface ICreateHallForm {
 }
 
 const HallForm: FC<ICreateHallForm> = (props): ReactElement => {
-  const { values, setValues, loading, eventAction, hasError } = props;
+  const { values, setValues, loading, eventAction, hasError, errorMessage } =
+    props;
   const { city, hallNumber, seats } = values;
 
   const handleChange = (
@@ -33,6 +34,7 @@ const HallForm: FC<ICreateHallForm> = (props): ReactElement => {
   return (
     <>
       <FormStyles>
+        {hasError ? <ErrorMessage>{errorMessage}</ErrorMessage> : null}
         <FormItemStyles>
           <Select
             label="City"

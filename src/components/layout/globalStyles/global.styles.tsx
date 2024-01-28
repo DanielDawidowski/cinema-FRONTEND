@@ -88,3 +88,9 @@ export const Line = styled.div<{ $width?: string; $gradient?: boolean }>`
   width: ${(props) => props.$width};
   height: 3px;
 `;
+
+export const ErrorMessage = styled.h4`
+  border: 1px solid ${(props) => props.theme.red};
+  border-radius: ${(props) => props.theme.size1};
+  padding: ${(props) => props.theme.size1} ${(props) => props.theme.size2};
+`;

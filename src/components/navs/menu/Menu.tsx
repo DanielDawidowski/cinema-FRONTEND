@@ -55,6 +55,9 @@ const Menu: FC = (): ReactElement => {
             <Link to="/admin/movie/create">
               <h4>create movie</h4>
             </Link>
+            <Link to="/admin/movies">
+              <h4>movies</h4>
+            </Link>
           </MenuItem>
           <MenuItem>
             <Link to="/">
