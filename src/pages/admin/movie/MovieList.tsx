@@ -55,7 +55,6 @@ const MovieList: FC = (): ReactElement => {
   useEffect(() => {
     getAllMovies();
   }, [getAllMovies]);
-
   return (
     <Layout>
       <Container $small>
@@ -71,7 +70,7 @@ const MovieList: FC = (): ReactElement => {
                 <MovieListItem key={i}>
                   <h3>{movie.name}</h3>
                   <Icons>
-                    <Link to={`/admin/movie/update/${movie._id}`}>
+                    <Link to={`/admin/movie/edit/${movie._id}`}>
                       <AiOutlineEdit style={{ fill: themeGlobal.blue }} />
                     </Link>
                     <MdDeleteForever

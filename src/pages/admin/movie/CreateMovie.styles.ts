@@ -13,9 +13,9 @@ export const CreateMovieStyles = styled.section`
   margin: ${(props) => props.theme.size1};
 `;
 
-export const Category = styled.div<{ $selected: boolean }>`
+export const Category = styled.div<{ $selected: boolean | undefined }>`
   padding: ${(props) => props.theme.size1};
-  margin: ${(props) => props.theme.size1};
+  margin: ${(props) => props.theme.size1} 0;
   cursor: pointer;
   background: ${(props) =>
     props.$selected ? props.theme.gradient : props.theme.black};

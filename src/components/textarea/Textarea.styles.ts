@@ -16,6 +16,28 @@ export const StyledTextArea = styled.textarea`
   resize: none;
   border: 1px solid ${(props) => props.theme.grey};
   background: ${(props) => props.theme.black_light};
+  color: ${(props) => props.theme.white};
+
+  /* Styling for the textarea scrollbar */
+  &::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: ${(props) =>
+      props.theme.white}; /* Color of the scrollbar thumb */
+    border-radius: ${(props) =>
+      props.theme.size1}; /* Rounded corners of the scrollbar thumb */
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: ${(props) =>
+      props.theme.grey}; /* Color of the scrollbar track */
+  }
+
+  /* For Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #ffffff #404258;
 
   &:focus {
     border-color: ${(props) => props.theme.orange};

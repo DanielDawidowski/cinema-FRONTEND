@@ -11,7 +11,7 @@ import propTypes from "prop-types";
 import Input from "../../input/Input";
 import Button from "../../button/Button";
 import { ButtonColor } from "../../button/Button.interface";
-import { FormItemStyles, FormStyles } from "../Form.styles";
+import { FormImage, FormItemStyles, FormStyles } from "../Form.styles";
 import Spinner from "../../spinner/Spinner";
 import { ErrorMessage, Flex } from "../../layout/globalStyles/global.styles";
 import { MovieUtils } from "../../../utils/movie-utils";
@@ -19,7 +19,6 @@ import {
   IMovie,
   IMovieCategories,
   IMovieCategory,
-  movieCategories,
 } from "../../../interfaces/movie/movie.interface";
 import { Category } from "../../../pages/admin/movie/CreateMovie.styles";
 import TextArea from "../../textarea/Textarea";
@@ -33,6 +32,7 @@ interface ICreateMovieForm {
   loading: boolean;
   hasError: boolean;
   errorMessage: string;
+  movie?: IMovie;
 }
 
 const MovieForm: FC<ICreateMovieForm> = (props): ReactElement => {
@@ -45,10 +45,13 @@ const MovieForm: FC<ICreateMovieForm> = (props): ReactElement => {
     setCategoryList,
     categoryList,
     errorMessage,
+    movie,
   } = props;
-  const { name, description } = values;
+  const { name, description, img } = values;
 
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const eventActionName = eventAction.name;
 
   const handleFileChange = async (
     e: ChangeEvent<HTMLInputElement>
@@ -74,7 +77,6 @@ const MovieForm: FC<ICreateMovieForm> = (props): ReactElement => {
   const handleCategoryClick = (selectedCategory: IMovieCategories) => {
     const isCategorySelected = categoryList.includes(selectedCategory);
 
-    // Update the selectedCategories array based on the current selection status
     if (isCategorySelected) {
       setCategoryList((prevSelected) =>
         prevSelected.filter((category) => category !== selectedCategory)
@@ -86,11 +88,21 @@ const MovieForm: FC<ICreateMovieForm> = (props): ReactElement => {
 
   return (
     <>
+      {!img && movie?.img ? (
+        <FormImage>
+          <img src={movie.img} alt="movie" />
+        </FormImage>
+      ) : null}
+      {img && (
+        <FormImage>
+          <img src={img} alt="movie" />
+        </FormImage>
+      )}
+      {hasError ? <ErrorMessage>{errorMessage}</ErrorMessage> : null}
       <FormStyles>
-        {!hasError ? <ErrorMessage>{errorMessage}</ErrorMessage> : null}
         <FormItemStyles>
           <Input
-            name="image"
+            name="img"
             type="file"
             ref={fileInputRef}
             onClick={() => {
@@ -107,21 +119,8 @@ const MovieForm: FC<ICreateMovieForm> = (props): ReactElement => {
             id="name"
             name="name"
             type="text"
-            value={name}
+            value={name || movie?.name}
             labelText="Movie title"
-            placeholder="---"
-            style={{ border: `${hasError ? "1px solid #fa9b8a" : ""}` }}
-            handleChange={handleChange}
-          />
-        </FormItemStyles>
-
-        <FormItemStyles>
-          <Input
-            id="description"
-            name="description"
-            type="text"
-            value={description}
-            labelText="Description"
             placeholder="---"
             style={{ border: `${hasError ? "1px solid #fa9b8a" : ""}` }}
             handleChange={handleChange}
@@ -132,7 +131,7 @@ const MovieForm: FC<ICreateMovieForm> = (props): ReactElement => {
           <TextArea
             id="description"
             name="description"
-            value={description}
+            value={description || movie?.description}
             style={{ border: `${hasError ? "1px solid #fa9b8a" : ""}` }}
             onChange={handleChange}
             label="Description"
@@ -145,29 +144,43 @@ const MovieForm: FC<ICreateMovieForm> = (props): ReactElement => {
         {Object.values(IMovieCategory).map((category) => (
           <Category
             key={category}
-            $selected={categoryList.includes(category)}
+            $selected={categoryList?.includes(category)}
             onClick={() => handleCategoryClick(category)}
           >
             {category}
           </Category>
         ))}
-
-        <FormItemStyles>
-          <Button
-            color={ButtonColor.success}
-            disabled={!name || movieCategories.length < 0 || !description}
-            onClick={eventAction}
-          >
-            {loading ? (
-              <Flex $align="center" $justify="center">
-                <Spinner size={20} />
-                <span>Creating</span>
-              </Flex>
-            ) : (
-              <h4>Create</h4>
-            )}
-          </Button>
-        </FormItemStyles>
+        {eventActionName === "editMovie" ? (
+          <FormItemStyles>
+            <Button color={ButtonColor.success} onClick={eventAction}>
+              {loading ? (
+                <Flex $align="center" $justify="center">
+                  <Spinner size={30} />
+                  <h4>Editing</h4>
+                </Flex>
+              ) : (
+                <h4>Edit</h4>
+              )}
+            </Button>
+          </FormItemStyles>
+        ) : (
+          <FormItemStyles>
+            <Button
+              color={ButtonColor.success}
+              disabled={!name || categoryList.length < 0 || !description}
+              onClick={eventAction}
+            >
+              {loading ? (
+                <Flex $align="center" $justify="center">
+                  <Spinner size={30} />
+                  <h4>Creating</h4>
+                </Flex>
+              ) : (
+                <h4>Create</h4>
+              )}
+            </Button>
+          </FormItemStyles>
+        )}
       </FormStyles>
     </>
   );

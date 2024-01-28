@@ -20,9 +20,10 @@ class MovieService {
     return response;
   }
 
-  async updateMovie(movieId: string): Promise<AxiosResponse> {
+  async updateMovie(movieId: string, body: IMovie): Promise<AxiosResponse> {
     const response: Awaited<AxiosResponse> = await axios.put(
-      `/movie/${movieId}`
+      `/movie/${movieId}`,
+      body
     );
     return response;
   }

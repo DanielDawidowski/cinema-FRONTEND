@@ -18,3 +18,24 @@ export const FormItemStyles = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
+export const FormImage = styled.div`
+  position: relative;
+  height: 200px;
+  margin: ${(props) => props.theme.size1} 0;
+  background-color: ${(props) => props.theme.secondary_light};
+  border: 1px solid ${(props) => props.theme.dark};
+  border-radius: 24px;
+  outline: none;
+  overflow: hidden;
+
+  @media (max-width: ${(props) => props.theme.breakpoint_small}) {
+    height: 150px;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+`;

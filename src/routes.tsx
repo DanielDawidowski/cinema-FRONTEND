@@ -10,6 +10,7 @@ import ProtectedRoute from "./pages/admin/AdminRoute";
 import CreateHall from "./pages/admin/hall/CreateHall";
 import CreateMovie from "./pages/admin/movie/CreateMovie";
 import MovieList from "./pages/admin/movie/MovieList";
+import EditMovie from "./pages/admin/movie/EditMovie";
 
 export const AppRouter: FC = () => {
   return (
@@ -31,6 +32,14 @@ export const AppRouter: FC = () => {
         element={
           <ProtectedRoute>
             <CreateMovie />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/movie/edit/:movieId"
+        element={
+          <ProtectedRoute>
+            <EditMovie />
           </ProtectedRoute>
         }
       />
