@@ -6,12 +6,17 @@ import {
   DropdownButton,
   DropdownContainer,
   DropdownContent,
+  DropdownLabel,
 } from "./Dropdown.styles";
 import { DropdownProps } from "./Dropdown.interface";
 import useDetectOutsideClick from "../../hooks/useDetectOutsideClick";
 
 // Reusable Dropdown Component
-const Dropdown: React.FC<DropdownProps> = ({ Label, children }) => {
+const Dropdown: React.FC<DropdownProps> = ({
+  label,
+  children,
+  title = false,
+}) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [toggleDropdown, setToggleDropdown] = useDetectOutsideClick(
     dropdownRef,
@@ -23,24 +28,24 @@ const Dropdown: React.FC<DropdownProps> = ({ Label, children }) => {
   };
 
   return (
-    <DropdownContainer
-      ref={dropdownRef}
-      onClick={() => setToggleDropdown(true)}
-    >
-      <DropdownButton $active={toggleDropdown} onClick={setDropdown}>
-        <h4>{Label}</h4>
-        <Arrow
-          initial={{ rotate: 0 }}
-          animate={{
-            rotate: toggleDropdown ? 180 : 0,
-            originX: 0.5,
-          }}
-        >
-          <IoIosArrowDown />
-        </Arrow>
-      </DropdownButton>
+    <DropdownContainer ref={dropdownRef} onClick={setDropdown}>
+      <DropdownLabel>
+        {title ? <h6>Choose cinema</h6> : null}
+        <DropdownButton $border={title}>
+          <span>{label}</span>
+          <Arrow
+            initial={{ rotate: 0 }}
+            animate={{
+              rotate: toggleDropdown ? 180 : 0,
+              originX: 0.5,
+            }}
+          >
+            <IoIosArrowDown />
+          </Arrow>
+        </DropdownButton>
+      </DropdownLabel>
       <AnimatePresence>
-        {toggleDropdown && (
+        {toggleDropdown ? (
           <DropdownContent
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -49,7 +54,7 @@ const Dropdown: React.FC<DropdownProps> = ({ Label, children }) => {
           >
             {children}
           </DropdownContent>
-        )}
+        ) : null}
       </AnimatePresence>
     </DropdownContainer>
   );

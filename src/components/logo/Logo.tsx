@@ -3,24 +3,28 @@ import propTypes from "prop-types";
 import type { FC } from "react";
 import LogoImg from "../../assets/images/vue-clone.png";
 import { LogoStyles } from "./Logo.styles";
+import { Link } from "react-router-dom";
 
 interface ILogo {
   width: string;
   height: string;
+  link?: boolean;
 }
 
 const Logo: FC<ILogo> = (props): ReactElement => {
-  const { width, height } = props;
+  const { width, height, link = false } = props;
   return (
     <LogoStyles>
-      <img
-        src={LogoImg}
-        alt="logo"
-        style={{
-          width,
-          height,
-        }}
-      />
+      <Link to={link ? "/" : ""}>
+        <img
+          src={LogoImg}
+          alt="logo"
+          style={{
+            width,
+            height,
+          }}
+        />
+      </Link>
     </LogoStyles>
   );
 };

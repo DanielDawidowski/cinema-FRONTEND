@@ -1,21 +1,42 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { motion } from "framer-motion";
 
 export const DropdownContainer = styled.div`
   position: relative;
 `;
 
-export const DropdownButton = styled.h3<{ $active?: boolean }>`
+export const DropdownLabel = styled.div`
+  display: grid;
+
+  h6 {
+    display: none;
+    @media (min-width: ${(props) => props.theme.breakpoint_small}) {
+      display: block;
+      color: ${(props) => props.theme.white_opacity};
+    }
+  }
+`;
+
+export const DropdownButton = styled.h4<{ $border?: boolean }>`
   cursor: pointer;
   display: flex;
-  border-bottom: 1px solid ${(props) => props.theme.white};
+  justify-content: space-between;
+
+  ${({ $border }) =>
+    $border
+      ? css`
+          border-bottom: 1px solid ${(props) => props.theme.white};
+        `
+      : css`
+          border: none;
+        `}
 `;
 
 export const DropdownContent = styled(motion.div)`
   position: absolute;
   top: 120%;
   right: 0;
-  width: 250px;
+  width: 100%;
   background-color: ${(props) => props.theme.black};
   padding: ${(props) => props.theme.size2};
   border-radius: 4px;
@@ -24,36 +45,8 @@ export const DropdownContent = styled(motion.div)`
   align-items: center;
   border: 1px solid ${(props) => props.theme.white};
   z-index: 99999;
-`;
-
-export const DropdownElementStyles = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-bottom: 1px solid ${(props) => props.theme.white};
-  width: 100%;
-  a {
-    h4 {
-      margin: ${(props) => props.theme.size2} 0;
-      color: ${(props) => props.theme.white};
-    }
-  }
-
-  &:first-child {
-    a {
-      h2 {
-        margin-top: 0;
-      }
-    }
-  }
-
-  &:last-child {
-    border-bottom: none;
-    a {
-      h2 {
-        margin-bottom: 0;
-      }
-    }
+  @media (min-width: ${(props) => props.theme.breakpoint_small}) {
+    width: 250px;
   }
 `;
 
