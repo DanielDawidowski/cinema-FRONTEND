@@ -44,7 +44,7 @@ export const Container = styled.div<{ $small?: boolean }>`
   @media (min-width: ${(props) => props.theme.breakpoint_small}) {
     max-width: ${(props) =>
       props.$small
-        ? props.theme.breakpoint_small
+        ? props.theme.breakpoint_xsmall
         : props.theme.breakpoint_small};
   }
 `;

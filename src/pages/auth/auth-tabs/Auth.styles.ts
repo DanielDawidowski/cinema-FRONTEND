@@ -17,7 +17,7 @@ export const AuthInner = styled.div`
   }
 `;
 
-export const AuthTabsStyles = styled.ul`
+export const TabsStyles = styled.ul`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -26,7 +26,7 @@ export const AuthTabsStyles = styled.ul`
   margin: ${(props) => props.theme.size1};
 `;
 
-export const AuthTabsElement = styled.li<{ $active: boolean }>`
+export const TabsElement = styled.li<{ $active: boolean }>`
   width: 100%;
   display: flex;
   justify-content: center;
@@ -36,8 +36,12 @@ export const AuthTabsElement = styled.li<{ $active: boolean }>`
   z-index: ${(props) => (props.$active ? 2 : 1)};
   background: ${(props) =>
     props.$active ? props.theme.primary : props.theme.black};
-
   h4 {
+    color: ${(props) =>
+      props.$active ? props.theme.black : props.theme.white};
+    padding: 4px;
+  }
+  h5 {
     color: ${(props) =>
       props.$active ? props.theme.black : props.theme.white};
     padding: 4px;

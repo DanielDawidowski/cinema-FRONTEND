@@ -4,8 +4,8 @@ import { Login, Register } from "..";
 import Layout from "../../../components/layout/Layout";
 import {
   AuthContainer,
-  AuthTabsStyles,
-  AuthTabsElement,
+  TabsStyles,
+  TabsElement,
   AuthInner,
   Title,
 } from "./Auth.styles";
@@ -19,25 +19,26 @@ const AuthTabs: FC = (): ReactElement => {
 
   return (
     <Layout>
-      <Container>
+      <Container $small>
         <Title>
           <Line $gradient $width="35%" />
           <h1>MY VUE</h1>
         </Title>
-        <AuthTabsStyles>
-          <AuthTabsElement
+
+        <TabsStyles>
+          <TabsElement
             $active={type === "Sign In"}
             onClick={() => setType("Sign In")}
           >
             <h4>Sign In</h4>
-          </AuthTabsElement>
-          <AuthTabsElement
+          </TabsElement>
+          <TabsElement
             $active={type === "Sign Up"}
             onClick={() => setType("Sign Up")}
           >
             <h4>Sign Up</h4>
-          </AuthTabsElement>
-        </AuthTabsStyles>
+          </TabsElement>
+        </TabsStyles>
         <AuthContainer>
           <AuthInner>
             {type === "Sign In" && <Login />}

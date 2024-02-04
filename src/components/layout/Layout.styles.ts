@@ -6,6 +6,9 @@ export const LayoutStyles = styled.div<ILayout>`
   width: 100%;
 
   main {
-    margin-top: 5%;
+    margin-top: 15%;
+    @media (min-width: ${(props) => props.theme.breakpoint_small}) {
+      margin-top: 5%;
+    }
   }
 `;

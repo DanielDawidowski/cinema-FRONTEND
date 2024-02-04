@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
-import { InputContainer } from "../../input/Input.styles";
+import { InputContainer, InputField } from "../../input/Input.styles";
 
 export const MenuItem = styled(motion.li)<{ $active?: boolean }>`
   display: grid;
@@ -26,23 +26,36 @@ export const Logout = styled.div`
 
 export const Search = styled.div`
   display: none;
-  position: relative;
 
   @media (min-width: ${(props) => props.theme.breakpoint_small}) {
-    display: grid;
-    place-items: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid ${(props) => props.theme.grey};
+    border-radius: ${(props) => props.theme.size1};
+    background-color: ${(props) => props.theme.black_light};
   }
 
   ${InputContainer} {
     height: 100%;
     margin-bottom: 0;
   }
+  ${InputField} {
+    padding: ${(props) => props.theme.size3} ${(props) => props.theme.size1};
+    border: none;
+    border-radius: 8px 0 0 8px;
+    &:focus {
+      border: none;
+    }
+  }
   svg {
-    position: absolute;
-    top: 10px;
-    right: 15px;
     width: 30px;
     height: 30px;
     fill: ${(props) => props.theme.white};
+    margin-right: ${(props) => props.theme.size1};
+    &:hover {
+      transform: scale(1.1);
+      transition: transform ease-in-out 0.5s;
+    }
   }
 `;
