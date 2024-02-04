@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { TabsElement, TabsStyles } from "../auth/auth-tabs/Auth.styles";
 
 export const FilterActions = styled.div`
-  height: 100%;
   display: grid;
   grid-template-areas: "tabs filter";
   grid-template-columns: 1fr 70px;
@@ -55,6 +54,20 @@ export const FilterIcon = styled.div`
     @media (min-width: ${(props) => props.theme.breakpoint_small}) {
       display: block;
     }
+  }
+`;
+
+export const StickyFilter = styled(FilterIcon)`
+  position: fixed;
+  top: ${(props) => props.theme.size6};
+  width: 30%;
+  left: 37%;
+  @media (min-width: ${(props) => props.theme.breakpoint_small}) {
+    width: 10%;
+    left: 47%;
+  }
+  h4 {
+    display: block;
   }
 `;
 

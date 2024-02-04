@@ -3,19 +3,30 @@ import type { FC, ReactElement } from "react";
 import { IoMdSwitch } from "react-icons/io";
 import { Container } from "../../components/layout/globalStyles/global.styles";
 import { TabsElement, TabsStyles } from "../auth/auth-tabs/Auth.styles";
-import { FilterActions, FilterIcon, Tabs } from "./Home.styles";
+import { FilterActions, FilterIcon, StickyFilter, Tabs } from "./Home.styles";
+import useSticky from "../../hooks/useSticky";
 
 const HomeMovies: FC = (): ReactElement => {
+  const isSticky = useSticky("filters");
+
   const [type, setType] = useState<string>("Per day");
 
   return (
-    <Container>
-      <FilterActions>
+    <Container style={{ height: "200vh" }}>
+      <FilterActions id="filters">
         <h3>Now in cinema</h3>
-        <FilterIcon>
-          <IoMdSwitch />
-          <h4>filters</h4>
-        </FilterIcon>
+        {isSticky ? (
+          <StickyFilter>
+            <IoMdSwitch />
+            <h4>filters</h4>
+          </StickyFilter>
+        ) : (
+          <FilterIcon>
+            <IoMdSwitch />
+            <h4>filters</h4>
+          </FilterIcon>
+        )}
+
         <Tabs>
           <TabsStyles>
             <TabsElement
