@@ -9,6 +9,7 @@ import {
   ModalWrapper,
 } from "./Modal.styles";
 import { Flex } from "../layout/globalStyles/global.styles";
+import Logo from "../logo/Logo";
 
 interface ModalProps {
   isOpen: boolean;
@@ -55,7 +56,8 @@ const Modal: FC<ModalProps> = ({ isOpen, onClose, children }) => {
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: -50, opacity: 0 }}
             >
-              <Flex $align="flex-end" $justify="flex-end">
+              <Flex $align="center" $justify="space-between">
+                <Logo width="65px" height="30px" />
                 <CloseModalStyles>
                   <IoIosCloseCircleOutline onClick={onClose} />
                 </CloseModalStyles>

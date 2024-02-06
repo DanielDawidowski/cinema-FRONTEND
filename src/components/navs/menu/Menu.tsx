@@ -49,6 +49,11 @@ const Menu: FC = (): ReactElement => {
             </Link>
           </MenuItem>
           <MenuItem>
+            <Link to="/admin/hall/edit">
+              <h3>edit hall</h3>
+            </Link>
+          </MenuItem>
+          <MenuItem>
             <Link to="/">
               <Logout>
                 <img src={LogoutSVG} alt="logout" onClick={logout} />

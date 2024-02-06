@@ -31,7 +31,6 @@ interface ICreateHall {
   rows: string;
   columns: string;
   total: ISeat[];
-  setTotal: ReactDispatch<SetStateAction<ISeat[]>>;
 }
 
 const HallCreateDashboard: FC<ICreateHall> = ({

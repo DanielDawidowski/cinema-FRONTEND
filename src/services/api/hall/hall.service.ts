@@ -18,8 +18,11 @@ class HallService {
     return response;
   }
 
-  async updateHall(hallId: string): Promise<AxiosResponse> {
-    const response: Awaited<AxiosResponse> = await axios.put(`/hall/${hallId}`);
+  async editHall(hallId: string, body: IHall): Promise<AxiosResponse> {
+    const response: Awaited<AxiosResponse> = await axios.put(
+      `/hall/${hallId}`,
+      body
+    );
     return response;
   }
 

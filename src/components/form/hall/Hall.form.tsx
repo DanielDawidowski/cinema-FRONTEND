@@ -18,11 +18,14 @@ interface ICreateHallForm {
   loading: boolean;
   hasError: boolean;
   errorMessage: string;
+  hall?: IHall;
 }
 
 const HallForm: FC<ICreateHallForm> = (props): ReactElement => {
   const { values, setValues, loading, eventAction, hasError } = props;
   const { city, hallNumber, seats } = values;
+
+  const eventActionName = eventAction.name;
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -56,22 +59,27 @@ const HallForm: FC<ICreateHallForm> = (props): ReactElement => {
           />
         </FormItemStyles>
 
-        <FormItemStyles>
-          <Button
-            color={ButtonColor.primary}
-            disabled={!city || !hallNumber || !seats}
-            onClick={eventAction}
-          >
-            {loading ? (
-              <Flex $align="center" $justify="center">
-                <Spinner size={20} />
-                <span>Creating</span>
-              </Flex>
-            ) : (
-              <span>Create</span>
-            )}
-          </Button>
-        </FormItemStyles>
+        {eventActionName === "createHall" ? (
+          <Flex $align="center" $justify="flex-start">
+            {loading ? <Spinner size={30} /> : null}
+            <Button
+              color={ButtonColor.success}
+              disabled={!city || !hallNumber || !seats}
+              onClick={eventAction}
+            >
+              {loading ? <h4>Creating</h4> : <h4>Create</h4>}
+            </Button>
+          </Flex>
+        ) : (
+          <FormItemStyles>
+            <Flex $align="center" $justify="flex-start">
+              {loading ? <Spinner size={30} /> : null}
+              <Button color={ButtonColor.success} onClick={eventAction}>
+                {loading ? <h4>Editing</h4> : <h4>Edit</h4>}
+              </Button>
+            </Flex>
+          </FormItemStyles>
+        )}
       </FormStyles>
     </>
   );

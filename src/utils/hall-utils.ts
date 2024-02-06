@@ -54,4 +54,24 @@ export class HallUtils {
         return SeatType.standard;
     }
   };
+
+  static changeOrientation = (): (() => void) => {
+    const handleOrientationChange = () => {
+      if (window.matchMedia("(orientation: portrait)").matches) {
+        document.body.style.transform = "rotate(90deg)";
+        document.body.style.width = "100%";
+        document.body.style.height = "100%";
+      } else {
+        document.body.style.transform = "rotate(0deg)";
+      }
+    };
+
+    // Add event listener for media query change
+    const mediaQueryList = window.matchMedia("(orientation: portrait)");
+    mediaQueryList.addEventListener("change", handleOrientationChange);
+
+    return () => {
+      mediaQueryList.removeEventListener("change", handleOrientationChange);
+    };
+  };
 }
