@@ -47,40 +47,26 @@ const Menu: FC = (): ReactElement => {
           </Link>
         </MenuItem>
       ) : (
-        <MenuItem>
-          <Dropdown label="Admin">
-            {menuAdmin.map((item: IMenuAdmin, i: number) => (
-              <Link key={i} to={item.link}>
-                <h4>{item.name}</h4>
-              </Link>
-            ))}
-          </Dropdown>
-        </MenuItem>
+        <>
+          <MenuItem>
+            <Link to="/admin">
+              <h3>admin</h3>
+            </Link>
+          </MenuItem>
+          <MenuItem>
+            <Link to="/admin/hall/create">
+              <h3>create hall</h3>
+            </Link>
+          </MenuItem>
+          <MenuItem>
+            <Link to="/">
+              <Logout>
+                <img src={LogoutSVG} alt="logout" onClick={logout} />
+              </Logout>
+            </Link>
+          </MenuItem>
+        </>
       )}
-      <MenuItem>
-        <Search>
-          <Input
-            id="search"
-            name="search"
-            type="text"
-            value={search}
-            placeholder="search"
-            handleChange={(event: ChangeEvent<HTMLInputElement>) =>
-              setSearch(event.target.value)
-            }
-          />
-          <PiMagnifyingGlassBold />
-        </Search>
-      </MenuItem>
-      {profile ? (
-        <MenuItem>
-          <Link to="/">
-            <Logout>
-              <img src={LogoutSVG} alt="logout" onClick={logout} />
-            </Logout>
-          </Link>
-        </MenuItem>
-      ) : null}
     </MenuStyles>
   );
 };

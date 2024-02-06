@@ -7,10 +7,7 @@ import ResetPassword from "./pages/auth/reset-password/ResetPassword";
 
 import Home from "./pages/home/Home";
 import ProtectedRoute from "./pages/admin/AdminRoute";
-import CreateHall from "./pages/admin/hall/CreateHall";
-import CreateMovie from "./pages/admin/movie/CreateMovie";
-import MovieList from "./pages/admin/movie/MovieList";
-import EditMovie from "./pages/admin/movie/EditMovie";
+import CreateHall from "./pages/admin/hall/create/CreateHall";
 
 export const AppRouter: FC = () => {
   return (
@@ -24,30 +21,6 @@ export const AppRouter: FC = () => {
         element={
           <ProtectedRoute>
             <CreateHall />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/admin/movie/create"
-        element={
-          <ProtectedRoute>
-            <CreateMovie />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/admin/movie/edit/:movieId"
-        element={
-          <ProtectedRoute>
-            <EditMovie />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/admin/movies"
-        element={
-          <ProtectedRoute>
-            <MovieList />
           </ProtectedRoute>
         }
       />

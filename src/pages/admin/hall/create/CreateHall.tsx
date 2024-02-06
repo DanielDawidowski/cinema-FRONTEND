@@ -8,32 +8,36 @@ import type {
 } from "react";
 import type { Dispatch as ReduxDispatch } from "@reduxjs/toolkit";
 import axios from "axios";
-import Layout from "../../../components/layout/Layout";
-import { ValidationError } from "../../../interfaces/error/Error.interface";
+import Layout from "../../../../components/layout/Layout";
+import { ValidationError } from "../../../../interfaces/error/Error.interface";
 import {
   IHall,
   ISeat,
   SeatStatus,
   SeatType,
-} from "../../../interfaces/hall/hall.interface";
-import { hallService } from "../../../services/api/hall/hall.service";
-import Input from "../../../components/input/Input";
-import Button from "../../../components/button/Button";
-import { ButtonColor } from "../../../components/button/Button.interface";
-import { Aside, CreateHallStyles, Inner } from "./CreateHall.styles";
-import HallCreateDashboard from "./hall/HallCreateDashboard";
-import { useAppSelector, useAppDispatch } from "../../../redux-toolkit/hooks";
-import Modal from "../../../components/modal/Modal";
+} from "../../../../interfaces/hall/hall.interface";
+import { hallService } from "../../../../services/api/hall/hall.service";
+import Input from "../../../../components/input/Input";
+import Button from "../../../../components/button/Button";
+import { ButtonColor } from "../../../../components/button/Button.interface";
+import { Aside, CreateHallStyles, Inner } from "../Hall.styles";
+import HallCreateDashboard from "../hall/HallCreateDashboard";
+import {
+  useAppSelector,
+  useAppDispatch,
+} from "../../../../redux-toolkit/hooks";
+import Modal from "../../../../components/modal/Modal";
 import {
   toggleHallModal,
   closeModal,
-} from "../../../redux-toolkit/reducers/modal/modal.reducer";
-import HallForm from "../../../components/form/hall/Hall.form";
+} from "../../../../redux-toolkit/reducers/modal/modal.reducer";
+import HallForm from "../../../../components/form/hall/Hall.form";
 import {
   DisplayMedia,
   Line,
-} from "../../../components/layout/globalStyles/global.styles";
-import Legend from "../../../components/Legend/Legend";
+} from "../../../../components/layout/globalStyles/global.styles";
+import Legend from "../../../../components/Legend/Legend";
+import { HallUtils } from "../../../../utils/hall-utils";
 
 const initialState: IHall = {
   city: "",
@@ -114,23 +118,7 @@ const CreateHall: FC = (): ReactElement => {
   };
 
   useEffect(() => {
-    const handleOrientationChange = () => {
-      if (window.matchMedia("(orientation: portrait)").matches) {
-        document.body.style.transform = "rotate(90deg)";
-        document.body.style.width = "100%";
-        document.body.style.height = "100%";
-      } else {
-        document.body.style.transform = "rotate(0deg)";
-      }
-    };
-
-    // Add event listener for media query change
-    const mediaQueryList = window.matchMedia("(orientation: portrait)");
-    mediaQueryList.addEventListener("change", handleOrientationChange);
-
-    return () => {
-      mediaQueryList.removeEventListener("change", handleOrientationChange);
-    };
+    HallUtils.changeOrientation();
   }, []);
 
   return (
@@ -169,12 +157,7 @@ const CreateHall: FC = (): ReactElement => {
             {selectedSeats.length > 0 ? <Legend /> : null}
           </Inner>
         </Aside>
-        <HallCreateDashboard
-          rows={rows}
-          columns={columns}
-          total={total}
-          setTotal={setTotal}
-        />
+        <HallCreateDashboard rows={rows} columns={columns} total={total} />
         {isHallModal ? (
           <Modal isOpen={isHallModal} onClose={close}>
             <HallForm
