@@ -41,7 +41,11 @@ export const MovieListItem = styled.li`
   overflow: hidden;
 
   @media (min-width: ${(props) => props.theme.breakpoint_small}) {
-    grid-template-columns: 90% 1fr;
+    grid-template-columns: 80% 1fr;
+  }
+
+  h3 {
+    width: 100%;
   }
 
   &::before {
