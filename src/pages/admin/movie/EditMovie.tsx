@@ -20,6 +20,8 @@ const initialState: IMovie = {
   name: "",
   category: [IMovieCategory.action],
   description: "",
+  director: "",
+  actors: [],
   img: "",
 };
 
@@ -30,6 +32,7 @@ const EditMovie: FC = (): ReactElement => {
   const [loading, setLoading] = useState<boolean>(false);
   const [hasError, setHasError] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [actors, setActors] = useState<string[]>([]);
 
   const navigate: NavigateFunction = useNavigate();
   const { movieId } = useParams();
@@ -104,6 +107,8 @@ const EditMovie: FC = (): ReactElement => {
             eventAction={editMovie}
             setCategoryList={setCategoryList}
             categoryList={categoryList}
+            actors={actors}
+            setActors={setActors}
             loading={loading}
             hasError={hasError}
             errorMessage={errorMessage}

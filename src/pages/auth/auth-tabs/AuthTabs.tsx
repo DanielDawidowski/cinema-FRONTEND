@@ -19,7 +19,7 @@ const AuthTabs: FC = (): ReactElement => {
 
   return (
     <Layout>
-      <Container>
+      <Container $small>
         <Title>
           <Line $gradient $width="35%" />
           <h1>MY VUE</h1>

@@ -14,8 +14,10 @@ import { Grid } from "../../../components/layout/globalStyles/global.styles";
 
 const initialState: IMovie = {
   name: "",
-  category: [IMovieCategory.action],
+  category: [],
   description: "",
+  director: "",
+  actors: [],
   img: "",
 };
 
@@ -25,11 +27,13 @@ const CreateMovie: FC = (): ReactElement => {
   const [loading, setLoading] = useState<boolean>(false);
   const [hasError, setHasError] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [actors, setActors] = useState<string[]>([]);
 
   const createMovie = async (e: FormEvent): Promise<void | undefined> => {
     e.preventDefault();
     setLoading(true);
     values.category = categoryList;
+    values.actors = actors;
     try {
       await movieService.create(values);
       setLoading(false);
@@ -60,6 +64,8 @@ const CreateMovie: FC = (): ReactElement => {
             eventAction={createMovie}
             setCategoryList={setCategoryList}
             categoryList={categoryList}
+            actors={actors}
+            setActors={setActors}
             loading={loading}
             hasError={hasError}
             errorMessage={errorMessage}

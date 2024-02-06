@@ -3,37 +3,42 @@ export interface IMovie {
   name: string;
   category: IMovieCategory[];
   description: string;
+  director: string;
+  actors: string[];
   img: string;
 }
 
 export enum IMovieCategory {
   comedy = "COMEDY",
-  horror = "HORROR",
+  thriller = "THRILLER",
   action = "ACTION",
-  romance = "ROMANCE",
-  cartoon = "CARTOON",
-  documentary = "DOCUMENTARY",
-  family = "FAMILY",
-  sci_fi = "SCI_FI",
+  drama = "DRAMA",
+  animation = "ANIMATION",
+  biography = "BIOGRAPHY",
+  adventure = "ADVENTURE",
+  crime = "CRIME",
+  history = "HISTORY",
 }
 
 export type IMovieCategories =
   | IMovieCategory.comedy
-  | IMovieCategory.horror
+  | IMovieCategory.thriller
   | IMovieCategory.action
-  | IMovieCategory.romance
-  | IMovieCategory.cartoon
-  | IMovieCategory.documentary
-  | IMovieCategory.family
-  | IMovieCategory.sci_fi;
+  | IMovieCategory.drama
+  | IMovieCategory.animation
+  | IMovieCategory.biography
+  | IMovieCategory.adventure
+  | IMovieCategory.crime
+  | IMovieCategory.history;
 
 export const movieCategories: IMovieCategory[] = [
   IMovieCategory.comedy,
-  IMovieCategory.horror,
+  IMovieCategory.thriller,
   IMovieCategory.action,
-  IMovieCategory.romance,
-  IMovieCategory.cartoon,
-  IMovieCategory.documentary,
-  IMovieCategory.family,
-  IMovieCategory.sci_fi,
+  IMovieCategory.drama,
+  IMovieCategory.animation,
+  IMovieCategory.biography,
+  IMovieCategory.adventure,
+  IMovieCategory.crime,
+  IMovieCategory.history,
 ];
