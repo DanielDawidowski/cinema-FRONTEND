@@ -37,7 +37,7 @@ export const SelectMenu = styled(motion.div)`
   border: 1px solid #ccc;
   border-radius: 4px;
   overflow: hidden;
-  z-index: 1;
+  z-index: 10;
   padding: ${(props) => props.theme.size2};
   font-size: ${(props) => props.theme.size4};
   border: 2px solid ${(props) => props.theme.green};

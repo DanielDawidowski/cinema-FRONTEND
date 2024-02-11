@@ -8,6 +8,7 @@ export interface IHall {
 }
 
 export interface ISeat {
+  _id?: string;
   row: string;
   seat: number;
   status: SeatStatuses;
@@ -43,4 +44,5 @@ export type SeatTypes =
 export interface ISeatProps {
   seat: ISeat;
   onClick: MouseEventHandler<SVGSVGElement>;
+  hall?: IHall;
 }

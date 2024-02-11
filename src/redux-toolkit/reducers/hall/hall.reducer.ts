@@ -84,7 +84,6 @@ const hallSlice = createSlice({
     changeSeatType: (state, action: PayloadAction<{ newType: SeatTypes }>) => {
       const { newType } = action.payload;
 
-      // Change the type of all selected seats in the state
       const updatedSeats = state.seats.map((s) =>
         state.selectedSeats.some(
           (selectedSeat) =>
@@ -97,7 +96,7 @@ const hallSlice = createSlice({
       return {
         ...state,
         seats: updatedSeats,
-        selectedSeats: [], // Clear selected seats after changing their type
+        selectedSeats: [],
       };
     },
     setSeats: (state, action: PayloadAction<ISeat[]>) => {

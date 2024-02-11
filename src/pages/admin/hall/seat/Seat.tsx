@@ -4,7 +4,7 @@ import { ISeatProps } from "../../../../interfaces/hall/hall.interface";
 import { useAppSelector } from "../../../../redux-toolkit/hooks";
 import SeatSVG from "../../../../assets/svg/seatSVG";
 
-const Seat: FC<ISeatProps> = ({ seat, onClick }): ReactElement => {
+const Seat: FC<ISeatProps> = ({ seat, onClick, hall }): ReactElement => {
   const { selectedSeats } = useAppSelector((state) => state.hall);
 
   const selected = selectedSeats.some(

@@ -8,6 +8,11 @@ import ResetPassword from "./pages/auth/reset-password/ResetPassword";
 import Home from "./pages/home/Home";
 import ProtectedRoute from "./pages/admin/AdminRoute";
 import CreateHall from "./pages/admin/hall/create/CreateHall";
+import EditHall from "./pages/admin/hall/edit/EditHall";
+import HallList from "./pages/admin/hall/list/HallList";
+import MovieList from "./pages/admin/movie/list/MovieList";
+import CreateMovie from "./pages/admin/movie/create/CreateMovie";
+import EditMovie from "./pages/admin/movie/edit/EditMovie";
 
 export const AppRouter: FC = () => {
   return (
@@ -21,6 +26,46 @@ export const AppRouter: FC = () => {
         element={
           <ProtectedRoute>
             <CreateHall />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/hall/edit/:hallId"
+        element={
+          <ProtectedRoute>
+            <EditHall />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/halls"
+        element={
+          <ProtectedRoute>
+            <HallList />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/movies"
+        element={
+          <ProtectedRoute>
+            <MovieList />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/movie/create"
+        element={
+          <ProtectedRoute>
+            <CreateMovie />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/movie/edit/:movie"
+        element={
+          <ProtectedRoute>
+            <EditMovie />
           </ProtectedRoute>
         }
       />

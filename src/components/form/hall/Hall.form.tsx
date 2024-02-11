@@ -22,8 +22,15 @@ interface ICreateHallForm {
 }
 
 const HallForm: FC<ICreateHallForm> = (props): ReactElement => {
-  const { values, setValues, loading, eventAction, hasError, errorMessage } =
-    props;
+  const {
+    values,
+    setValues,
+    loading,
+    eventAction,
+    hasError,
+    errorMessage,
+    hall,
+  } = props;
   const { city, hallNumber, seats } = values;
 
   const eventActionName = eventAction.name;
@@ -43,7 +50,7 @@ const HallForm: FC<ICreateHallForm> = (props): ReactElement => {
             label="City"
             options={cities}
             onSelect={(option: string) =>
-              setValues({ ...values, city: option as CityName })
+              setValues({ ...values, city: (option as CityName) || hall?.city })
             }
           />
         </FormItemStyles>
@@ -53,7 +60,7 @@ const HallForm: FC<ICreateHallForm> = (props): ReactElement => {
             id="hallNumber"
             name="hallNumber"
             type="number"
-            value={hallNumber as number}
+            value={hallNumber || hall?.hallNumber}
             labelText="Number of Hall"
             placeholder="---"
             style={{ border: `${hasError ? "1px solid #fa9b8a" : ""}` }}

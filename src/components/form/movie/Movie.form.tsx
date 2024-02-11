@@ -27,7 +27,7 @@ import {
   IMovieCategories,
   IMovieCategory,
 } from "../../../interfaces/movie/movie.interface";
-import { Category } from "../../../pages/admin/movie/CreateMovie.styles";
+import { Category } from "../../../pages/admin/movie/Movie.styles";
 import TextArea from "../../textarea/Textarea";
 
 interface ICreateMovieForm {

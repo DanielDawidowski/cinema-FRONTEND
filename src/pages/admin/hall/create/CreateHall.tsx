@@ -8,11 +8,12 @@ import type {
 } from "react";
 import type { Dispatch as ReduxDispatch } from "@reduxjs/toolkit";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import type { NavigateFunction } from "react-router-dom";
 import Layout from "../../../../components/layout/Layout";
 import { ValidationError } from "../../../../interfaces/error/Error.interface";
 import {
   IHall,
-  ISeat,
   SeatStatus,
   SeatType,
 } from "../../../../interfaces/hall/hall.interface";
@@ -54,9 +55,8 @@ const initialState: IHall = {
 
 const CreateHall: FC = (): ReactElement => {
   const [values, setValues] = useState<IHall>(initialState);
-  const [rows, setRows] = useState<string>("6");
-  const [columns, setColumns] = useState<string>("10");
-  const [total, setTotal] = useState<ISeat[]>([] as ISeat[]);
+  const [rows, setRows] = useState<string>("");
+  const [columns, setColumns] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [hasError, setHasError] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -65,6 +65,7 @@ const CreateHall: FC = (): ReactElement => {
   const { isHallModal } = useAppSelector((state) => state.modal);
 
   const dispatch: ReduxDispatch = useAppDispatch();
+  const navigate: NavigateFunction = useNavigate();
 
   const createHall = async (e: FormEvent): Promise<void | undefined> => {
     e.preventDefault();
@@ -77,6 +78,7 @@ const CreateHall: FC = (): ReactElement => {
       setValues(initialState);
       console.log("created hall");
       dispatch(closeModal());
+      navigate("/admin/halls");
     } catch (error) {
       if (
         axios.isAxiosError<ValidationError, Record<string, unknown>>(error) &&
@@ -157,7 +159,7 @@ const CreateHall: FC = (): ReactElement => {
             {selectedSeats.length > 0 ? <Legend /> : null}
           </Inner>
         </Aside>
-        <HallCreateDashboard rows={rows} columns={columns} total={total} />
+        <HallCreateDashboard rows={rows} columns={columns} />
         {isHallModal ? (
           <Modal isOpen={isHallModal} onClose={close}>
             <HallForm

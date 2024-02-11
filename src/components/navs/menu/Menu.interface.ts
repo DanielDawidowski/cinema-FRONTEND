@@ -16,4 +16,8 @@ export const menuAdmin: IMenuAdmin[] = [
     name: "movies",
     link: "/admin/movies",
   },
+  {
+    name: "halls",
+    link: "/admin/halls",
+  },
 ];

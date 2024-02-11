@@ -1,10 +1,5 @@
 import React, { useCallback, useEffect } from "react";
-import type {
-  ReactElement,
-  FC,
-  Dispatch as ReactDispatch,
-  SetStateAction,
-} from "react";
+import type { ReactElement, FC } from "react";
 import type { Dispatch as ReduxDispatch } from "@reduxjs/toolkit";
 import {
   Columns,
@@ -15,7 +10,7 @@ import {
 } from "./HallCreateDashboard.styles";
 import Seat from "../seat/Seat";
 import { HallUtils } from "../../../../utils/hall-utils";
-import { ISeat } from "../../../../interfaces/hall/hall.interface";
+import { IHall, ISeat } from "../../../../interfaces/hall/hall.interface";
 import {
   useAppSelector,
   useAppDispatch,
@@ -30,12 +25,13 @@ import {
 interface ICreateHall {
   rows: string;
   columns: string;
-  total: ISeat[];
+  hall?: IHall;
 }
 
 const HallCreateDashboard: FC<ICreateHall> = ({
   rows,
   columns,
+  hall,
 }): ReactElement => {
   const { seats } = useAppSelector((state) => state.hall);
   const dispatch: ReduxDispatch = useAppDispatch();
@@ -43,10 +39,19 @@ const HallCreateDashboard: FC<ICreateHall> = ({
   const parsedRows = parseFloat(rows);
   const parsedColumns = parseFloat(columns);
 
+  const hallRows = parsedRows ? parsedRows : HallUtils.countRows(hall?.seats);
+  const hallColumns = parsedColumns
+    ? parsedColumns
+    : HallUtils.countColumns(hall?.seats);
+
   const generatedSeats = useCallback(() => {
     const seats = HallUtils.generateBoxes(parsedRows, parsedColumns);
-    dispatch(setSeats(seats));
-  }, [dispatch, parsedRows, parsedColumns]);
+    if (rows !== "" && columns !== "") {
+      dispatch(setSeats(seats));
+    } else {
+      dispatch(setSeats(hall?.seats!));
+    }
+  }, [dispatch, parsedRows, parsedColumns, hall, rows, columns]);
 
   const handleSeat = (seat: ISeat) => {
     dispatch(setSelectedSeat({ seat }));
@@ -64,38 +69,52 @@ const HallCreateDashboard: FC<ICreateHall> = ({
     generatedSeats();
   }, [generatedSeats]);
 
+  const rowArray = parsedRows ? parsedRows : hallRows;
+  const columnArray = parsedColumns ? parsedColumns : hallColumns;
+
   return (
     <Dashboard>
-      {parsedRows ? (
-        <Rows $length={parsedRows}>
-          {Array.from(Array(parsedRows > 0 ? parsedRows : null).keys()).map(
-            (i) => (
-              <Row
-                key={i}
-                onClick={() => handleRow(HallUtils.replaceNumberOnLetter(i))}
-              >
-                {HallUtils.replaceNumberOnLetter(i)}
-              </Row>
-            )
-          )}
+      {rowArray ? (
+        <Rows $length={rowArray}>
+          {Array.from(Array(rowArray).keys()).map((i) => (
+            <Row
+              key={i}
+              onClick={() => handleRow(HallUtils.replaceNumberOnLetter(i))}
+            >
+              {HallUtils.replaceNumberOnLetter(i)}
+            </Row>
+          ))}
         </Rows>
       ) : null}
-      {parsedColumns ? (
-        <Columns $length={parsedColumns}>
-          {Array.from(
-            Array(parsedColumns > 0 ? parsedColumns : null).keys()
-          ).map((i) => (
+      {columnArray ? (
+        <Columns $length={columnArray}>
+          {Array.from(Array(columnArray).keys()).map((i) => (
             <Row key={i} onClick={() => handleColumn(i + 1)}>
               {i + 1}
             </Row>
           ))}
         </Columns>
       ) : null}
-      <HallDashboard $rows={parsedRows} $columns={parsedColumns}>
-        {seats.map((seat: ISeat, i) => (
-          <Seat key={i} seat={seat} onClick={() => handleSeat(seat)} />
+      <HallDashboard $rows={hallRows!} $columns={hallColumns!}>
+        {seats?.map((seat: ISeat, i) => (
+          <Seat
+            key={i}
+            seat={seat}
+            onClick={() => handleSeat(seat)}
+            hall={hall}
+          />
         ))}
       </HallDashboard>
+      {/* <HallDashboard $rows={hallRows} $columns={hallColumns}>
+        {hall?.seats?.map((seat: ISeat, i) => (
+          <Seat
+            key={i}
+            seat={seat}
+            onClick={() => handleSeat(seat)}
+            hall={hall}
+          />
+        ))}
+      </HallDashboard> */}
     </Dashboard>
   );
 };

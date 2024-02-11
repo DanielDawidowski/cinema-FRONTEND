@@ -14,7 +14,6 @@ import Layout from "../../../../components/layout/Layout";
 import { ValidationError } from "../../../../interfaces/error/Error.interface";
 import {
   IHall,
-  ISeat,
   SeatStatus,
   SeatType,
 } from "../../../../interfaces/hall/hall.interface";
@@ -36,6 +35,7 @@ import {
 import HallForm from "../../../../components/form/hall/Hall.form";
 import {
   DisplayMedia,
+  Flex,
   Line,
 } from "../../../../components/layout/globalStyles/global.styles";
 import Legend from "../../../../components/Legend/Legend";
@@ -58,9 +58,8 @@ const initialState: IHall = {
 const EditHall: FC = (): ReactElement => {
   const [values, setValues] = useState<IHall>(initialState);
   const [hall, setHall] = useState<IHall>({} as IHall);
-  const [rows, setRows] = useState<string>("6");
-  const [columns, setColumns] = useState<string>("10");
-  const [total, setTotal] = useState<ISeat[]>([] as ISeat[]);
+  const [rows, setRows] = useState<string>("");
+  const [columns, setColumns] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [hasError, setHasError] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -91,10 +90,18 @@ const EditHall: FC = (): ReactElement => {
     }
   }, [hallId]);
 
+  const hallSeats = hall?.seats?.map((obj) => {
+    const { _id, ...newObject } = obj;
+    return newObject;
+  });
+
   const editHall = async (e: FormEvent): Promise<void | undefined> => {
     e.preventDefault();
     setLoading(true);
-    values.seats = seats;
+    values.city = values.city ? values.city : hall.city;
+    values.hallNumber = values.hallNumber ? values.hallNumber : hall.hallNumber;
+    values.seats = HallUtils.omitId(seats) || hallSeats;
+
     try {
       await hallService.editHall(hallId as string, values);
       setLoading(false);
@@ -102,7 +109,7 @@ const EditHall: FC = (): ReactElement => {
       setValues(initialState);
       console.log("hall edited");
       dispatch(closeModal());
-      navigate("/admin/hall/list");
+      navigate("/admin/halls");
     } catch (error) {
       if (
         axios.isAxiosError<ValidationError, Record<string, unknown>>(error) &&
@@ -143,13 +150,13 @@ const EditHall: FC = (): ReactElement => {
     dispatch(closeModal());
   };
 
-  useEffect(() => {
-    HallUtils.changeOrientation();
-  }, []);
-
   useEffectOnce(() => {
     getHall();
   });
+
+  useEffect(() => {
+    HallUtils.changeOrientation();
+  }, []);
 
   return (
     <Layout>
@@ -158,7 +165,18 @@ const EditHall: FC = (): ReactElement => {
           <DisplayMedia>
             <Line $gradient $width="100%" />
           </DisplayMedia>
+
           <Inner>
+            {hall ? (
+              <Flex
+                $align="center"
+                $justify="space-between"
+                style={{ width: "100%" }}
+              >
+                <h3>{hall.city}</h3>
+                <h3>{hall.hallNumber}</h3>
+              </Flex>
+            ) : null}
             <Input
               name="rows"
               type="number"
@@ -179,7 +197,7 @@ const EditHall: FC = (): ReactElement => {
               handleChange={handleChange}
             />
             <Button color={ButtonColor.success} onClick={openModal}>
-              <h4>{loading ? "Loading..." : "Create"}</h4>
+              <h4>{loading ? "Loading..." : "Edit"}</h4>
             </Button>
             <DisplayMedia $media>
               <Line $gradient $width="35%" />
@@ -187,7 +205,7 @@ const EditHall: FC = (): ReactElement => {
             {selectedSeats.length > 0 ? <Legend /> : null}
           </Inner>
         </Aside>
-        <HallCreateDashboard rows={rows} columns={columns} total={total} />
+        <HallCreateDashboard rows={rows} columns={columns} hall={hall} />
         {isHallModal ? (
           <Modal isOpen={isHallModal} onClose={close}>
             <HallForm
@@ -197,7 +215,6 @@ const EditHall: FC = (): ReactElement => {
               loading={loading}
               hasError={hasError}
               errorMessage={errorMessage}
-              hall={hall}
             />
           </Modal>
         ) : null}

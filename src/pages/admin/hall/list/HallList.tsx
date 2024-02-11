@@ -1,40 +1,40 @@
 import React, { useState, useEffect, useCallback } from "react";
 import type { FC, ReactElement } from "react";
 import axios from "axios";
-import { movieService } from "../../../services/api/movie/movie.service";
-import Layout from "../../../components/layout/Layout";
-import { ValidationError } from "../../../interfaces/error/Error.interface";
-import { IMovie } from "../../../interfaces/movie/movie.interface";
+import { hallService } from "../../../../services/api/hall/hall.service";
+import Layout from "../../../../components/layout/Layout";
+import { ValidationError } from "../../../../interfaces/error/Error.interface";
 import {
   Container,
   ErrorMessage,
-} from "../../../components/layout/globalStyles/global.styles";
-import Spinner from "../../../components/spinner/Spinner";
-import { MovieListStyles } from "./CreateMovie.styles";
-import MovieItem from "./MovieItem";
+  ListStyles,
+} from "../../../../components/layout/globalStyles/global.styles";
+import Spinner from "../../../../components/spinner/Spinner";
+import { IHall } from "../../../../interfaces/hall/hall.interface";
+import HallItem from "./HallItem";
 
-const MovieList: FC = (): ReactElement => {
-  const [movies, setMovies] = useState<IMovie[]>([]);
+const HallList: FC = (): ReactElement => {
+  const [halls, setHalls] = useState<IHall[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
 
-  const getAllMovies = useCallback(async (): Promise<void> => {
+  const getAllHalls = useCallback(async (): Promise<void> => {
     try {
-      const response = await movieService.getAllMovies();
-      setMovies(response.data.list);
+      const response = await hallService.getAllHalls();
+      setHalls(response.data.list);
       // console.log("response", response.data.events);
     } catch (error) {
       console.log("error", error);
     }
   }, []);
 
-  const deleteMovie = async (movieId: string): Promise<void> => {
+  const deleteHall = async (hallId: string): Promise<void> => {
     const result = window.confirm("Czy na pewno chcesz usunąć?");
     if (result) {
       try {
-        await movieService.deleteMovie(movieId);
+        await hallService.deleteHall(hallId);
         // console.log("response", response);
-        getAllMovies();
+        getAllHalls();
       } catch (error) {
         if (
           axios.isAxiosError<ValidationError, Record<string, unknown>>(error) &&
@@ -50,13 +50,13 @@ const MovieList: FC = (): ReactElement => {
   };
 
   useEffect(() => {
-    getAllMovies();
-  }, [getAllMovies]);
+    getAllHalls();
+  }, [getAllHalls]);
 
   return (
     <Layout>
       <Container $small>
-        <MovieListStyles>
+        <ListStyles>
           {loading ? (
             <Spinner />
           ) : (
@@ -64,15 +64,15 @@ const MovieList: FC = (): ReactElement => {
               {errorMessage ? (
                 <ErrorMessage>{errorMessage}</ErrorMessage>
               ) : null}
-              {movies.map((movie, i) => (
-                <MovieItem key={i} movie={movie} deleteMovie={deleteMovie} />
+              {halls.map((hall, i) => (
+                <HallItem key={i} hall={hall} deleteHall={deleteHall} />
               ))}
             </>
           )}
-        </MovieListStyles>
+        </ListStyles>
       </Container>
     </Layout>
   );
 };
 
-export default MovieList;
+export default HallList;

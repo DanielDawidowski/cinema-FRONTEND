@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import type { FC, ReactElement, FormEvent } from "react";
 import axios from "axios";
-import Layout from "../../../components/layout/Layout";
-import { ValidationError } from "../../../interfaces/error/Error.interface";
-import { movieService } from "../../../services/api/movie/movie.service";
+import Layout from "../../../../components/layout/Layout";
+import { ValidationError } from "../../../../interfaces/error/Error.interface";
+import { movieService } from "../../../../services/api/movie/movie.service";
 import {
   IMovie,
   IMovieCategory,
-} from "../../../interfaces/movie/movie.interface";
-import { CreateMovieStyles } from "./CreateMovie.styles";
-import MovieForm from "../../../components/form/movie/Movie.form";
-import { Grid } from "../../../components/layout/globalStyles/global.styles";
+} from "../../../../interfaces/movie/movie.interface";
+import { CreateMovieStyles } from "../Movie.styles";
+import MovieForm from "../../../../components/form/movie/Movie.form";
+import { Grid } from "../../../../components/layout/globalStyles/global.styles";
 
 const initialState: IMovie = {
   name: "",

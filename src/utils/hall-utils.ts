@@ -74,4 +74,23 @@ export class HallUtils {
       mediaQueryList.removeEventListener("change", handleOrientationChange);
     };
   };
+
+  static countRows = (seatData?: ISeat[]): number => {
+    const uniqueRows = new Set(seatData?.map((seat) => seat.row));
+
+    return uniqueRows?.size;
+  };
+
+  static countColumns = (seatData?: ISeat[]): number => {
+    const uniqueRows = new Set(seatData?.map((seat) => seat.seat));
+
+    return uniqueRows?.size;
+  };
+
+  static omitId = (seatData?: ISeat[]): Omit<ISeat, "_id">[] => {
+    const seats: Omit<ISeat, "_id">[] | undefined = seatData?.map(
+      ({ _id, ...newObject }) => newObject
+    );
+    return seats as Omit<ISeat, "_id">[];
+  };
 }
