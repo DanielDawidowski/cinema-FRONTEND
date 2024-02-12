@@ -29,7 +29,6 @@ const Header: FC<IHeader> = (props): ReactElement => {
   const { toggleMenu, setToggleMenu } = props;
   const [openSearch, setOpenSearch] = useState<boolean>(false);
   const [selected, setSelected] = useState<string | null>("");
-  const [search, setSearch] = useState<string>("");
 
   const handleChange = (name: string): void => {
     setSelected(name);
@@ -76,12 +75,7 @@ const Header: FC<IHeader> = (props): ReactElement => {
               </DisplayMedia>
             </Icons>
           </Wrapper>
-          <Search
-            openSearch={openSearch}
-            setOpenSearch={setOpenSearch}
-            search={search}
-            setSearch={setSearch}
-          />
+          <Search openSearch={openSearch} setOpenSearch={setOpenSearch} />
         </Container>
       </Inner>
       <Navigation toggleMenu={toggleMenu} />

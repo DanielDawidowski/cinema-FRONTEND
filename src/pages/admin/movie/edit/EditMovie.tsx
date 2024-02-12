@@ -64,6 +64,8 @@ const EditMovie: FC = (): ReactElement => {
     values.description = values.description
       ? values.description
       : movie.description;
+    values.director = values.director ? values.director : movie.director;
+    values.actors = actors ? actors : movie.actors;
 
     try {
       await movieService.updateMovie(movieId as string, values);

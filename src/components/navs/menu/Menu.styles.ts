@@ -1,10 +1,54 @@
 import { motion } from "framer-motion";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { InputContainer, InputField } from "../../input/Input.styles";
 
-export const MenuItem = styled(motion.li)<{ $active?: boolean }>`
+export const MenuItem = styled(motion.li)<{ $search?: boolean }>`
   display: grid;
+  ${({ $search }) =>
+    $search
+      ? css`
+          position: relative;
+        `
+      : css`
+          place-items: center;
+        `}
+`;
+
+export const SearchList = styled.div<{ $open: boolean }>`
+  position: absolute;
+  top: 55px;
+  left: 0;
+  background: ${(props) => props.theme.black_light};
+  z-index: 999;
+  border-radius: 4px;
+  ${({ $open }) =>
+    $open
+      ? css`
+          border: 1px solid ${(props) => props.theme.white};
+        `
+      : css`
+          border: none;
+        `}
+`;
+
+export const SearchListItem = styled.li`
+  height: 100%;
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  grid-column-gap: 10px;
   place-items: center;
+  padding-bottom: ${(props) => props.theme.size1};
+  border-bottom: 1px solid ${(props) => props.theme.orange};
+  padding: ${(props) => props.theme.size1};
+
+  img {
+    border-radius: ${(props) => props.theme.size1};
+    width: 100%;
+  }
+
+  div {
+    width: 100%;
+  }
 `;
 
 export const MenuStyles = styled(motion.ul)`
@@ -24,7 +68,7 @@ export const Logout = styled.div`
   }
 `;
 
-export const Search = styled.div`
+export const SearchStyles = styled.div`
   display: none;
 
   @media (min-width: ${(props) => props.theme.breakpoint_small}) {
