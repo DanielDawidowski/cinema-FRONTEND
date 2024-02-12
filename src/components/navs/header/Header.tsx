@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import type { FC, ReactElement, ChangeEvent } from "react";
+import type { FC, ReactElement } from "react";
 import PropTypes from "prop-types";
 import { PiMagnifyingGlassBold } from "react-icons/pi";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -10,7 +10,6 @@ import {
   Icons,
   Inner,
   LogoStyles,
-  SearchHeader,
   Wrapper,
 } from "./Header.styles";
 import {
@@ -22,9 +21,9 @@ import IHeader from "./Header.interface";
 import Logo from "../../logo/Logo";
 import Menu from "../menu/Menu";
 import Navigation from "../navigation/Navigation";
-import Input from "../../input/Input";
 import Dropdown from "../../dropdown/Dropdown";
 import { CityName, cities } from "../../../interfaces/city/city.interface";
+import Search from "../../search/Search";
 
 const Header: FC<IHeader> = (props): ReactElement => {
   const { toggleMenu, setToggleMenu } = props;
@@ -77,23 +76,12 @@ const Header: FC<IHeader> = (props): ReactElement => {
               </DisplayMedia>
             </Icons>
           </Wrapper>
-          {openSearch ? (
-            <SearchHeader>
-              <Input
-                id="search"
-                name="search"
-                type="text"
-                value={search}
-                placeholder="search"
-                handleChange={(event: ChangeEvent<HTMLInputElement>) =>
-                  setSearch(event.target.value)
-                }
-              />
-              <Grid>
-                <IoCloseSharp onClick={() => setOpenSearch(false)} />
-              </Grid>
-            </SearchHeader>
-          ) : null}
+          <Search
+            openSearch={openSearch}
+            setOpenSearch={setOpenSearch}
+            search={search}
+            setSearch={setSearch}
+          />
         </Container>
       </Inner>
       <Navigation toggleMenu={toggleMenu} />
