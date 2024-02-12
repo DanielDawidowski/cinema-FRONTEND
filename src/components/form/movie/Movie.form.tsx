@@ -255,7 +255,6 @@ MovieForm.propTypes = {
   loading: propTypes.bool.isRequired,
   eventAction: propTypes.func.isRequired,
   hasError: propTypes.bool.isRequired,
-  errorMessage: propTypes.string.isRequired,
 };
 
 export default MovieForm;

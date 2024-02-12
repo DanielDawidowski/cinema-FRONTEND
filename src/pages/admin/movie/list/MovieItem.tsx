@@ -17,8 +17,9 @@ interface IMovieProps {
 
 const MovieItem: FC<IMovieProps> = ({ movie, deleteMovie }): ReactElement => {
   return (
-    <ListItem>
-      <h3>{movie.name}</h3>
+    <ListItem $img>
+      <img src={movie.img} alt={movie.name} />
+      <h4>{movie.name}</h4>
       <Icons>
         <Link to={`/admin/movie/edit/${movie._id}`}>
           <AiOutlineEdit style={{ fill: themeGlobal.blue }} />

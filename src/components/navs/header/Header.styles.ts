@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import { InputContainer } from "../../input/Input.styles";
 
 export const HeaderStyles = styled.header`
   margin: 0;

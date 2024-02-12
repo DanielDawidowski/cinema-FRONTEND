@@ -109,9 +109,9 @@ export const ListStyles = styled.ul`
   margin: ${(props) => props.theme.size1};
 `;
 
-export const ListItem = styled.li`
+export const ListItem = styled.li<{ $img?: boolean }>`
   display: grid;
-  grid-template-columns: 70% 1fr;
+  grid-template-columns: ${(props) => (props.$img ? "20% 50% 1fr" : "70% 1fr")};
   border: 1px solid ${(props) => props.theme.white};
   border-radius: ${(props) => props.theme.size1};
   padding: ${(props) => props.theme.size1} ${(props) => props.theme.size2};
@@ -120,11 +120,19 @@ export const ListItem = styled.li`
   overflow: hidden;
 
   @media (min-width: ${(props) => props.theme.breakpoint_small}) {
-    grid-template-columns: 80% 1fr;
+    grid-template-columns: ${(props) =>
+      props.$img ? "30% 50% 1fr" : "80% 1fr"};
   }
 
-  h3 {
+  img {
+    border-radius: ${(props) => props.theme.size1};
+  }
+
+  h4 {
     width: 100%;
+    height: 100%;
+    margin: ${(props) => props.theme.size1};
+    text-align: center;
   }
 
   &::before {
@@ -152,6 +160,8 @@ export const Icons = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
+  margin: ${(props) => props.theme.size1};
+
   svg {
     width: 25px;
     height: 25px;

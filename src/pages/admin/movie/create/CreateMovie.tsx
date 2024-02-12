@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import type { FC, ReactElement, FormEvent } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import type { NavigateFunction } from "react-router-dom";
 import Layout from "../../../../components/layout/Layout";
 import { ValidationError } from "../../../../interfaces/error/Error.interface";
 import { movieService } from "../../../../services/api/movie/movie.service";
@@ -29,6 +31,8 @@ const CreateMovie: FC = (): ReactElement => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [actors, setActors] = useState<string[]>([]);
 
+  const navigate: NavigateFunction = useNavigate();
+
   const createMovie = async (e: FormEvent): Promise<void | undefined> => {
     e.preventDefault();
     setLoading(true);
@@ -40,6 +44,7 @@ const CreateMovie: FC = (): ReactElement => {
       setHasError(false);
       setValues(initialState);
       console.log("created movie");
+      navigate("/admin/movies");
     } catch (error) {
       if (
         axios.isAxiosError<ValidationError, Record<string, unknown>>(error) &&

@@ -62,7 +62,7 @@ export const AppRouter: FC = () => {
         }
       />
       <Route
-        path="/admin/movie/edit/:movie"
+        path="/admin/movie/edit/:movieId"
         element={
           <ProtectedRoute>
             <EditMovie />

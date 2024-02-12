@@ -13,7 +13,7 @@ class MovieService {
     return response;
   }
 
-  async getMovie(movieId: string): Promise<AxiosResponse> {
+  async getMovie(movieId: string | undefined): Promise<AxiosResponse> {
     const response: Awaited<AxiosResponse> = await axios.get(
       `/movie/${movieId}`
     );
