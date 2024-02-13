@@ -40,7 +40,7 @@ const Header: FC<IHeader> = (props): ReactElement => {
         <Container>
           <Wrapper>
             <LogoStyles>
-              <Logo link width="65px" height="30px" />
+              <Logo link width="70px" height="30px" />
             </LogoStyles>
             <DropdownStyles>
               <Dropdown label={selected ? selected : "All Cinemas"} title>

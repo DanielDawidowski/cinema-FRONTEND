@@ -31,7 +31,7 @@ export const Wrapper = styled.div`
     grid-template-areas: "logo dropdown media";
     grid-template-rows: 1fr;
     grid-template-columns: 70px 250px 1fr;
-    grid-column-gap: ${(props) => props.theme.size1};
+    grid-column-gap: ${(props) => props.theme.size6};
   }
 `;
 

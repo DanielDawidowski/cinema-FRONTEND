@@ -1,18 +1,17 @@
-import React, { useState } from "react";
-import type { FC, ReactElement, ChangeEvent } from "react";
+import React from "react";
+import type { FC, ReactElement } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import type { NavigateFunction } from "react-router-dom";
 import type { Dispatch } from "@reduxjs/toolkit";
-import { Logout, MenuItem, MenuStyles, SearchList } from "./Menu.styles";
+import { Logout, MenuItem, MenuStyles } from "./Menu.styles";
 import { useAppDispatch, useAppSelector } from "../../../redux-toolkit/hooks";
 import useLocalStorage from "../../../hooks/useLocalStorage";
 import { userService } from "../../../services/api/user/user.service";
 import { clearUser } from "../../../redux-toolkit/reducers/user/user.reducer";
 import LogoutSVG from "../../../assets/svg/logout.svg";
-import Dropdown from "../../dropdown/Dropdown";
-import { IMenuAdmin, menuAdmin } from "./Menu.interface";
-import { Flex } from "../../layout/globalStyles/global.styles";
-import Search from "./Search";
+
+import Search from "./search/Search";
+import AdminDropdown from "./admin/adminDropdown";
 
 const Menu: FC = (): ReactElement => {
   const { profile } = useAppSelector((state) => state.user);
@@ -47,16 +46,10 @@ const Menu: FC = (): ReactElement => {
         </MenuItem>
       ) : (
         <MenuItem>
-          <Dropdown label="Admin">
-            {menuAdmin.map((item: IMenuAdmin, i: number) => (
-              <Link key={i} to={item.link}>
-                <h4>{item.name}</h4>
-              </Link>
-            ))}
-          </Dropdown>
+          <AdminDropdown />
         </MenuItem>
       )}
-      <MenuItem $search>
+      <MenuItem>
         <Search />
       </MenuItem>
       {profile ? (

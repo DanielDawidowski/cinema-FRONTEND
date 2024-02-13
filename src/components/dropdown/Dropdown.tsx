@@ -16,6 +16,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   label,
   children,
   title = false,
+  link = false,
 }) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [toggleDropdown, setToggleDropdown] = useDetectOutsideClick(
@@ -24,8 +25,19 @@ const Dropdown: React.FC<DropdownProps> = ({
   );
 
   const setDropdown = (): void => {
-    setToggleDropdown(!toggleDropdown);
+    if (!link && !toggleDropdown) {
+      setToggleDropdown(true);
+    } else if (toggleDropdown && link) {
+      setToggleDropdown(true);
+    } else if (title) {
+      setToggleDropdown(!toggleDropdown);
+    } else if (link) {
+      setToggleDropdown(!toggleDropdown);
+    }
   };
+
+  console.log("toggle", toggleDropdown);
+  console.log("link", link);
 
   return (
     <DropdownContainer ref={dropdownRef} onClick={setDropdown}>

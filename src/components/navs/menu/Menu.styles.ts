@@ -1,21 +1,20 @@
 import { motion } from "framer-motion";
 import styled, { css } from "styled-components";
 import { InputContainer, InputField } from "../../input/Input.styles";
+import { bg } from "../../layout/globalStyles/global.styles";
 
-export const MenuItem = styled(motion.li)<{ $search?: boolean }>`
+export const MenuItem = styled(motion.li)`
   display: grid;
-  ${({ $search }) =>
-    $search
-      ? css`
-          position: relative;
-        `
-      : css`
-          place-items: center;
-        `}
+  place-items: center;
+`;
+
+export const SearchContainer = styled.div`
+  position: relative;
 `;
 
 export const SearchList = styled.div<{ $open: boolean }>`
   position: absolute;
+  width: 100%;
   top: 55px;
   left: 0;
   background: ${(props) => props.theme.black_light};
@@ -101,5 +100,93 @@ export const SearchStyles = styled.div`
       transform: scale(1.1);
       transition: transform ease-in-out 0.5s;
     }
+  }
+`;
+
+export const AdminStyles = styled.div`
+  width: 100%;
+  height: 100%;
+  /* h4 {
+    color: ;
+  } */
+`;
+
+export const AdminHeader = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  svg {
+    cursor: pointer;
+    rotate: 90deg;
+    fill: ${(props) => props.theme.orange};
+    &:hover {
+      transform: scale(1.5);
+    }
+  }
+`;
+
+export const AdminTitle = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding: 0 ${(props) => props.theme.size1};
+  border-radius: 4px;
+  margin: 2px 0;
+  cursor: pointer;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    z-index: -1;
+    transition: background-size 0.3s ease-in-out;
+    background: ${(props) => props.theme.primary};
+  }
+  &:hover::before {
+    animation: ${bg} 0.3s ease-in-out forwards;
+  }
+  &:hover h4 {
+    color: ${(props) => props.theme.black};
+  }
+`;
+
+export const AdminBody = styled.div<{ $left: boolean }>`
+  display: flex;
+  justify-content: center;
+  align-items: ${(props) => (props.$left ? "center" : "flex-start")};
+  flex-direction: column;
+`;
+
+export const AdminBodyItem = styled.div`
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding: 0 ${(props) => props.theme.size1};
+  border-radius: 4px;
+  cursor: pointer;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    z-index: -1;
+    transition: background-size 0.3s ease-in-out;
+    background: ${(props) => props.theme.primary};
+  }
+
+  &:hover::before {
+    animation: ${bg} 0.3s ease-in-out forwards;
+  }
+
+  &:hover h4 {
+    color: ${(props) => props.theme.black};
   }
 `;

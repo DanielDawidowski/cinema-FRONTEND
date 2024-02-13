@@ -4,6 +4,7 @@ export type DropdownProps = {
   label: string;
   children: ReactNode;
   title?: boolean;
+  link?: boolean;
 };
 
 export interface ItemProps {

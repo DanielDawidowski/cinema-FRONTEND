@@ -1,6 +1,6 @@
 import styled, { css, createGlobalStyle, keyframes } from "styled-components";
 
-const bg = keyframes`
+export const bg = keyframes`
   from {
     width: 0%;
   }

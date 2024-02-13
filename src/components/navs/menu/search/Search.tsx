@@ -1,16 +1,28 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, useRef } from "react";
 import type { FC, ReactElement, ChangeEvent } from "react";
 import { PiMagnifyingGlassBold } from "react-icons/pi";
 import { Link } from "react-router-dom";
-import { IMovie } from "../../../interfaces/movie/movie.interface";
-import { movieService } from "../../../services/api/movie/movie.service";
-import { SearchList, SearchStyles, SearchListItem } from "./Menu.styles";
-import Input from "../../input/Input";
-import { Flex } from "../../layout/globalStyles/global.styles";
+import { IMovie } from "../../../../interfaces/movie/movie.interface";
+import { movieService } from "../../../../services/api/movie/movie.service";
+import {
+  SearchList,
+  SearchStyles,
+  SearchListItem,
+  SearchContainer,
+} from "../Menu.styles";
+import Input from "../../../input/Input";
+import { Flex } from "../../../layout/globalStyles/global.styles";
+import useDetectOutsideClick from "../../../../hooks/useDetectOutsideClick";
 
 const Search: FC = (props): ReactElement | null => {
   const [movies, setMovies] = useState<IMovie[]>([]);
   const [search, setSearch] = useState<string>("");
+
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [toggleDropdown, setToggleDropdown] = useDetectOutsideClick(
+    dropdownRef,
+    false
+  );
 
   const getAllMovies = useCallback(async (): Promise<void> => {
     try {
@@ -31,6 +43,7 @@ const Search: FC = (props): ReactElement | null => {
 
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
+    setToggleDropdown(true);
   };
 
   useEffect(() => {
@@ -38,7 +51,7 @@ const Search: FC = (props): ReactElement | null => {
   }, [getAllMovies]);
 
   return (
-    <>
+    <SearchContainer ref={dropdownRef}>
       <SearchStyles>
         <Input
           id="search"
@@ -50,8 +63,8 @@ const Search: FC = (props): ReactElement | null => {
         />
         <PiMagnifyingGlassBold />
       </SearchStyles>
-      <SearchList $open={search.length > 0}>
-        {search.length > 0 && filteredMovies.length !== 0
+      <SearchList $open={toggleDropdown && search.length > 0}>
+        {toggleDropdown && search.length > 0 && filteredMovies.length !== 0
           ? filteredMovies.slice(0, 5).map((movie: IMovie) => (
               <Link to={`/movie/${movie._id}`} key={movie._id}>
                 <SearchListItem>
@@ -62,13 +75,14 @@ const Search: FC = (props): ReactElement | null => {
                 </SearchListItem>
               </Link>
             ))
-          : search.length !== 0 && (
+          : toggleDropdown &&
+            search.length !== 0 && (
               <Flex $align="center" $justify="center">
                 <h4> ... No movies found</h4>
               </Flex>
             )}
       </SearchList>
-    </>
+    </SearchContainer>
   );
 };
 
