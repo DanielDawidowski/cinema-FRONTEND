@@ -1,11 +1,11 @@
 import React, { useCallback, useState } from "react";
 import type { FC, ReactElement } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { MdDeleteForever } from "react-icons/md";
 import { AiOutlineEdit } from "react-icons/ai";
 import { themeGlobal } from "../../../../components/layout/globalStyles/variables";
 import {
+  Flex,
   Grid,
   Icons,
   ListItem,
@@ -13,8 +13,9 @@ import {
 import { IShow } from "../../../../interfaces/show/show.interface";
 import { IMovie } from "../../../../interfaces/movie/movie.interface";
 import { movieService } from "../../../../services/api/movie/movie.service";
-import { ValidationError } from "../../../../interfaces/error/Error.interface";
 import useEffectOnce from "../../../../hooks/useEffectOnce";
+import { hallService } from "../../../../services/api/hall/hall.service";
+import { IHall } from "../../../../interfaces/hall/hall.interface";
 
 interface IShowProps {
   show: IShow;
@@ -26,6 +27,7 @@ const ShowItem: FC<IShowProps> = ({
   deleteShow,
 }): ReactElement | null => {
   const [movie, setMovie] = useState<IMovie>({} as IMovie);
+  const [hall, setHall] = useState<IHall>({} as IHall);
 
   const getMovie = useCallback(async () => {
     try {
@@ -36,17 +38,33 @@ const ShowItem: FC<IShowProps> = ({
     }
   }, [show.movie]);
 
+  const getHall = useCallback(async () => {
+    try {
+      const response = await hallService.getHall(show?.hall! as string);
+      setHall(response.data.hall);
+    } catch (error) {
+      console.error(error);
+    }
+  }, [show.hall]);
+
   useEffectOnce(() => {
     getMovie();
+    getHall();
   });
 
   return (
     <ListItem $img>
       {movie ? <img src={movie.img} alt={movie.name} /> : null}
       <Grid>
-        <h4>{movie.name}</h4>
-        <h4>{show.time}</h4>
-        <h4>{show.date}</h4>
+        <h5>{movie.name}</h5>
+        <Flex $align="center" $justify="space-around" style={{ width: "100%" }}>
+          <h5>{show.time}</h5>
+          <h5>{show.date}</h5>
+        </Flex>
+        <Flex $align="center" $justify="space-around" style={{ width: "100%" }}>
+          <h5> {hall.city}</h5>
+          <h5>hall nr {hall.hallNumber}</h5>
+        </Flex>
       </Grid>
       <Icons>
         <Link to={`/admin/show/edit/${show._id}`}>

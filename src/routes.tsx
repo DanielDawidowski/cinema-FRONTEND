@@ -14,6 +14,7 @@ import CreateMovie from "./pages/admin/movie/create/CreateMovie";
 import EditMovie from "./pages/admin/movie/edit/EditMovie";
 import CreateShow from "./pages/admin/show/create/CreateShow";
 import ShowList from "./pages/admin/show/list/ShowList";
+import EditShow from "./pages/admin/show/edit/EditShow";
 
 export const AppRouter: FC = () => {
   return (
@@ -83,6 +84,14 @@ export const AppRouter: FC = () => {
         element={
           <ProtectedRoute>
             <ShowList />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/show/edit/:showId"
+        element={
+          <ProtectedRoute>
+            <EditShow />
           </ProtectedRoute>
         }
       />

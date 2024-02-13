@@ -137,18 +137,34 @@ const ShowForm: FC<ICreateShowForm> = (props): ReactElement => {
             handleChange={handleChange}
           />
         </FormItemStyles>
-        <FormItemStyles>
-          <Flex $align="center" $justify="flex-start">
-            {loading ? <Spinner size={30} /> : null}
-            <Button
-              color={ButtonColor.success}
-              disabled={!hall || !movie || !date || !time}
-              onClick={eventAction}
-            >
-              {loading ? <h4>Creating</h4> : <h4>Create</h4>}
-            </Button>
-          </Flex>
-        </FormItemStyles>
+
+        {eventActionName === "editShow" ? (
+          <FormItemStyles>
+            <Flex $align="center" $justify="flex-start">
+              {loading ? <Spinner size={30} /> : null}
+              <Button
+                color={ButtonColor.success}
+                onClick={eventAction}
+                disabled={!hall || !movie || !date || !time}
+              >
+                {loading ? <h4>Editing</h4> : <h4>Edit</h4>}
+              </Button>
+            </Flex>
+          </FormItemStyles>
+        ) : (
+          <FormItemStyles>
+            <Flex $align="center" $justify="flex-start">
+              {loading ? <Spinner size={30} /> : null}
+              <Button
+                color={ButtonColor.success}
+                disabled={!hall || !movie || !date || !time}
+                onClick={eventAction}
+              >
+                {loading ? <h4>Creating</h4> : <h4>Create</h4>}
+              </Button>
+            </Flex>
+          </FormItemStyles>
+        )}
       </FormStyles>
     </>
   );
