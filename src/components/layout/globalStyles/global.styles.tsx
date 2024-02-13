@@ -108,6 +108,7 @@ export const ErrorMessage = styled.h4`
 export const ListStyles = styled.ul`
   display: grid;
   margin: ${(props) => props.theme.size1};
+  width: 100%;
 `;
 
 export const ListItem = styled.li<{ $img?: boolean }>`
@@ -119,7 +120,6 @@ export const ListItem = styled.li<{ $img?: boolean }>`
   margin: ${(props) => props.theme.size1} 0;
   position: relative;
   overflow: hidden;
-
   @media (min-width: ${(props) => props.theme.breakpoint_small}) {
     grid-template-columns: ${(props) =>
       props.$img ? "30% 50% 1fr" : "80% 1fr"};

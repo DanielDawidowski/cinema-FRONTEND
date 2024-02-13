@@ -38,7 +38,7 @@ const CreateShow: FC = (): ReactElement => {
       setHasError(false);
       setValues(initialState);
       console.log("created show");
-      navigate("/admin/show");
+      navigate("/admin/shows");
     } catch (error) {
       if (
         axios.isAxiosError<ValidationError, Record<string, unknown>>(error) &&
