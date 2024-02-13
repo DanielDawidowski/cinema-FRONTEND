@@ -1,5 +1,6 @@
 import { themeGlobal } from "../components/layout/globalStyles/variables";
 import {
+  IHall,
   ISeat,
   SeatStatus,
   SeatType,
@@ -92,5 +93,21 @@ export class HallUtils {
       ({ _id, ...newObject }) => newObject
     );
     return seats as Omit<ISeat, "_id">[];
+  };
+
+  static hallNumbers = (halls: IHall[]): number[] => {
+    return halls.map((el) => el.hallNumber);
+  };
+
+  static hallId = (
+    halls: IHall[],
+    city: string,
+    hallNumber: number
+  ): string => {
+    const matchingHall = halls.find(
+      (item) => item.city === city && item.hallNumber === hallNumber
+    );
+
+    return matchingHall?._id!;
   };
 }

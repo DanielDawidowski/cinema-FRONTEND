@@ -18,6 +18,11 @@ class HallService {
     return response;
   }
 
+  async getHallsByCity(city: string): Promise<AxiosResponse> {
+    const response: Awaited<AxiosResponse> = await axios.get(`/halls/${city}`);
+    return response;
+  }
+
   async editHall(hallId: string, body: IHall): Promise<AxiosResponse> {
     const response: Awaited<AxiosResponse> = await axios.put(
       `/hall/${hallId}`,

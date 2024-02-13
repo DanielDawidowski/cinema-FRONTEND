@@ -36,9 +36,6 @@ const Dropdown: React.FC<DropdownProps> = ({
     }
   };
 
-  console.log("toggle", toggleDropdown);
-  console.log("link", link);
-
   return (
     <DropdownContainer ref={dropdownRef} onClick={setDropdown}>
       <DropdownLabel>

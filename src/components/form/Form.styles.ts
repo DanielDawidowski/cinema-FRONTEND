@@ -8,6 +8,7 @@ export const FormStyles = styled.form`
   border: 1px solid ${(props) => props.theme.dark};
   border-radius: 8px;
   outline: none;
+  width: 100%;
   @media (min-width: ${(props) => props.theme.breakpoint_small}) {
     margin: ${(props) => props.theme.size6} 0;
     padding: ${(props) => props.theme.size6};

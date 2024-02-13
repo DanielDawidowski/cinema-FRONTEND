@@ -23,7 +23,7 @@ const Select: React.FC<SelectProps> = ({ options, onSelect, label }) => {
     setToggleSelect(!toggleSelect);
   };
 
-  const handleSelect = (option: string & IMovieCategories): void => {
+  const handleSelect = (option: string & IMovieCategories & number): void => {
     setSelectedOption(option);
     onSelect(option);
     setToggleSelect(false);
@@ -41,11 +41,13 @@ const Select: React.FC<SelectProps> = ({ options, onSelect, label }) => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
         >
-          {options.map((option) => (
+          {options?.map((option) => (
             <SelectOption
               whileHover={{ scale: 1.01 }}
               key={option}
-              onClick={() => handleSelect(option as string & IMovieCategories)}
+              onClick={() =>
+                handleSelect(option as string & IMovieCategories & number)
+              }
             >
               {option}
             </SelectOption>

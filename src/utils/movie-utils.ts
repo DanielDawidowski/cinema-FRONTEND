@@ -1,3 +1,5 @@
+import { IMovie } from "../interfaces/movie/movie.interface";
+
 export class MovieUtils {
   static readAsBase64(file: File): Promise<string> {
     const reader = new FileReader();
@@ -19,4 +21,13 @@ export class MovieUtils {
 
     return fileValue;
   }
+
+  static movieTitles = (movies: IMovie[]): string[] => {
+    return movies.map((el) => el.name);
+  };
+
+  static movieId = (movies: IMovie[], name: string): string => {
+    const matchingMovie = movies.find((item) => item.name === name);
+    return matchingMovie?._id!;
+  };
 }

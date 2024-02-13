@@ -4,7 +4,6 @@ import { Routes, Route } from "react-router-dom";
 import { AuthTabs } from "./pages/auth";
 import ForgotPassword from "./pages/auth/forgot-password/ForgotPassword";
 import ResetPassword from "./pages/auth/reset-password/ResetPassword";
-
 import Home from "./pages/home/Home";
 import ProtectedRoute from "./pages/admin/AdminRoute";
 import CreateHall from "./pages/admin/hall/create/CreateHall";
@@ -13,6 +12,7 @@ import HallList from "./pages/admin/hall/list/HallList";
 import MovieList from "./pages/admin/movie/list/MovieList";
 import CreateMovie from "./pages/admin/movie/create/CreateMovie";
 import EditMovie from "./pages/admin/movie/edit/EditMovie";
+import CreateShow from "./pages/admin/show/create/CreateShow";
 
 export const AppRouter: FC = () => {
   return (
@@ -66,6 +66,14 @@ export const AppRouter: FC = () => {
         element={
           <ProtectedRoute>
             <EditMovie />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/show/create"
+        element={
+          <ProtectedRoute>
+            <CreateShow />
           </ProtectedRoute>
         }
       />

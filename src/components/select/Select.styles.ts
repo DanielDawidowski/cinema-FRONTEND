@@ -43,6 +43,8 @@ export const SelectMenu = styled(motion.div)`
   border: 2px solid ${(props) => props.theme.green};
   outline: none;
   box-shadow: 2px 1px 6px ${(props) => props.theme.dark};
+  max-height: 400px;
+  overflow-y: scroll;
 `;
 
 export const SelectOption = styled(motion.div)`
