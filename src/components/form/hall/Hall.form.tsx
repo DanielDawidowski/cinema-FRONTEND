@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useState } from "react";
 import type { ChangeEvent, FC, FormEvent } from "react";
 import propTypes from "prop-types";
 import Input from "../../input/Input";
@@ -32,6 +32,7 @@ const HallForm: FC<ICreateHallForm> = (props): ReactElement => {
     hall,
   } = props;
   const { city, hallNumber, seats } = values;
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
   const eventActionName = eventAction.name;
 
@@ -39,6 +40,11 @@ const HallForm: FC<ICreateHallForm> = (props): ReactElement => {
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ): void => {
     setValues({ ...values, [e.target.name]: e.target.value });
+  };
+
+  const handleCity = (option: string) => {
+    setSelectedOption((option as CityName) || hall?.city);
+    setValues({ ...values, city: (option as CityName) || hall?.city });
   };
 
   return (
@@ -49,9 +55,8 @@ const HallForm: FC<ICreateHallForm> = (props): ReactElement => {
           <Select
             label="City"
             options={cities}
-            onSelect={(option: string) =>
-              setValues({ ...values, city: (option as CityName) || hall?.city })
-            }
+            selectedOption={selectedOption!}
+            onSelect={(option: string) => handleCity(option as CityName)}
           />
         </FormItemStyles>
 

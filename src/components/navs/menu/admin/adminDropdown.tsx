@@ -30,24 +30,22 @@ const AdminDropdown: FC = (): ReactElement => {
         ) : null}
         <AdminBody $left={link === ""}>
           {menuAdmin.map((item: IMenuAdmin, i: number) => (
-            <>
+            <div key={i}>
               {link === "" ? (
                 <AdminTitle>
-                  <h4 key={i} onClick={() => handleLinkName(item.name)}>
-                    {item.name}
-                  </h4>
+                  <h4 onClick={() => handleLinkName(item.name)}>{item.name}</h4>
                 </AdminTitle>
               ) : null}
               {item.name === link
                 ? item.links.map((el, i) => (
-                    <AdminBodyItem>
-                      <Link key={i} to={el.link}>
+                    <AdminBodyItem key={i}>
+                      <Link to={el.link}>
                         <h4>{el.name}</h4>
                       </Link>
                     </AdminBodyItem>
                   ))
                 : null}
-            </>
+            </div>
           ))}
         </AdminBody>
       </AdminStyles>

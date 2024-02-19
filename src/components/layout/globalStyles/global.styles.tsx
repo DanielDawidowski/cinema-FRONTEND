@@ -107,22 +107,24 @@ export const ErrorMessage = styled.h4`
 
 export const ListStyles = styled.ul`
   display: grid;
-  margin: ${(props) => props.theme.size1};
+  margin: ${(props) => props.theme.size1} 0;
   width: 100%;
 `;
 
 export const ListItem = styled.li<{ $img?: boolean }>`
   display: grid;
-  grid-template-columns: ${(props) => (props.$img ? "20% 50% 1fr" : "70% 1fr")};
+  grid-template-columns: ${(props) => (props.$img ? "20% 40% 1fr" : "70% 1fr")};
   border: 1px solid ${(props) => props.theme.white};
   border-radius: ${(props) => props.theme.size1};
-  padding: ${(props) => props.theme.size1} ${(props) => props.theme.size2};
+  padding: ${(props) => props.theme.size1} 0;
   margin: ${(props) => props.theme.size1} 0;
   position: relative;
   overflow: hidden;
+  width: 100%;
+
   @media (min-width: ${(props) => props.theme.breakpoint_small}) {
     grid-template-columns: ${(props) =>
-      props.$img ? "30% 50% 1fr" : "80% 1fr"};
+      props.$img ? "30% 45% 1fr" : "80% 1fr"};
   }
 
   img {
@@ -131,7 +133,6 @@ export const ListItem = styled.li<{ $img?: boolean }>`
 
   h4 {
     width: 100%;
-    height: 100%;
     margin: ${(props) => props.theme.size1};
     text-align: center;
   }
@@ -166,10 +167,6 @@ export const Icons = styled.div`
   svg {
     width: 25px;
     height: 25px;
-    @media (min-width: ${(props) => props.theme.breakpoint_small}) {
-      width: 35px;
-      height: 35px;
-    }
   }
   svg:nth-child(1) {
     margin-top: 6px;

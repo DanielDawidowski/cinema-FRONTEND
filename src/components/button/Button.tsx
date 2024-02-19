@@ -15,7 +15,11 @@ const Button: FC<IButton> = (props): ReactElement => {
 };
 
 Button.propTypes = {
-  color: PropTypes.oneOf([ButtonColor.primary, ButtonColor.success]),
+  color: PropTypes.oneOf([
+    ButtonColor.primary,
+    ButtonColor.success,
+    ButtonColor.pagination,
+  ]),
   onClick: PropTypes.func,
   children: PropTypes.node.isRequired,
   disabled: PropTypes.bool,

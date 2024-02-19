@@ -1,9 +1,13 @@
 export enum ButtonColor {
   primary = "PRIMARY",
   success = "SUCCESS",
+  pagination = "PAGINATION",
 }
 
-export type ButtonTypes = ButtonColor.primary | ButtonColor.success;
+export type ButtonTypes =
+  | ButtonColor.primary
+  | ButtonColor.success
+  | ButtonColor.pagination;
 
 export default interface IButton
   extends React.HTMLAttributes<HTMLButtonElement> {

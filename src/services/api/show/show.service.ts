@@ -9,12 +9,36 @@ class ShowService {
   }
 
   async getAllShow(): Promise<AxiosResponse> {
-    const response: Awaited<AxiosResponse> = await axios.get("/shows");
+    const response: Awaited<AxiosResponse> = await axios.get(`/shows/all`);
     return response;
   }
 
   async getShow(showId: string | undefined): Promise<AxiosResponse> {
     const response: Awaited<AxiosResponse> = await axios.get(`/show/${showId}`);
+    return response;
+  }
+
+  async getShowsByMovie(movieId: string | undefined): Promise<AxiosResponse> {
+    const response: Awaited<AxiosResponse> = await axios.get(
+      `/shows/movie/${movieId}`
+    );
+    return response;
+  }
+
+  async getShowsByCity(city: string | undefined): Promise<AxiosResponse> {
+    const response: Awaited<AxiosResponse> = await axios.get(
+      `/shows/city/${city}`
+    );
+    return response;
+  }
+
+  async getShowsByFilters(
+    city: string | undefined,
+    movieId: string | undefined
+  ): Promise<AxiosResponse> {
+    const response: Awaited<AxiosResponse> = await axios.get(
+      `/shows/${city}/${movieId}`
+    );
     return response;
   }
 

@@ -38,10 +38,13 @@ const ShowForm: FC<ICreateShowForm> = (props): ReactElement => {
     show,
   } = props;
 
-  const { hall, movie, time, date } = values;
+  const { hall, movie, time } = values;
   const [city, setCity] = useState<string>("");
   const [movies, setMovies] = useState<IMovie[]>([]);
   const [halls, setHalls] = useState<IHall[]>([]);
+  const [selectedCity, setSelectedCity] = useState<string | null>(null);
+  const [selectedHall, setSelectedHall] = useState<number | null>(null);
+  const [selectedMovie, setSelectedMovie] = useState<string | null>(null);
 
   const eventActionName = eventAction.name;
 
@@ -71,16 +74,20 @@ const ShowForm: FC<ICreateShowForm> = (props): ReactElement => {
 
   const handleCity = (name: string): void => {
     setCity(name);
+    setValues({ ...values, city: name });
+    setSelectedCity(name);
   };
 
   const handleHall = (name: number): void => {
     const hallId = HallUtils.hallId(halls, city, name);
     setValues({ ...values, hall: hallId });
+    setSelectedHall(name);
   };
 
   const handleMovie = (name: string): void => {
     const movieId = MovieUtils.movieId(movies, name);
     setValues({ ...values, movie: movieId });
+    setSelectedMovie(name);
   };
 
   useEffect(() => {
@@ -96,6 +103,7 @@ const ShowForm: FC<ICreateShowForm> = (props): ReactElement => {
           <Select
             label="City"
             options={cities}
+            selectedOption={selectedCity!}
             onSelect={(option: string) => handleCity(option)}
           />
         </FormItemStyles>
@@ -104,6 +112,7 @@ const ShowForm: FC<ICreateShowForm> = (props): ReactElement => {
             <Select
               label="Pick Hall"
               options={HallUtils.hallNumbers(halls)}
+              selectedOption={selectedHall!}
               onSelect={(option: number) => handleHall(option)}
             />
           </FormItemStyles>
@@ -112,6 +121,7 @@ const ShowForm: FC<ICreateShowForm> = (props): ReactElement => {
           <Select
             label="Pick Movie"
             options={MovieUtils.movieTitles(movies)}
+            selectedOption={selectedMovie!}
             onSelect={(option: string) => handleMovie(option)}
           />
         </FormItemStyles>
@@ -127,17 +137,6 @@ const ShowForm: FC<ICreateShowForm> = (props): ReactElement => {
           />
         </FormItemStyles>
 
-        <FormItemStyles>
-          <Input
-            id="date"
-            name="date"
-            type="date"
-            value={date}
-            labelText="Date"
-            handleChange={handleChange}
-          />
-        </FormItemStyles>
-
         {eventActionName === "editShow" ? (
           <FormItemStyles>
             <Flex $align="center" $justify="flex-start">
@@ -145,7 +144,7 @@ const ShowForm: FC<ICreateShowForm> = (props): ReactElement => {
               <Button
                 color={ButtonColor.success}
                 onClick={eventAction}
-                disabled={!hall || !movie || !date || !time}
+                disabled={!hall || !movie || !time}
               >
                 {loading ? <h4>Editing</h4> : <h4>Edit</h4>}
               </Button>
@@ -157,7 +156,7 @@ const ShowForm: FC<ICreateShowForm> = (props): ReactElement => {
               {loading ? <Spinner size={30} /> : null}
               <Button
                 color={ButtonColor.success}
-                disabled={!hall || !movie || !date || !time}
+                disabled={!hall || !movie || !time}
                 onClick={eventAction}
               >
                 {loading ? <h4>Creating</h4> : <h4>Create</h4>}

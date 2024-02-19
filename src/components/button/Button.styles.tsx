@@ -24,6 +24,18 @@ const COLOR = {
       padding: ${(props) => props.theme.size2};
     }
   `,
+  PAGINATION: css`
+    border-radius: 8px;
+    padding: 1px;
+    background: ${(props) => props.theme.primary};
+    width: 90px;
+    h6 {
+      border-radius: 8px;
+      background: ${(props) => props.theme.black_light};
+      text-transform: uppercase;
+      padding: ${(props) => props.theme.size1};
+    }
+  `,
 };
 
 const DISABLED = css`

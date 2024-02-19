@@ -11,9 +11,13 @@ import {
 import useDetectOutsideClick from "../../hooks/useDetectOutsideClick";
 import { IMovieCategories } from "../../interfaces/movie/movie.interface";
 
-const Select: React.FC<SelectProps> = ({ options, onSelect, label }) => {
+const Select: React.FC<SelectProps> = ({
+  options,
+  onSelect,
+  label,
+  selectedOption,
+}) => {
   const selectRef = useRef<HTMLDivElement>(null);
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [toggleSelect, setToggleSelect] = useDetectOutsideClick(
     selectRef,
     false
@@ -24,7 +28,6 @@ const Select: React.FC<SelectProps> = ({ options, onSelect, label }) => {
   };
 
   const handleSelect = (option: string & IMovieCategories & number): void => {
-    setSelectedOption(option);
     onSelect(option);
     setToggleSelect(false);
   };

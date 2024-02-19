@@ -12,21 +12,29 @@ import {
 import Spinner from "../../../../components/spinner/Spinner";
 import { IHall } from "../../../../interfaces/hall/hall.interface";
 import HallItem from "./HallItem";
+import {
+  FormItemStyles,
+  FormStyles,
+} from "../../../../components/form/Form.styles";
+import Select from "../../../../components/select/Select";
+import { CityName, cities } from "../../../../interfaces/city/city.interface";
 
 const HallList: FC = (): ReactElement => {
   const [halls, setHalls] = useState<IHall[]>([]);
+  const [city, setCity] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
-  const getAllHalls = useCallback(async (): Promise<void> => {
+  const getHallsByCity = useCallback(async (): Promise<void> => {
     try {
-      const response = await hallService.getAllHalls();
+      const response = await hallService.getHallsByCity(city);
       setHalls(response.data.list);
       // console.log("response", response.data.events);
     } catch (error) {
       console.log("error", error);
     }
-  }, []);
+  }, [city]);
 
   const deleteHall = async (hallId: string): Promise<void> => {
     const result = window.confirm("Czy na pewno chcesz usunąć?");
@@ -34,7 +42,7 @@ const HallList: FC = (): ReactElement => {
       try {
         await hallService.deleteHall(hallId);
         // console.log("response", response);
-        getAllHalls();
+        getHallsByCity();
       } catch (error) {
         if (
           axios.isAxiosError<ValidationError, Record<string, unknown>>(error) &&
@@ -49,9 +57,16 @@ const HallList: FC = (): ReactElement => {
     }
   };
 
+  const handleCity = (option: string) => {
+    setSelectedOption(option as CityName);
+    setCity(option);
+  };
+
+  const filteredHalls = halls.filter((el) => el.city === city);
+
   useEffect(() => {
-    getAllHalls();
-  }, [getAllHalls]);
+    getHallsByCity();
+  }, [getHallsByCity]);
 
   return (
     <Layout>
@@ -64,7 +79,17 @@ const HallList: FC = (): ReactElement => {
               {errorMessage ? (
                 <ErrorMessage>{errorMessage}</ErrorMessage>
               ) : null}
-              {halls.map((hall, i) => (
+              <FormStyles>
+                <FormItemStyles>
+                  <Select
+                    label="City"
+                    options={cities}
+                    selectedOption={selectedOption!}
+                    onSelect={(option: string) => handleCity(option)}
+                  />
+                </FormItemStyles>
+              </FormStyles>
+              {filteredHalls.map((hall, i) => (
                 <HallItem key={i} hall={hall} deleteHall={deleteHall} />
               ))}
             </>

@@ -15,10 +15,10 @@ import { ShowStyles } from "../Show.styles";
 import ShowForm from "../../../../components/form/show/Show.form";
 
 const initialState: IShow = {
+  city: "",
   hall: "",
   movie: "",
   time: "",
-  date: "",
 };
 
 const CreateShow: FC = (): ReactElement => {
@@ -27,7 +27,7 @@ const CreateShow: FC = (): ReactElement => {
   const [hasError, setHasError] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
 
-  const navigate: NavigateFunction = useNavigate();
+  // const navigate: NavigateFunction = useNavigate();
 
   const createShow = async (e: FormEvent): Promise<void | undefined> => {
     e.preventDefault();
@@ -38,7 +38,7 @@ const CreateShow: FC = (): ReactElement => {
       setHasError(false);
       setValues(initialState);
       console.log("created show");
-      navigate("/admin/shows");
+      // navigate("/admin/shows");
     } catch (error) {
       if (
         axios.isAxiosError<ValidationError, Record<string, unknown>>(error) &&

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import type { FC, ReactElement } from "react";
 import { Link } from "react-router-dom";
 import { MdDeleteForever } from "react-icons/md";
@@ -31,7 +31,7 @@ const ShowItem: FC<IShowProps> = ({
 
   const getMovie = useCallback(async () => {
     try {
-      const response = await movieService.getMovie(show?.movie! as string);
+      const response = await movieService.getMovie(show.movie as string);
       setMovie(response.data.movie);
     } catch (error) {
       console.error(error);
@@ -48,21 +48,22 @@ const ShowItem: FC<IShowProps> = ({
   }, [show.hall]);
 
   useEffectOnce(() => {
-    getMovie();
     getHall();
   });
 
+  useEffect(() => {
+    getMovie();
+  }, [getMovie]);
+
   return (
     <ListItem $img>
-      {movie ? <img src={movie.img} alt={movie.name} /> : null}
+      <h4>{movie?.name}</h4>
       <Grid>
-        <h5>{movie.name}</h5>
         <Flex $align="center" $justify="space-around" style={{ width: "100%" }}>
           <h5>{show.time}</h5>
-          <h5>{show.date}</h5>
         </Flex>
         <Flex $align="center" $justify="space-around" style={{ width: "100%" }}>
-          <h5> {hall.city}</h5>
+          <h5> {show?.city!}</h5>
           <h5>hall nr {hall.hallNumber}</h5>
         </Flex>
       </Grid>
@@ -76,6 +77,28 @@ const ShowItem: FC<IShowProps> = ({
         />
       </Icons>
     </ListItem>
+    //   <ListItem $img>
+    //   {movie ? <img src={movie.img} alt={movie.name} /> : null}
+    //   <Grid>
+    //     <h4>{movie.name}</h4>
+    //     <Flex $align="center" $justify="space-around" style={{ width: "100%" }}>
+    //       <h5>{show.time}</h5>
+    //     </Flex>
+    //     <Flex $align="center" $justify="space-around" style={{ width: "100%" }}>
+    //       <h5> {hall.city}</h5>
+    //       <h5>hall nr {hall.hallNumber}</h5>
+    //     </Flex>
+    //   </Grid>
+    //   <Icons>
+    //     <Link to={`/admin/show/edit/${show._id}`}>
+    //       <AiOutlineEdit style={{ fill: themeGlobal.blue }} />
+    //     </Link>
+    //     <MdDeleteForever
+    //       style={{ fill: themeGlobal.red }}
+    //       onClick={() => deleteShow(show._id as string)}
+    //     />
+    //   </Icons>
+    // </ListItem>
   );
 };
 
