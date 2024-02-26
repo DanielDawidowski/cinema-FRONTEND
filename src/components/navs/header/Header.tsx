@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 import { PiMagnifyingGlassBold } from "react-icons/pi";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoCloseSharp } from "react-icons/io5";
+import type { Dispatch } from "@reduxjs/toolkit";
+
 import {
   DropdownStyles,
   HeaderStyles,
@@ -24,14 +26,20 @@ import Navigation from "../navigation/Navigation";
 import Dropdown from "../../dropdown/Dropdown";
 import { CityName, cities } from "../../../interfaces/city/city.interface";
 import Search from "../../search/Search";
+import { setCity } from "../../../redux-toolkit/reducers/city/city.reducer";
+import { useAppDispatch, useAppSelector } from "../../../redux-toolkit/hooks";
 
 const Header: FC<IHeader> = (props): ReactElement => {
+  const { city } = useAppSelector((state) => state.city);
   const { toggleMenu, setToggleMenu } = props;
   const [openSearch, setOpenSearch] = useState<boolean>(false);
   const [selected, setSelected] = useState<string | null>("");
 
+  const dispatch: Dispatch = useAppDispatch();
+
   const handleChange = (name: string): void => {
     setSelected(name);
+    dispatch(setCity({ city: name }));
   };
 
   return (
@@ -43,7 +51,10 @@ const Header: FC<IHeader> = (props): ReactElement => {
               <Logo link width="70px" height="30px" />
             </LogoStyles>
             <DropdownStyles>
-              <Dropdown label={selected ? selected : "All Cinemas"} title>
+              <Dropdown
+                label={selected ? selected : city ? city : "All Cinemas"}
+                title
+              >
                 {cities.map((city: CityName, i: number) => (
                   <h4 key={i} onClick={() => handleChange(city)}>
                     {city}

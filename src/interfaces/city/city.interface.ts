@@ -14,7 +14,7 @@ export type CityNames =
   | CityName.warsaw;
 
 export interface ICity {
-  name: string;
+  city: string;
 }
 
 export const cities: CityName[] = [

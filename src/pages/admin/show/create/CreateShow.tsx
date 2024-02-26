@@ -36,7 +36,7 @@ const CreateShow: FC = (): ReactElement => {
       await showService.create(values);
       setLoading(false);
       setHasError(false);
-      setValues(initialState);
+      // setValues(initialState);
       console.log("created show");
       // navigate("/admin/shows");
     } catch (error) {

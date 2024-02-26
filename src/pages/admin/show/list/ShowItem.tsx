@@ -40,16 +40,16 @@ const ShowItem: FC<IShowProps> = ({
 
   const getHall = useCallback(async () => {
     try {
-      const response = await hallService.getHall(show?.hall! as string);
+      const response = await hallService.getHall(show.hall);
       setHall(response.data.hall);
     } catch (error) {
       console.error(error);
     }
   }, [show.hall]);
 
-  useEffectOnce(() => {
+  useEffect(() => {
     getHall();
-  });
+  }, [getHall]);
 
   useEffect(() => {
     getMovie();
@@ -64,7 +64,10 @@ const ShowItem: FC<IShowProps> = ({
         </Flex>
         <Flex $align="center" $justify="space-around" style={{ width: "100%" }}>
           <h5> {show?.city!}</h5>
-          <h5>hall nr {hall.hallNumber}</h5>
+          <h5>
+            hall nr
+            {show.hall === hall?._id ? hall.hallNumber : null}
+          </h5>
         </Flex>
       </Grid>
       <Icons>
