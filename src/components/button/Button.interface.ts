@@ -1,11 +1,13 @@
 export enum ButtonColor {
   primary = "PRIMARY",
+  secondary = "SECONDARY",
   success = "SUCCESS",
   pagination = "PAGINATION",
 }
 
 export type ButtonTypes =
   | ButtonColor.primary
+  | ButtonColor.secondary
   | ButtonColor.success
   | ButtonColor.pagination;
 

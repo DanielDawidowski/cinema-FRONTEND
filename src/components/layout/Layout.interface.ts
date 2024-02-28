@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 
 export interface ILayout {
   children: ReactNode;
+  header?: boolean;
 }
 
 export enum BreakPoint {

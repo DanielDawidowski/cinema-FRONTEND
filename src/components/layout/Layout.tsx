@@ -11,7 +11,7 @@ import Header from "../navs/header/Header";
 import withAuth from "./withAuth";
 
 const Layout: FC<ILayout> = (props): ReactElement => {
-  const { children } = props;
+  const { children, header = true } = props;
   const [toggleMenu, setToggleMenu] = useState<boolean>(false);
 
   return (
@@ -19,7 +19,9 @@ const Layout: FC<ILayout> = (props): ReactElement => {
       <LayoutStyles>
         <GlobalStyles />
         <TypographyStyles />
-        <Header toggleMenu={toggleMenu} setToggleMenu={setToggleMenu} />
+        {header ? (
+          <Header toggleMenu={toggleMenu} setToggleMenu={setToggleMenu} />
+        ) : null}
         <main>{children}</main>
       </LayoutStyles>
     </ThemeProvider>

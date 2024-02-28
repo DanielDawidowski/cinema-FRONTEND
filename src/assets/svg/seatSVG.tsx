@@ -10,10 +10,16 @@ interface ISeatSVG {
   type: SeatTypes;
   selected?: boolean;
   onClick?: MouseEventHandler<SVGSVGElement>;
+  selection?: boolean;
 }
 
 const SeatSVG: FC<ISeatSVG> = (props): ReactElement => {
-  const { type = SeatType.standard, selected = null, onClick } = props;
+  const {
+    type = SeatType.standard,
+    selected = null,
+    onClick,
+    selection = false,
+  } = props;
 
   return (
     <motion.svg
@@ -22,7 +28,7 @@ const SeatSVG: FC<ISeatSVG> = (props): ReactElement => {
       viewBox="0 0 40 46"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      onClick={onClick}
+      onClick={selection && type === SeatType.removed ? undefined : onClick}
       whileHover={{
         scale: 1.1,
       }}
@@ -176,7 +182,11 @@ const SeatSVG: FC<ISeatSVG> = (props): ReactElement => {
             d="M4.7 12H32.7C34.7435 12 36.4 13.6565 36.4 15.7V43.4H1V15.7C1 13.6565 2.65655 12 4.7 12Z"
             fill={themeGlobal.black}
             stroke={
-              selected ? themeGlobal.orange : HallUtils.emitSeatTypeColor(type)
+              selected
+                ? themeGlobal.orange
+                : HallUtils.emitSeatTypeColor(type) && selection
+                ? themeGlobal.black
+                : HallUtils.emitSeatTypeColor(type)
             }
             strokeWidth="0.6"
           />
@@ -188,7 +198,11 @@ const SeatSVG: FC<ISeatSVG> = (props): ReactElement => {
             rx="1.43088"
             transform="rotate(-45 6.5932 18.7236)"
             fill={
-              selected ? themeGlobal.orange : HallUtils.emitSeatTypeColor(type)
+              selected
+                ? themeGlobal.orange
+                : HallUtils.emitSeatTypeColor(type) && selection
+                ? themeGlobal.black
+                : HallUtils.emitSeatTypeColor(type)
             }
           />
           <rect
@@ -199,7 +213,11 @@ const SeatSVG: FC<ISeatSVG> = (props): ReactElement => {
             rx="1.43088"
             transform="rotate(45 28.7833 16.7)"
             fill={
-              selected ? themeGlobal.orange : HallUtils.emitSeatTypeColor(type)
+              selected
+                ? themeGlobal.orange
+                : HallUtils.emitSeatTypeColor(type) && selection
+                ? themeGlobal.black
+                : HallUtils.emitSeatTypeColor(type)
             }
           />
         </>

@@ -14,6 +14,20 @@ const COLOR = {
       text-transform: uppercase;
     }
   `,
+  SECONDARY: css`
+    border-radius: 8px;
+    padding: ${(props) => props.theme.size1} ${(props) => props.theme.size4};
+    background: ${(props) => props.theme.primary};
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h4 {
+      border-radius: 8px;
+      text-transform: capitalize;
+      color: ${(props) => props.theme.black};
+    }
+  `,
   SUCCESS: css`
     border-radius: 8px;
     border: 1px solid ${(props) => props.theme.green};

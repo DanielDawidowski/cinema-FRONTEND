@@ -44,5 +44,5 @@ export type SeatTypes =
 export interface ISeatProps {
   seat: ISeat;
   onClick: MouseEventHandler<SVGSVGElement>;
-  hall?: IHall;
+  selection?: boolean;
 }

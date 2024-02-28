@@ -1,3 +1,4 @@
+import { ILegend } from "../components/Legend/Legend.interface";
 import { BreakPoint } from "../components/layout/Layout.interface";
 
 export class Utils {

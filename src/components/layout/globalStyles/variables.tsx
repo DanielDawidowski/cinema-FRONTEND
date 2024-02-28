@@ -20,6 +20,7 @@ export const themeGlobal = {
   orange: "#ff9100",
   yellow: "#ffee07",
   blue: "#4477CE",
+  blue_light: "#4f83dd",
   gradient: "linear-gradient(90deg, #ffcc00, #ff6600)",
   green: "#90BE6D",
   green_dark: "#4c8123",

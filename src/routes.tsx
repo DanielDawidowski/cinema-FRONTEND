@@ -15,11 +15,13 @@ import EditMovie from "./pages/admin/movie/edit/EditMovie";
 import CreateShow from "./pages/admin/show/create/CreateShow";
 import ShowList from "./pages/admin/show/list/ShowList";
 import EditShow from "./pages/admin/show/edit/EditShow";
+import Booking from "./pages/booking/Booking";
 
 export const AppRouter: FC = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/booking/:showId" element={<Booking />} />
       <Route path="/login" element={<AuthTabs />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password" element={<ResetPassword />} />

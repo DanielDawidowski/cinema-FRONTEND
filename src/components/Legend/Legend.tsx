@@ -6,8 +6,38 @@ import { SeatType } from "../../interfaces/hall/hall.interface";
 import { changeSeatType } from "../../redux-toolkit/reducers/hall/hall.reducer";
 import { useAppDispatch } from "../../redux-toolkit/hooks";
 import SeatSVG from "../../assets/svg/seatSVG";
+import { ILegend, ILegendProps } from "./Legend.interface";
 
-const Legend: FC = (): ReactElement => {
+const legends: ILegend[] = [
+  {
+    svg: <SeatSVG type={SeatType.standard} />,
+    name: "standard",
+    type: SeatType.standard,
+  },
+  {
+    svg: <SeatSVG type={SeatType.vip} />,
+    name: "VIP",
+    type: SeatType.vip,
+  },
+  {
+    svg: <SeatSVG type={SeatType.handicapped} />,
+    name: "handicapped",
+    type: SeatType.handicapped,
+  },
+  {
+    svg: <SeatSVG type={SeatType.exclusive} />,
+    name: "exclusive",
+    type: SeatType.exclusive,
+  },
+  {
+    svg: <SeatSVG type={SeatType.removed} />,
+    name: "removed",
+    type: SeatType.removed,
+  },
+];
+
+const Legend: FC<ILegendProps> = (props): ReactElement => {
+  const { flex = false } = props;
   const dispatch: Dispatch = useAppDispatch();
 
   const handleChangeType = (newType: SeatType) => {
@@ -15,30 +45,18 @@ const Legend: FC = (): ReactElement => {
   };
   return (
     <LegendStyles>
-      <LegendList>
-        <LegendListItem onClick={() => handleChangeType(SeatType.standard)}>
-          <SeatSVG type={SeatType.standard} />
-          <h4>standard</h4>
-        </LegendListItem>
-        <LegendListItem onClick={() => handleChangeType(SeatType.vip)}>
-          <SeatSVG
-            type={SeatType.vip}
-            onClick={() => handleChangeType(SeatType.vip)}
-          />
-          <h4>VIP</h4>
-        </LegendListItem>
-        <LegendListItem onClick={() => handleChangeType(SeatType.handicapped)}>
-          <SeatSVG type={SeatType.handicapped} />
-          <h4>handicapped</h4>
-        </LegendListItem>
-        <LegendListItem onClick={() => handleChangeType(SeatType.exclusive)}>
-          <SeatSVG type={SeatType.exclusive} />
-          <h4>exclusive</h4>
-        </LegendListItem>
-        <LegendListItem onClick={() => handleChangeType(SeatType.removed)}>
-          <SeatSVG type={SeatType.removed} />
-          <h4>remove</h4>
-        </LegendListItem>
+      <LegendList $flex={flex}>
+        {legends.map((legend: ILegend, i: number) =>
+          flex && legend.type === SeatType.removed ? null : (
+            <LegendListItem
+              $flex={flex}
+              onClick={() => handleChangeType(legend.type)}
+            >
+              {legend.svg}
+              <h4>{legend.name}</h4>
+            </LegendListItem>
+          )
+        )}
       </LegendList>
     </LegendStyles>
   );

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { ILayout } from "./Layout.interface";
 
 export const LayoutStyles = styled.div<ILayout>`
@@ -6,9 +6,16 @@ export const LayoutStyles = styled.div<ILayout>`
   width: 100%;
 
   main {
-    margin-top: 15%;
-    @media (min-width: ${(props) => props.theme.breakpoint_small}) {
-      margin-top: 5%;
-    }
+    ${({ header }) =>
+      header
+        ? css`
+            margin-top: 15%;
+            @media (min-width: ${(props) => props.theme.breakpoint_small}) {
+              margin-top: 5%;
+            }
+          `
+        : css`
+            margin-top: 0;
+          `}
   }
 `;
