@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const FooterStyles = styled.footer`
   position: fixed;
@@ -6,19 +6,23 @@ export const FooterStyles = styled.footer`
   left: 0;
   background: ${(props) => props.theme.black_light};
   width: 100%;
-  padding: ${(props) => props.theme.size2} 0;
+  padding: ${(props) => props.theme.size1} 0;
   z-index: 9999;
 `;
 
 export const FooterInner = styled.footer`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
+  grid-template-areas: "leftBtn seats rightBtn";
+  width: 100%;
+  height: 80px;
 `;
 
-export const ButtonStep = styled.div`
-  display: flex;
+const ButtonStep = styled.div`
+  display: grid;
+  place-items: center;
   cursor: pointer;
+  height: 64px;
+
   svg {
     width: 30px;
     height: 30px;
@@ -27,13 +31,43 @@ export const ButtonStep = styled.div`
   }
 `;
 
-export const SelectedSeats = styled.div`
-  display: grid;
+export const LeftButton = styled(ButtonStep)`
+  grid-area: leftBtn;
+  display: flex;
+  justify-content: flex-start;
 `;
 
-export const Seats = styled.ul`
+export const RightButton = styled(ButtonStep)`
+  grid-area: rightBtn;
   display: flex;
-  margin: 4px 0;
+  justify-content: flex-end;
+`;
+
+export const SelectedSeats = styled.div`
+  display: grid;
+  grid-area: seats;
+  grid-template-areas:
+    "selected"
+    "info";
+  height: 80px;
+  width: 100%;
+`;
+
+export const Seats = styled.ul<{ $limit: boolean }>`
+  display: flex;
+  justify-content: center;
+  grid-area: selected;
+  height: 60px;
+  border-radius: 4px;
+  padding: 4px 0;
+  ${({ $limit }) =>
+    $limit
+      ? css`
+          border: 1px solid ${(props) => props.theme.red};
+        `
+      : css`
+          border: none;
+        `}
 `;
 
 export const SelectedSeatItem = styled.li`
@@ -42,12 +76,13 @@ export const SelectedSeatItem = styled.li`
 `;
 
 export const SelectedSeatsInfo = styled.div`
+  grid-area: info;
   display: flex;
   justify-content: center;
-  background: ${(props) => props.theme.red};
   border-radius: 4px;
+  height: 20px;
 
   h6 {
-    color: ${(props) => props.theme.white};
+    color: ${(props) => props.theme.red};
   }
 `;

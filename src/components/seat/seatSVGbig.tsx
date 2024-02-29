@@ -1,19 +1,13 @@
 import React, { ReactElement } from "react";
-import type { FC, MouseEventHandler } from "react";
+import type { FC } from "react";
 import { motion } from "framer-motion";
 import PropTypes from "prop-types";
-import { SeatType, SeatTypes } from "../../interfaces/hall/hall.interface";
+import { SeatType } from "../../interfaces/hall/hall.interface";
 import { HallUtils } from "../../utils/hall-utils";
-import { themeGlobal } from "../../components/layout/globalStyles/variables";
+import { themeGlobal } from "../layout/globalStyles/variables";
+import { ISeatSVG } from "./seatSVG.interface";
 
-interface ISeatSVG {
-  type: SeatTypes;
-  selected?: boolean;
-  onClick?: MouseEventHandler<SVGSVGElement>;
-  selection?: boolean;
-}
-
-const SeatSVG: FC<ISeatSVG> = (props): ReactElement => {
+const SeatSVGbig: FC<ISeatSVG> = (props): ReactElement => {
   const {
     type = SeatType.standard,
     selected = null,
@@ -226,7 +220,7 @@ const SeatSVG: FC<ISeatSVG> = (props): ReactElement => {
   );
 };
 
-SeatSVG.propTypes = {
+SeatSVGbig.propTypes = {
   type: PropTypes.oneOf([
     SeatType.standard,
     SeatType.exclusive,
@@ -237,4 +231,4 @@ SeatSVG.propTypes = {
   selected: PropTypes.bool,
 };
 
-export default SeatSVG;
+export default SeatSVGbig;

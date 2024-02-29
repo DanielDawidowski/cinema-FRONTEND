@@ -4,17 +4,18 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import { IoMdArrowRoundForward } from "react-icons/io";
 import type { Dispatch as ReduxDispatch } from "@reduxjs/toolkit";
 import {
-  ButtonStep,
   FooterStyles,
   FooterInner,
   Seats,
   SelectedSeatItem,
   SelectedSeats,
   SelectedSeatsInfo,
+  LeftButton,
+  RightButton,
 } from "./Footer.styles";
 import { Container } from "../../../components/layout/globalStyles/global.styles";
 import { ISeat } from "../../../interfaces/hall/hall.interface";
-import SeatSVG from "../../../assets/svg/seatSVG";
+import SeatSVG from "../../../components/seat/seatSVG";
 import Button from "../../../components/button/Button";
 import { ButtonColor } from "../../../components/button/Button.interface";
 import { setSelectedSeat } from "../../../redux-toolkit/reducers/hall/hall.reducer";
@@ -48,16 +49,18 @@ const Footer: FC<IFooter> = (props): ReactElement => {
     <FooterStyles>
       <Container>
         <FooterInner>
-          <ButtonStep onClick={prevStep}>
+          <LeftButton onClick={prevStep}>
             <IoMdArrowRoundBack />
-          </ButtonStep>
+          </LeftButton>
           <SelectedSeats>
             {selectedSeats.length === 10 ? (
               <SelectedSeatsInfo>
                 <h6>max 10 seats</h6>
               </SelectedSeatsInfo>
-            ) : null}
-            <Seats>
+            ) : (
+              <SelectedSeatsInfo></SelectedSeatsInfo>
+            )}
+            <Seats $limit={selectedSeats.length === 10}>
               {selectedSeats.map((seat: ISeat, i: number) => (
                 <SelectedSeatItem key={i} onClick={() => handleSeat(seat)}>
                   <SeatSVG type={seat.type} />
@@ -65,12 +68,12 @@ const Footer: FC<IFooter> = (props): ReactElement => {
               ))}
             </Seats>
           </SelectedSeats>
-          <ButtonStep onClick={nextStep}>
+          <RightButton onClick={nextStep}>
             <Button color={ButtonColor.secondary}>
               <h4>Next Step</h4>
               <IoMdArrowRoundForward />
             </Button>
-          </ButtonStep>
+          </RightButton>
         </FooterInner>
       </Container>
     </FooterStyles>

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { LegendStyles } from "../../../components/Legend/Legend.styles";
+import { LegendStyles } from "../../../components/legend/Legend.styles";
 
 export const SelectionStyles = styled.div`
   display: grid;

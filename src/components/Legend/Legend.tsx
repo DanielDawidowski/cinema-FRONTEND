@@ -5,7 +5,7 @@ import { LegendList, LegendListItem, LegendStyles } from "./Legend.styles";
 import { SeatType } from "../../interfaces/hall/hall.interface";
 import { changeSeatType } from "../../redux-toolkit/reducers/hall/hall.reducer";
 import { useAppDispatch } from "../../redux-toolkit/hooks";
-import SeatSVG from "../../assets/svg/seatSVG";
+import SeatSVG from "../seat/seatSVG";
 import { ILegend, ILegendProps } from "./Legend.interface";
 
 const legends: ILegend[] = [
@@ -41,7 +41,9 @@ const Legend: FC<ILegendProps> = (props): ReactElement => {
   const dispatch: Dispatch = useAppDispatch();
 
   const handleChangeType = (newType: SeatType) => {
-    dispatch(changeSeatType({ newType }));
+    if (!flex) {
+      dispatch(changeSeatType({ newType }));
+    }
   };
   return (
     <LegendStyles>

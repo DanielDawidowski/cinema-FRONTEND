@@ -8,7 +8,7 @@ import { setSelectedSeat } from "../../../redux-toolkit/reducers/hall/hall.reduc
 import { useAppDispatch, useAppSelector } from "../../../redux-toolkit/hooks";
 import { HallUtils } from "../../../utils/hall-utils";
 import { Screen, SelectionSeats, SelectionStyles } from "./Selection.styles";
-import Legend from "../../../components/Legend/Legend";
+import Legend from "../../../components/legend/Legend";
 import Movie from "../movie/Movie";
 
 interface ISelection {

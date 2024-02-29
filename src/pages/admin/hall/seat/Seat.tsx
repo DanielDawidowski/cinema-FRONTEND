@@ -5,7 +5,7 @@ import {
   SeatType,
 } from "../../../../interfaces/hall/hall.interface";
 import { useAppSelector } from "../../../../redux-toolkit/hooks";
-import SeatSVG from "../../../../assets/svg/seatSVG";
+import SeatSVG from "../../../../components/seat/seatSVG";
 
 const Seat: FC<ISeatProps> = ({
   seat,

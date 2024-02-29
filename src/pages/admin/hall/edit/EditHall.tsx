@@ -38,7 +38,7 @@ import {
   Flex,
   Line,
 } from "../../../../components/layout/globalStyles/global.styles";
-import Legend from "../../../../components/Legend/Legend";
+import Legend from "../../../../components/legend/Legend";
 import { HallUtils } from "../../../../utils/hall-utils";
 import useEffectOnce from "../../../../hooks/useEffectOnce";
 
