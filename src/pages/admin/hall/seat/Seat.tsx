@@ -1,9 +1,6 @@
 import React, { ReactElement } from "react";
 import type { FC } from "react";
-import {
-  ISeatProps,
-  SeatType,
-} from "../../../../interfaces/hall/hall.interface";
+import { ISeatProps } from "../../../../interfaces/hall/hall.interface";
 import { useAppSelector } from "../../../../redux-toolkit/hooks";
 import SeatSVG from "../../../../components/seat/seatSVG";
 
@@ -11,6 +8,7 @@ const Seat: FC<ISeatProps> = ({
   seat,
   onClick,
   selection = false,
+  totalColumns,
 }): ReactElement | null => {
   const { selectedSeats } = useAppSelector((state) => state.hall);
 
@@ -19,7 +17,13 @@ const Seat: FC<ISeatProps> = ({
   );
 
   return selection ? (
-    <SeatSVG selected={selected} type={seat.type} onClick={onClick} selection />
+    <SeatSVG
+      selected={selected}
+      type={seat.type}
+      onClick={onClick}
+      selection
+      small={totalColumns! > 19}
+    />
   ) : (
     <SeatSVG selected={selected} type={seat.type} onClick={onClick} />
   );

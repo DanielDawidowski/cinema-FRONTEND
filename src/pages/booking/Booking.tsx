@@ -25,6 +25,7 @@ import { showService } from "../../services/api/show/show.service";
 import { IShow } from "../../interfaces/show/show.interface";
 import useEffectOnce from "../../hooks/useEffectOnce";
 import Footer from "./footer/Footer";
+import Tickets from "./tickets/Tickets";
 
 const Booking: FC = (): ReactElement => {
   const [currentStep, setCurrentStep] = useState<number>(1);
@@ -72,13 +73,13 @@ const Booking: FC = (): ReactElement => {
         </StepHeader>
         <StepContainer $currentStep={currentStep} $step={1}>
           <Container>
-            <Selection hallId={show.hall} movieId={show.movie} />
+            <Selection show={show} />
           </Container>
         </StepContainer>
         <StepContainer $currentStep={currentStep} $step={2}>
-          {/* Step 2: Contact Information */}
-          {/* Add your form fields here */}
-          <h2>Step 2: Tickets</h2>
+          <Container>
+            <Tickets />
+          </Container>
         </StepContainer>
 
         <StepContainer $currentStep={currentStep} $step={3}>

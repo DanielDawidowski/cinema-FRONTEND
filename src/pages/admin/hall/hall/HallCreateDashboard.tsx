@@ -100,16 +100,6 @@ const HallCreateDashboard: FC<ICreateHall> = ({
           <Seat key={i} seat={seat} onClick={() => handleSeat(seat)} />
         ))}
       </HallDashboard>
-      {/* <HallDashboard $rows={hallRows} $columns={hallColumns}>
-        {hall?.seats?.map((seat: ISeat, i) => (
-          <Seat
-            key={i}
-            seat={seat}
-            onClick={() => handleSeat(seat)}
-            hall={hall}
-          />
-        ))}
-      </HallDashboard> */}
     </Dashboard>
   );
 };

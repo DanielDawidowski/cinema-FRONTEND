@@ -52,24 +52,29 @@ const Footer: FC<IFooter> = (props): ReactElement => {
           <LeftButton onClick={prevStep}>
             <IoMdArrowRoundBack />
           </LeftButton>
-          <SelectedSeats>
-            {selectedSeats.length === 10 ? (
-              <SelectedSeatsInfo>
-                <h6>max 10 seats</h6>
-              </SelectedSeatsInfo>
-            ) : (
-              <SelectedSeatsInfo></SelectedSeatsInfo>
-            )}
-            <Seats $limit={selectedSeats.length === 10}>
-              {selectedSeats.map((seat: ISeat, i: number) => (
-                <SelectedSeatItem key={i} onClick={() => handleSeat(seat)}>
-                  <SeatSVG type={seat.type} />
-                </SelectedSeatItem>
-              ))}
-            </Seats>
-          </SelectedSeats>
+          {currentStep === 1 ? (
+            <SelectedSeats>
+              <Seats $limit={selectedSeats.length === 10}>
+                {selectedSeats.map((seat: ISeat, i: number) => (
+                  <SelectedSeatItem key={i} onClick={() => handleSeat(seat)}>
+                    <SeatSVG type={seat.type} />
+                  </SelectedSeatItem>
+                ))}
+              </Seats>
+              {selectedSeats.length === 10 ? (
+                <SelectedSeatsInfo>
+                  <h6>max 10 seats</h6>
+                </SelectedSeatsInfo>
+              ) : (
+                <SelectedSeatsInfo></SelectedSeatsInfo>
+              )}
+            </SelectedSeats>
+          ) : null}
           <RightButton onClick={nextStep}>
-            <Button color={ButtonColor.secondary}>
+            <Button
+              color={ButtonColor.secondary}
+              disabled={selectedSeats.length === 0}
+            >
               <h4>Next Step</h4>
               <IoMdArrowRoundForward />
             </Button>

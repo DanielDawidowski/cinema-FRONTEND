@@ -93,6 +93,10 @@ const ShowList: FC = (): ReactElement => {
     getAllMovies();
   }, [getAllShows, getAllMovies]);
 
+  useEffect(() => {
+    console.log("shows", shows);
+  }, [shows]);
+
   return (
     <Layout>
       <Container>

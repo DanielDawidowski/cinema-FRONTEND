@@ -4,21 +4,23 @@ import type { Dispatch as ReduxDispatch } from "@reduxjs/toolkit";
 import { IHall, ISeat } from "../../../interfaces/hall/hall.interface";
 import { hallService } from "../../../services/api/hall/hall.service";
 import Seat from "../../admin/hall/seat/Seat";
-import { setSelectedSeat } from "../../../redux-toolkit/reducers/hall/hall.reducer";
+import {
+  resetSelectedSeats,
+  setSelectedSeat,
+  setSmallSize,
+} from "../../../redux-toolkit/reducers/hall/hall.reducer";
 import { useAppDispatch, useAppSelector } from "../../../redux-toolkit/hooks";
 import { HallUtils } from "../../../utils/hall-utils";
 import { Screen, SelectionSeats, SelectionStyles } from "./Selection.styles";
 import Legend from "../../../components/legend/Legend";
 import Movie from "../movie/Movie";
+import { IShow } from "../../../interfaces/show/show.interface";
 
 interface ISelection {
-  hallId?: string;
-  movieId?: string;
+  show: IShow;
 }
 
-const Selection: FC<ISelection> = (props): ReactElement => {
-  const { hallId, movieId } = props;
-
+const Selection: FC<ISelection> = ({ show }): ReactElement => {
   const [seats, setSeats] = useState<ISeat[]>([] as ISeat[]);
   const [hall, setHall] = useState<IHall>({} as IHall);
 
@@ -27,12 +29,12 @@ const Selection: FC<ISelection> = (props): ReactElement => {
 
   const getHall = useCallback(async () => {
     try {
-      const response = await hallService.getHall(hallId as string);
+      const response = await hallService.getHall(show.hall as string);
       setHall(response.data.hall);
     } catch (error) {
       console.error(error);
     }
-  }, [hallId]);
+  }, [show.hall]);
 
   const handleSeat = (seat: ISeat) => {
     if (selectedSeats.length < 10) {
@@ -52,7 +54,12 @@ const Selection: FC<ISelection> = (props): ReactElement => {
 
   useEffect(() => {
     setSeats(hall.seats);
-  }, [hall.seats]);
+  }, [hall.seats, show.hall]);
+
+  useEffect(() => {
+    dispatch(resetSelectedSeats());
+    dispatch(setSmallSize({ column: hallColumns }));
+  }, [dispatch, hallRows, hallColumns]);
 
   return (
     <SelectionStyles>
@@ -64,11 +71,12 @@ const Selection: FC<ISelection> = (props): ReactElement => {
             seat={seat}
             onClick={() => handleSeat(seat)}
             selection
+            totalColumns={hallColumns!}
           />
         ))}
       </SelectionSeats>
       <Legend flex />
-      <Movie movieId={movieId!} hall={hall} />
+      <Movie movieId={show.movie} hall={hall} time={show.time} />
     </SelectionStyles>
   );
 };

@@ -7,13 +7,16 @@ import { BreakPoint } from "../layout/Layout.interface";
 import SeatSVGbig from "./seatSVGbig";
 import SeatSVGsmall from "./seatSVGsmall";
 import { ISeatSVG } from "./seatSVG.interface";
+import { useAppSelector } from "../../redux-toolkit/hooks";
 
 const SeatSVG: FC<ISeatSVG> = (props): ReactElement => {
   const { type, selected, onClick, selection } = props;
 
+  const { smallSize } = useAppSelector((state) => state.hall);
+
   const size = useWindowSize();
 
-  return size.width > BreakPoint.small ? (
+  return size.width > BreakPoint.small && !smallSize ? (
     <SeatSVGbig
       type={type}
       selected={selected}

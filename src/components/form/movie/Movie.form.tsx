@@ -199,10 +199,10 @@ const MovieForm: FC<ICreateMovieForm> = (props): ReactElement => {
         {actors.length > 0 && (
           <FormItemStyles>
             <ul>
-              {actors.map((attr: string, i: number) => (
+              {actors.map((actor: string, i: number) => (
                 <FormList key={i}>
                   <Flex $align="center" $justify="space-between">
-                    <h4>{attr}</h4>
+                    <h4>{actor}</h4>
                     <AiFillDelete onClick={() => deleteActor(i)} />
                   </Flex>
                 </FormList>

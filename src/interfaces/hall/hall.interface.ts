@@ -45,4 +45,5 @@ export interface ISeatProps {
   seat: ISeat;
   onClick: MouseEventHandler<SVGSVGElement>;
   selection?: boolean;
+  totalColumns?: number;
 }

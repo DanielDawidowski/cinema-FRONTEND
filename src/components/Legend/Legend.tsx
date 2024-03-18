@@ -46,7 +46,7 @@ const Legend: FC<ILegendProps> = (props): ReactElement => {
     }
   };
   return (
-    <LegendStyles>
+    <LegendStyles $flex={flex}>
       <LegendList $flex={flex}>
         {legends.map((legend: ILegend, i: number) =>
           flex && legend.type === SeatType.removed ? null : (

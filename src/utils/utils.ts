@@ -1,6 +1,21 @@
 import { BreakPoint } from "../components/layout/Layout.interface";
+import { SeatType, SeatTypes } from "../interfaces/hall/hall.interface";
+import {
+  ITicketType,
+  ITicketTypes,
+} from "../interfaces/ticket/Ticket.interface";
 
 export class Utils {
+  static generateString(length: number): string {
+    const characters = "abcdefghijklmnopqrstuvwxyz0123456789";
+    let result = "";
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+
   static emitNumber = (windowSize: number): number => {
     switch (true) {
       case BreakPoint.small > windowSize:
@@ -36,6 +51,43 @@ export class Utils {
 
       requestAnimationFrame(scrollAnimation);
     }
+  };
+
+  static emitPrice = (name: SeatTypes): number => {
+    switch (name) {
+      case SeatType.standard:
+        return 10;
+      case SeatType.exclusive:
+        return 14;
+      case SeatType.vip:
+        return 18;
+      case SeatType.handicapped:
+        return 10;
+      default:
+        return 10;
+    }
+  };
+
+  static calculateTicketPrice = (type: SeatTypes, price: number): number => {
+    const ticketPrice: number = Utils.emitPrice(type);
+    const discountPrice: number = ticketPrice + price;
+    return discountPrice;
+  };
+
+  static emitTicketDiscount = (type: ITicketTypes): number => {
+    switch (type) {
+      case ITicketType.standard:
+        return 0;
+      case ITicketType.student:
+        return 4;
+      default:
+        return 0;
+    }
+  };
+
+  static emitTicketPrice = (seat: SeatTypes, type: ITicketTypes): number => {
+    const total = Utils.emitPrice(seat) - Utils.emitTicketDiscount(type);
+    return total;
   };
 }
 

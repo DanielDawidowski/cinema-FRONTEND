@@ -156,7 +156,8 @@ const EditHall: FC = (): ReactElement => {
 
   useEffect(() => {
     HallUtils.changeOrientation();
-  }, []);
+    console.log("hall", hall);
+  }, [hall]);
 
   return (
     <Layout>

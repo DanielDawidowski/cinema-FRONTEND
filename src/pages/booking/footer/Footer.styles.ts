@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { ButtonStyles } from "../../../components/button/Button.styles";
 
 export const FooterStyles = styled.footer`
   position: fixed;
@@ -14,60 +15,92 @@ export const FooterInner = styled.footer`
   display: grid;
   grid-template-areas: "leftBtn seats rightBtn";
   width: 100%;
-  height: 80px;
+  height: 40px;
+  @media (min-width: ${(props) => props.theme.breakpoint_small}) {
+    height: 80px;
+  }
 `;
 
 const ButtonStep = styled.div`
   display: grid;
   place-items: center;
   cursor: pointer;
-  height: 64px;
+
+  @media (min-width: ${(props) => props.theme.breakpoint_small}) {
+    height: 64px;
+  }
 
   svg {
     width: 30px;
     height: 30px;
     padding: 4px;
-    margin-left: 8px;
+    @media (min-width: ${(props) => props.theme.breakpoint_small}) {
+      margin-left: 8px;
+    }
+  }
+
+  h4 {
+    display: none;
+    @media (min-width: ${(props) => props.theme.breakpoint_small}) {
+      display: block;
+    }
   }
 `;
 
 export const LeftButton = styled(ButtonStep)`
   grid-area: leftBtn;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
+  @media (min-width: ${(props) => props.theme.breakpoint_small}) {
+    justify-content: flex-start;
+  }
 `;
 
 export const RightButton = styled(ButtonStep)`
   grid-area: rightBtn;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+  @media (min-width: ${(props) => props.theme.breakpoint_small}) {
+    justify-content: flex-end;
+  }
+
+  ${ButtonStyles} {
+    height: 30px;
+    @media (min-width: ${(props) => props.theme.breakpoint_small}) {
+      height: 50px;
+    }
+  }
 `;
 
 export const SelectedSeats = styled.div`
   display: grid;
   grid-area: seats;
-  grid-template-areas:
-    "selected"
-    "info";
-  height: 80px;
+  position: relative;
+  height: 100%;
   width: 100%;
+  @media (min-width: ${(props) => props.theme.breakpoint_small}) {
+    height: 80px;
+  }
 `;
 
 export const Seats = styled.ul<{ $limit: boolean }>`
   display: flex;
   justify-content: center;
-  grid-area: selected;
-  height: 60px;
   border-radius: 4px;
   padding: 4px 0;
   ${({ $limit }) =>
     $limit
       ? css`
           border: 1px solid ${(props) => props.theme.red};
+          height: 100%;
         `
       : css`
           border: none;
+          height: 0%;
         `}
+  @media (min-width: ${(props) => props.theme.breakpoint_small}) {
+    height: 60px;
+  }
 `;
 
 export const SelectedSeatItem = styled.li`
@@ -76,11 +109,14 @@ export const SelectedSeatItem = styled.li`
 `;
 
 export const SelectedSeatsInfo = styled.div`
-  grid-area: info;
-  display: flex;
-  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  left: 40%;
   border-radius: 4px;
-  height: 20px;
+  @media (min-width: ${(props) => props.theme.breakpoint_small}) {
+    bottom: 5%;
+    left: 40%;
+  }
 
   h6 {
     color: ${(props) => props.theme.red};

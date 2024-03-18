@@ -9,18 +9,23 @@ export const SelectionStyles = styled.div`
     "seats"
     "legend";
   grid-template-columns: 1fr;
-  grid-column-gap: 50px;
   grid-row-gap: 50px;
+  margin-left: ${(props) => props.theme.size1};
+  margin-right: ${(props) => props.theme.size1};
   margin-bottom: 30%;
+
   ${LegendStyles} {
     grid-area: legend;
   }
+
   @media (min-width: ${(props) => props.theme.breakpoint_small}) {
     grid-template-areas:
       "screen movie"
       "seats movie"
       "legend movie";
     grid-template-columns: 75% 15%;
+    grid-column-gap: 50px;
+    margin-bottom: 20%;
   }
 `;
 

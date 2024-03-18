@@ -4,11 +4,13 @@ import { ISeat, SeatTypes } from "../../../interfaces/hall/hall.interface";
 interface IHallReducer {
   seats: ISeat[];
   selectedSeats: ISeat[];
+  smallSize: boolean;
 }
 
 const initialState: IHallReducer = {
   seats: [],
   selectedSeats: [],
+  smallSize: false,
 };
 
 const hallSlice = createSlice({
@@ -106,6 +108,19 @@ const hallSlice = createSlice({
         seats: generatedSeats,
       };
     },
+    resetSelectedSeats: (state) => {
+      state.selectedSeats = [];
+    },
+    setSmallSize: (state, action: PayloadAction<{ column: number }>) => {
+      const { column } = action.payload;
+      const columnLimit = column > 19;
+      const size = columnLimit ? true : false;
+
+      return {
+        ...state,
+        smallSize: size,
+      };
+    },
   },
 });
 
@@ -115,5 +130,7 @@ export const {
   setSeats,
   selectRow,
   selectColumn,
+  resetSelectedSeats,
+  setSmallSize,
 } = hallSlice.actions;
 export default hallSlice.reducer;

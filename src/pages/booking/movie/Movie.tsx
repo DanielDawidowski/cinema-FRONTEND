@@ -9,10 +9,11 @@ import { Line } from "../../../components/layout/globalStyles/global.styles";
 interface IMovieProps {
   movieId: string;
   hall: IHall;
+  time: string;
 }
 
 const Movie: FC<IMovieProps> = (props): ReactElement => {
-  const { movieId, hall } = props;
+  const { movieId, hall, time } = props;
   const [movie, setMovie] = useState<IMovie>({} as IMovie);
 
   const getMovie = useCallback(async () => {
@@ -28,6 +29,10 @@ const Movie: FC<IMovieProps> = (props): ReactElement => {
     getMovie();
   }, [getMovie]);
 
+  useEffect(() => {
+    console.log("movie", movie);
+  }, [movie]);
+
   return (
     <MovieStyles>
       <img src={movie.img} alt={movie.name} />
@@ -42,6 +47,10 @@ const Movie: FC<IMovieProps> = (props): ReactElement => {
           <tr>
             <td>hall</td>
             <td>{hall.hallNumber}</td>
+          </tr>
+          <tr>
+            <td>time</td>
+            <td>{time}</td>
           </tr>
         </tbody>
       </table>

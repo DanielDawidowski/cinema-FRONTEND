@@ -6,4 +6,5 @@ export interface ISeatSVG {
   selected?: boolean;
   onClick?: MouseEventHandler<SVGSVGElement>;
   selection?: boolean;
+  small?: boolean;
 }
