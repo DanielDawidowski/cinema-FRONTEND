@@ -2,13 +2,20 @@ import React, { useState, useEffect } from "react";
 import type { FC, ReactElement } from "react";
 import type { Dispatch as ReduxDispatch } from "@reduxjs/toolkit";
 import { useAppDispatch, useAppSelector } from "../../../redux-toolkit/hooks";
-import { TicketItem, TicketsStyles } from "./Tickets.styles";
-import { ISeat, SeatTypes } from "../../../interfaces/hall/hall.interface";
+import {
+  TicketContent,
+  TicketHeader,
+  TicketItem,
+  TicketItemInner,
+  TicketTitle,
+  TicketsStyles,
+  TotalPrice,
+} from "./Tickets.styles";
+import { SeatTypes } from "../../../interfaces/hall/hall.interface";
 import SeatSVG from "../../../components/seat/seatSVG";
 import { Utils } from "../../../utils/utils";
 import {
   ITicket,
-  ITicketType,
   ITicketTypes,
   ticketsArr,
 } from "../../../interfaces/ticket/Ticket.interface";
@@ -17,11 +24,11 @@ import {
   editPrice,
   setTicket,
 } from "../../../redux-toolkit/reducers/ticket/ticket.reduer";
+import { themeGlobal } from "../../../components/layout/globalStyles/variables";
 
 const Tickets: FC = (): ReactElement => {
   const { selectedSeats } = useAppSelector((state) => state.hall);
   const { ticket } = useAppSelector((state) => state.ticket);
-  const [totalPrice, setTotalPrice] = useState<number>();
   const [selectedId, setSelectedId] = useState<string>("");
 
   const dispatch: ReduxDispatch = useAppDispatch();
@@ -45,24 +52,36 @@ const Tickets: FC = (): ReactElement => {
       )
     );
   }, [selectedSeats, dispatch]);
-
   console.log("ticket", ticket);
-  console.log("selectedSeats", selectedSeats);
   return (
     <TicketsStyles>
-      {selectedSeats.map((seat: ISeat, i: number) => (
+      {ticket.map((seat: ITicket) => (
         <TicketItem key={seat._id}>
-          <h6>{`Row ${seat.row} Seat ${seat.seat}`}</h6>
-          <SeatSVG type={seat.type} />
-          <div onClick={() => handleId(seat._id!)}>
-            <Radio
-              options={ticketsArr}
-              onChange={handleOptionChange}
-              seat={seat.type}
-            />
-          </div>
+          <TicketItemInner>
+            <TicketHeader>
+              <SeatSVG type={seat.type} />
+              <TicketTitle>
+                <h4>Row</h4>
+                <h3>{seat.row}</h3>
+                <h4>Seat</h4>
+                <h3>{seat.seat}</h3>
+              </TicketTitle>
+            </TicketHeader>
+            <TicketContent onClick={() => handleId(seat._id!)}>
+              <Radio
+                options={ticketsArr}
+                onChange={handleOptionChange}
+                seat={seat.type}
+              />
+              <span style={{ color: themeGlobal.orange }}>{seat.price} $</span>
+            </TicketContent>
+          </TicketItemInner>
         </TicketItem>
       ))}
+      <TotalPrice>
+        <h4>Total:</h4>
+        <h3>{Utils.calculatePrice(ticket)} $</h3>
+      </TotalPrice>
     </TicketsStyles>
   );
 };

@@ -4,7 +4,6 @@ import { LegendStyles } from "../../../components/legend/Legend.styles";
 export const SelectionStyles = styled.div`
   display: grid;
   grid-template-areas:
-    "movie"
     "screen"
     "seats"
     "legend";
@@ -20,11 +19,9 @@ export const SelectionStyles = styled.div`
 
   @media (min-width: ${(props) => props.theme.breakpoint_small}) {
     grid-template-areas:
-      "screen movie"
-      "seats movie"
-      "legend movie";
-    grid-template-columns: 75% 15%;
-    grid-column-gap: 50px;
+      "screen"
+      "seats"
+      "legend";
     margin-bottom: 20%;
   }
 `;

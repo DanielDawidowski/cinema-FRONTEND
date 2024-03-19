@@ -36,10 +36,24 @@ export const StepMenuItem = styled.div<{ $step: boolean }>`
   }
 `;
 
+export const StepContent = styled.div`
+  display: grid;
+  grid-template-areas:
+    "movie"
+    "container";
+  @media (min-width: ${(props) => props.theme.breakpoint_small}) {
+    grid-template-areas: "container movie";
+    grid-template-columns: 75% 15%;
+    grid-column-gap: 50px;
+    margin-bottom: 20%;
+  }
+`;
+
 export const StepContainer = styled.div<{
   $currentStep: number;
   $step: number;
 }>`
+  grid-area: container;
   display: ${(props) =>
     props.$currentStep === props.$step ? "block" : "none"};
 `;

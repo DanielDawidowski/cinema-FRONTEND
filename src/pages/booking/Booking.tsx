@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import type { FC, ReactElement } from "react";
 import { useParams } from "react-router-dom";
 import {
@@ -13,6 +13,7 @@ import {
   StepMenu,
   StepMenuItem,
   StepContainer,
+  StepContent,
 } from "./Booking.styles";
 import Layout from "../../components/layout/Layout";
 import Logo from "../../components/logo/Logo";
@@ -23,15 +24,27 @@ import {
 import Selection from "./Selection/Selection";
 import { showService } from "../../services/api/show/show.service";
 import { IShow } from "../../interfaces/show/show.interface";
-import useEffectOnce from "../../hooks/useEffectOnce";
 import Footer from "./footer/Footer";
 import Tickets from "./tickets/Tickets";
+import Movie from "./movie/Movie";
+import { IHall } from "../../interfaces/hall/hall.interface";
+import { hallService } from "../../services/api/hall/hall.service";
 
 const Booking: FC = (): ReactElement => {
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [show, setShow] = useState<IShow>({} as IShow);
+  const [hall, setHall] = useState<IHall>({} as IHall);
 
   const { showId } = useParams();
+
+  const getHall = useCallback(async () => {
+    try {
+      const response = await hallService.getHall(show.hall as string);
+      setHall(response.data.hall);
+    } catch (error) {
+      console.error(error);
+    }
+  }, [show.hall]);
 
   const getShow = useCallback(async () => {
     try {
@@ -42,9 +55,10 @@ const Booking: FC = (): ReactElement => {
     }
   }, [showId]);
 
-  useEffectOnce(() => {
+  useEffect(() => {
     getShow();
-  });
+    getHall();
+  }, [getShow, getHall]);
 
   return (
     <Layout header={false}>
@@ -71,28 +85,29 @@ const Booking: FC = (): ReactElement => {
             </StepMenu>
           </Container>
         </StepHeader>
-        <StepContainer $currentStep={currentStep} $step={1}>
-          <Container>
-            <Selection show={show} />
-          </Container>
-        </StepContainer>
-        <StepContainer $currentStep={currentStep} $step={2}>
-          <Container>
-            <Tickets />
-          </Container>
-        </StepContainer>
+        <Container>
+          <StepContent>
+            <StepContainer $currentStep={currentStep} $step={1}>
+              <Selection hall={hall} />
+            </StepContainer>
+            <StepContainer $currentStep={currentStep} $step={2}>
+              <Tickets />
+            </StepContainer>
 
-        <StepContainer $currentStep={currentStep} $step={3}>
-          {/* Step 3: Address Information */}
-          {/* Add your form fields here */}
-          <h2>Step 3: Information</h2>
-        </StepContainer>
+            <StepContainer $currentStep={currentStep} $step={3}>
+              {/* Step 3: Address Information */}
+              {/* Add your form fields here */}
+              <h2>Step 3: Information</h2>
+            </StepContainer>
 
-        <StepContainer $currentStep={currentStep} $step={4}>
-          {/* Step 4: Confirmation */}
-          <h2>Step 4: Payment</h2>
-          <p>Confirm your information</p>
-        </StepContainer>
+            <StepContainer $currentStep={currentStep} $step={4}>
+              {/* Step 4: Confirmation */}
+              <h2>Step 4: Payment</h2>
+              <p>Confirm your information</p>
+            </StepContainer>
+            <Movie movieId={show.movie} hall={hall} time={show.time} />
+          </StepContent>
+        </Container>
         <Footer currentStep={currentStep} setCurrentStep={setCurrentStep} />
       </BookingStyles>
     </Layout>

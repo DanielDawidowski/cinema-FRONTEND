@@ -1,8 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import {
-  ITicket,
-  ITicketTypes,
-} from "../../../interfaces/ticket/Ticket.interface";
+import { ITicket } from "../../../interfaces/ticket/Ticket.interface";
 import { Utils } from "../../../utils/utils";
 
 interface ITicketReducer {

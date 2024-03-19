@@ -1,6 +1,7 @@
 import { BreakPoint } from "../components/layout/Layout.interface";
 import { SeatType, SeatTypes } from "../interfaces/hall/hall.interface";
 import {
+  ITicket,
   ITicketType,
   ITicketTypes,
 } from "../interfaces/ticket/Ticket.interface";
@@ -88,6 +89,14 @@ export class Utils {
   static emitTicketPrice = (seat: SeatTypes, type: ITicketTypes): number => {
     const total = Utils.emitPrice(seat) - Utils.emitTicketDiscount(type);
     return total;
+  };
+
+  static calculatePrice = (ticket: ITicket[]): number => {
+    const totalPrice: number = ticket.reduce((accumulator, currentValue) => {
+      return accumulator + currentValue.price;
+    }, 0);
+
+    return totalPrice;
   };
 }
 
