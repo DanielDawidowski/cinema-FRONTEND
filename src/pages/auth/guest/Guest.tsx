@@ -4,7 +4,7 @@ import type { Dispatch as ReduxDispatch } from "@reduxjs/toolkit";
 
 import Input from "../../../components/input/Input";
 import { IGuest } from "../../../interfaces/auth/auth.interface";
-import { useAppDispatch, useAppSelector } from "../../../redux-toolkit/hooks";
+import { useAppDispatch } from "../../../redux-toolkit/hooks";
 import { addName } from "../../../redux-toolkit/reducers/ticket/ticket.reduer";
 
 const initialState: IGuest = {

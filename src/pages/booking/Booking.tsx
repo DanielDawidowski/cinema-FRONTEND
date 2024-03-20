@@ -30,6 +30,7 @@ import Movie from "./movie/Movie";
 import { IHall } from "../../interfaces/hall/hall.interface";
 import { hallService } from "../../services/api/hall/hall.service";
 import Information from "./information/Information";
+import Payment from "./payment/Payment";
 
 const Booking: FC = (): ReactElement => {
   const [currentStep, setCurrentStep] = useState<number>(1);
@@ -100,9 +101,7 @@ const Booking: FC = (): ReactElement => {
             </StepContainer>
 
             <StepContainer $currentStep={currentStep} $step={4}>
-              {/* Step 4: Confirmation */}
-              <h2>Step 4: Payment</h2>
-              <p>Confirm your information</p>
+              <Payment />
             </StepContainer>
             <Movie movieId={show.movie} hall={hall} time={show.time} />
           </StepContent>
