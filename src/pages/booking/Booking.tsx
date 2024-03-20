@@ -21,7 +21,7 @@ import {
   BookingStep,
   bookingSteps,
 } from "../../interfaces/booking/booking.interface";
-import Selection from "./Selection/Selection";
+import Selection from "./selection/Selection";
 import { showService } from "../../services/api/show/show.service";
 import { IShow } from "../../interfaces/show/show.interface";
 import Footer from "./footer/Footer";
@@ -29,6 +29,7 @@ import Tickets from "./tickets/Tickets";
 import Movie from "./movie/Movie";
 import { IHall } from "../../interfaces/hall/hall.interface";
 import { hallService } from "../../services/api/hall/hall.service";
+import Information from "./information/Information";
 
 const Booking: FC = (): ReactElement => {
   const [currentStep, setCurrentStep] = useState<number>(1);
@@ -95,9 +96,7 @@ const Booking: FC = (): ReactElement => {
             </StepContainer>
 
             <StepContainer $currentStep={currentStep} $step={3}>
-              {/* Step 3: Address Information */}
-              {/* Add your form fields here */}
-              <h2>Step 3: Information</h2>
+              <Information />
             </StepContainer>
 
             <StepContainer $currentStep={currentStep} $step={4}>

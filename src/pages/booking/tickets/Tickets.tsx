@@ -21,7 +21,7 @@ import {
 } from "../../../interfaces/ticket/Ticket.interface";
 import Radio from "../../../components/radio/Radio";
 import {
-  editPrice,
+  addPrice,
   setTicket,
 } from "../../../redux-toolkit/reducers/ticket/ticket.reduer";
 import { themeGlobal } from "../../../components/layout/globalStyles/variables";
@@ -35,7 +35,7 @@ const Tickets: FC = (): ReactElement => {
 
   const handleOptionChange = (seat: SeatTypes, ticketType: ITicketTypes) => {
     const emitPrice = Utils.emitTicketPrice(seat, ticketType);
-    dispatch(editPrice({ selectedId, price: emitPrice }));
+    dispatch(addPrice({ selectedId, price: emitPrice }));
   };
 
   const handleId = (id: string) => {
@@ -52,7 +52,7 @@ const Tickets: FC = (): ReactElement => {
       )
     );
   }, [selectedSeats, dispatch]);
-  console.log("ticket", ticket);
+
   return (
     <TicketsStyles>
       {ticket.map((seat: ITicket) => (
@@ -79,7 +79,7 @@ const Tickets: FC = (): ReactElement => {
         </TicketItem>
       ))}
       <TotalPrice>
-        <h4>Total:</h4>
+        <h4>Total :</h4>
         <h3>{Utils.calculatePrice(ticket)} $</h3>
       </TotalPrice>
     </TicketsStyles>

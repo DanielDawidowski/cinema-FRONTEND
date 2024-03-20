@@ -1,13 +1,20 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { ITicket } from "../../../interfaces/ticket/Ticket.interface";
 import { Utils } from "../../../utils/utils";
+import { IGuest } from "../../../interfaces/auth/auth.interface";
 
 interface ITicketReducer {
   ticket: ITicket[];
+  user?: IGuest;
 }
 
 const initialState: ITicketReducer = {
   ticket: [],
+  user: {
+    name: "",
+    lastName: "",
+    email: "",
+  },
 };
 
 const ticketSlice = createSlice({
@@ -25,7 +32,7 @@ const ticketSlice = createSlice({
         })),
       };
     },
-    editPrice: (
+    addPrice: (
       state,
       action: PayloadAction<{ selectedId: string; price: number }>
     ) => {
@@ -40,8 +47,22 @@ const ticketSlice = createSlice({
         ticket: updatedTicket,
       };
     },
+    addName: (state, action: PayloadAction<{ user: IGuest }>) => {
+      const { user } = action.payload;
+
+      const newUser = {
+        name: user.name,
+        lastName: user.lastName,
+        email: user.email,
+      };
+
+      return {
+        ...state,
+        user: newUser,
+      };
+    },
   },
 });
 
-export const { setTicket, editPrice } = ticketSlice.actions;
+export const { setTicket, addPrice, addName } = ticketSlice.actions;
 export default ticketSlice.reducer;

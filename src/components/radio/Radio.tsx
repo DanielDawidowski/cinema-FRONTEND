@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { RadioOption, RadioProps } from "./Radio.interface";
+import { RadioProps } from "./Radio.interface";
 import {
   HiddenRadioInput,
   RadioContainer,
@@ -7,7 +7,10 @@ import {
   RadioText,
   StyledRadio,
 } from "./Radio.styles";
-import { ITicketTypes } from "../../interfaces/ticket/Ticket.interface";
+import {
+  ITicketType,
+  ITicketTypes,
+} from "../../interfaces/ticket/Ticket.interface";
 import { SeatTypes } from "../../interfaces/hall/hall.interface";
 
 const Radio: React.FC<RadioProps> = ({ options, onChange, seat }) => {
@@ -25,10 +28,20 @@ const Radio: React.FC<RadioProps> = ({ options, onChange, seat }) => {
           <HiddenRadioInput
             type="radio"
             value={option}
-            checked={selectedValue === option}
+            checked={
+              !selectedValue
+                ? option === ITicketType.standard
+                : selectedValue === option
+            }
             onChange={() => handleOptionChange(seat, option)}
           />
-          <StyledRadio $checked={selectedValue === option} />
+          <StyledRadio
+            $checked={
+              !selectedValue
+                ? option === ITicketType.standard
+                : selectedValue === option
+            }
+          />
           <RadioText
             $checked={selectedValue === option}
             whileHover={{ scale: 1.1 }}

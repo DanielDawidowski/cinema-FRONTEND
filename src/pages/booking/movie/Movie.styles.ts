@@ -16,7 +16,7 @@ export const MovieStyles = styled.div`
   @media (min-width: ${(props) => props.theme.breakpoint_small}) {
     margin: 0;
     border-bottom: none;
-    height: 60%;
+    height: 400px;
     display: grid;
     grid-template-areas:
       "img"

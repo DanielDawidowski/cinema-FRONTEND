@@ -19,7 +19,7 @@ export const HiddenRadioInput = styled.input`
   display: none;
 `;
 
-export const StyledRadio = styled(motion.div)<{ $checked: boolean }>`
+export const StyledRadio = styled(motion.div)<{ $checked: boolean | null }>`
   position: relative;
   width: 20px;
   height: 20px;
