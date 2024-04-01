@@ -27,6 +27,12 @@ const COLOR = {
       text-transform: capitalize;
       color: ${(props) => props.theme.black};
     }
+
+    h5 {
+      border-radius: 8px;
+      text-transform: capitalize;
+      color: ${(props) => props.theme.black};
+    }
   `,
   SUCCESS: css`
     border-radius: 8px;

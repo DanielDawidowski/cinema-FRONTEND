@@ -8,9 +8,9 @@ import { useAppDispatch } from "../../../redux-toolkit/hooks";
 import { addName } from "../../../redux-toolkit/reducers/ticket/ticket.reduer";
 
 const initialState: IGuest = {
-  name: "",
-  lastName: "",
-  email: "",
+  name: "Daniel",
+  lastName: "Dawid",
+  email: "dvds1987@gmail.com",
 };
 
 const Guest: FC = (): ReactElement => {
@@ -24,7 +24,7 @@ const Guest: FC = (): ReactElement => {
   };
 
   useEffect(() => {
-    dispatch(addName({ user: values }));
+    dispatch(addName({ name: values }));
   }, [dispatch, values]);
 
   return (

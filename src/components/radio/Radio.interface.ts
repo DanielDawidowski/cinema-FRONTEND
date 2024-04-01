@@ -1,5 +1,5 @@
 import { SeatTypes } from "../../interfaces/hall/hall.interface";
-import { ITicketTypes } from "../../interfaces/ticket/Ticket.interface";
+import { ITicketTypes } from "../../interfaces/ticket/ticket.interface";
 
 export interface RadioProps {
   options: ITicketTypes[];

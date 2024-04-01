@@ -16,6 +16,8 @@ import CreateShow from "./pages/admin/show/create/CreateShow";
 import ShowList from "./pages/admin/show/list/ShowList";
 import EditShow from "./pages/admin/show/edit/EditShow";
 import Booking from "./pages/booking/Booking";
+import Cancel from "./pages/booking/checkout/Cancel";
+import Success from "./pages/booking/checkout/Success";
 
 export const AppRouter: FC = () => {
   return (
@@ -97,6 +99,8 @@ export const AppRouter: FC = () => {
           </ProtectedRoute>
         }
       />
+      <Route path="/success" element={<Success />} />
+      <Route path="/cancel" element={<Cancel />} />
     </Routes>
   );
 };

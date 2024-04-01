@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import type { FC, ReactElement } from "react";
 import {
   PaymentStyles,
@@ -7,27 +7,24 @@ import {
   PaymentList,
   PaymentItem,
   Transaction,
+  Email,
 } from "./Payment.styles";
 import { TotalPrice } from "../tickets/Tickets.styles";
 import { Utils } from "../../../utils/utils";
 import { useAppSelector } from "../../../redux-toolkit/hooks";
-import { ITicket } from "../../../interfaces/ticket/Ticket.interface";
-import {
-  Flex,
-  Line,
-} from "../../../components/layout/globalStyles/global.styles";
-import { themeGlobal } from "../../../components/layout/globalStyles/variables";
+import { ITicket } from "../../../interfaces/ticket/ticket.interface";
+import { Flex } from "../../../components/layout/globalStyles/global.styles";
 
 const Payment: FC = (): ReactElement => {
-  const { ticket } = useAppSelector((state) => state.ticket);
+  const { seats, name } = useAppSelector((state) => state.ticket);
 
   return (
     <PaymentStyles>
       <PaymentInner>
         <Title>Control</Title>
         <PaymentList>
-          {ticket.map((seat: ITicket) => (
-            <>
+          {seats.map((seat: ITicket, i: number) => (
+            <div key={i}>
               <PaymentItem>
                 <Flex>
                   <h5>Row</h5>
@@ -39,17 +36,21 @@ const Payment: FC = (): ReactElement => {
                   <h4>{seat.price} $</h4>
                 </Flex>
               </PaymentItem>
-            </>
+            </div>
           ))}
         </PaymentList>
         <Transaction>
-          <h5 style={{ color: themeGlobal.white_1 }}>Transactions costs</h5>
-          <h5 style={{ color: themeGlobal.white_1 }}>0.50 $</h5>
+          <h5>Transactions costs</h5>
+          <h5>0.50 $</h5>
         </Transaction>
         <TotalPrice>
           <h4>Total :</h4>
-          <h3>{(Utils.calculatePrice(ticket) + 0.5).toFixed(2)} $</h3>
+          <h3>{(Utils.calculatePrice(seats) + 0.5).toFixed(2)} $</h3>
         </TotalPrice>
+        <Email>
+          <h5>You will receive a confirmation at this e-mail address</h5>
+          <h5>{name?.email}</h5>
+        </Email>
       </PaymentInner>
     </PaymentStyles>
   );

@@ -18,7 +18,7 @@ import {
   ITicket,
   ITicketTypes,
   ticketsArr,
-} from "../../../interfaces/ticket/Ticket.interface";
+} from "../../../interfaces/ticket/ticket.interface";
 import Radio from "../../../components/radio/Radio";
 import {
   addPrice,
@@ -28,7 +28,7 @@ import { themeGlobal } from "../../../components/layout/globalStyles/variables";
 
 const Tickets: FC = (): ReactElement => {
   const { selectedSeats } = useAppSelector((state) => state.hall);
-  const { ticket } = useAppSelector((state) => state.ticket);
+  const { seats } = useAppSelector((state) => state.ticket);
   const [selectedId, setSelectedId] = useState<string>("");
 
   const dispatch: ReduxDispatch = useAppDispatch();
@@ -55,7 +55,7 @@ const Tickets: FC = (): ReactElement => {
 
   return (
     <TicketsStyles>
-      {ticket.map((seat: ITicket) => (
+      {seats.map((seat: ITicket) => (
         <TicketItem key={seat._id}>
           <TicketItemInner>
             <TicketHeader>
@@ -80,7 +80,7 @@ const Tickets: FC = (): ReactElement => {
       ))}
       <TotalPrice>
         <h4>Total :</h4>
-        <h3>{Utils.calculatePrice(ticket)} $</h3>
+        <h3>{Utils.calculatePrice(seats)} $</h3>
       </TotalPrice>
     </TicketsStyles>
   );

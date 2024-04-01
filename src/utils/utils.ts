@@ -4,7 +4,7 @@ import {
   ITicket,
   ITicketType,
   ITicketTypes,
-} from "../interfaces/ticket/Ticket.interface";
+} from "../interfaces/ticket/ticket.interface";
 
 export class Utils {
   static generateString(length: number): string {
@@ -97,6 +97,13 @@ export class Utils {
     }, 0);
 
     return totalPrice;
+  };
+
+  static omitId = (seatData?: ITicket[]): Omit<ITicket, "_id">[] => {
+    const seats: Omit<ITicket, "_id">[] | undefined = seatData?.map(
+      ({ _id, ...newObject }) => newObject
+    );
+    return seats as Omit<ITicket, "_id">[];
   };
 }
 

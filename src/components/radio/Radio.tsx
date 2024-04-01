@@ -10,7 +10,7 @@ import {
 import {
   ITicketType,
   ITicketTypes,
-} from "../../interfaces/ticket/Ticket.interface";
+} from "../../interfaces/ticket/ticket.interface";
 import { SeatTypes } from "../../interfaces/hall/hall.interface";
 
 const Radio: React.FC<RadioProps> = ({ options, onChange, seat }) => {

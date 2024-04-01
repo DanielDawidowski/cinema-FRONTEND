@@ -41,5 +41,15 @@ export const Transaction = styled.div`
 
   h5 {
     margin-right: ${(props) => props.theme.size1};
+    color: ${(props) => props.theme.white_1};
+  }
+`;
+
+export const Email = styled.div`
+  display: grid;
+  margin: ${(props) => props.theme.size1};
+
+  h5:first-child {
+    color: ${(props) => props.theme.white_1};
   }
 `;

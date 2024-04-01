@@ -1,16 +1,14 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { ITicket } from "../../../interfaces/ticket/Ticket.interface";
+import {
+  ITicket,
+  ITicketWithUser,
+} from "../../../interfaces/ticket/ticket.interface";
 import { Utils } from "../../../utils/utils";
 import { IGuest } from "../../../interfaces/auth/auth.interface";
 
-interface ITicketReducer {
-  ticket: ITicket[];
-  user?: IGuest;
-}
-
-const initialState: ITicketReducer = {
-  ticket: [],
-  user: {
+const initialState: ITicketWithUser = {
+  seats: [],
+  name: {
     name: "",
     lastName: "",
     email: "",
@@ -22,13 +20,13 @@ const ticketSlice = createSlice({
   initialState,
   reducers: {
     setTicket: (state, action: PayloadAction<ITicket[]>) => {
-      const tickets = action.payload;
+      const seats = action.payload;
 
       return {
         ...state,
-        ticket: tickets.map((ticket) => ({
-          ...ticket,
-          price: Utils.emitPrice(ticket.type),
+        seats: seats.map((seat) => ({
+          ...seat,
+          price: Utils.emitPrice(seat.type),
         })),
       };
     },
@@ -38,27 +36,27 @@ const ticketSlice = createSlice({
     ) => {
       const { selectedId, price } = action.payload;
 
-      const updatedTicket = state.ticket.map((t) =>
+      const updatedTicket = state.seats.map((t) =>
         t._id === selectedId ? { ...t, price: price } : t
       );
 
       return {
         ...state,
-        ticket: updatedTicket,
+        seats: updatedTicket,
       };
     },
-    addName: (state, action: PayloadAction<{ user: IGuest }>) => {
-      const { user } = action.payload;
+    addName: (state, action: PayloadAction<{ name: IGuest }>) => {
+      const { name } = action.payload;
 
-      const newUser = {
-        name: user.name,
-        lastName: user.lastName,
-        email: user.email,
+      const newName = {
+        name: name.name,
+        lastName: name.lastName,
+        email: name.email,
       };
 
       return {
         ...state,
-        user: newUser,
+        name: newName,
       };
     },
   },

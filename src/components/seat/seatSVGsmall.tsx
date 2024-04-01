@@ -35,7 +35,7 @@ const SeatSVGsmall: FC<ISeatSVG> = (props): ReactElement => {
             stroke={
               selected ? themeGlobal.orange : HallUtils.emitSeatTypeColor(type)
             }
-            stroke-width="0.2"
+            strokeWidth="0.2"
           />
 
           <path
@@ -47,7 +47,7 @@ const SeatSVGsmall: FC<ISeatSVG> = (props): ReactElement => {
             stroke={
               selected ? themeGlobal.orange : HallUtils.emitSeatTypeColor(type)
             }
-            stroke-width="0.2"
+            strokeWidth="0.2"
           />
 
           <path
@@ -84,7 +84,7 @@ const SeatSVGsmall: FC<ISeatSVG> = (props): ReactElement => {
             stroke={
               selected ? themeGlobal.orange : HallUtils.emitSeatTypeColor(type)
             }
-            stroke-width="0.2"
+            strokeWidth="0.2"
             fill="#1E2020"
           />
           {selected ? (
@@ -120,7 +120,7 @@ const SeatSVGsmall: FC<ISeatSVG> = (props): ReactElement => {
             stroke={
               selected ? themeGlobal.orange : HallUtils.emitSeatTypeColor(type)
             }
-            stroke-width="0.2"
+            strokeWidth="0.2"
             fill="#1E2020"
           />
 
@@ -155,7 +155,7 @@ const SeatSVGsmall: FC<ISeatSVG> = (props): ReactElement => {
             stroke={
               selected ? themeGlobal.orange : HallUtils.emitSeatTypeColor(type)
             }
-            stroke-width="0.2"
+            strokeWidth="0.2"
             fill="#1E2020"
           />
           {selected ? (

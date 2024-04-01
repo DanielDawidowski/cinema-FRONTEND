@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import type { FC, ReactElement } from "react";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { IoMdArrowRoundForward } from "react-icons/io";
 import type { Dispatch as ReduxDispatch } from "@reduxjs/toolkit";
+import axios from "axios";
 import {
   FooterStyles,
   FooterInner,
@@ -21,13 +22,21 @@ import { ButtonColor } from "../../../components/button/Button.interface";
 import { setSelectedSeat } from "../../../redux-toolkit/reducers/hall/hall.reducer";
 import { useAppDispatch, useAppSelector } from "../../../redux-toolkit/hooks";
 import { IFooter } from "./Footer.interface";
+import { ticketService } from "../../../services/api/ticket/ticket.service";
+import { ValidationError } from "../../../interfaces/error/Error.interface";
+import { ITicketData } from "../../../interfaces/ticket/ticket.interface";
+import { Utils } from "../../../utils/utils";
+import Spinner from "../../../components/spinner/Spinner";
 
 const Footer: FC<IFooter> = (props): ReactElement => {
-  const { currentStep, setCurrentStep } = props;
+  const { show, currentStep, setCurrentStep } = props;
+  const [loading, setLoading] = useState<boolean>(false);
+  const [url, setUrl] = useState<string>("");
+
+  const { seats, name } = useAppSelector((state) => state.ticket);
+  const { selectedSeats } = useAppSelector((state) => state.hall);
 
   const dispatch: ReduxDispatch = useAppDispatch();
-
-  const { selectedSeats } = useAppSelector((state) => state.hall);
 
   const nextStep = () => {
     if (currentStep < 4) {
@@ -44,6 +53,67 @@ const Footer: FC<IFooter> = (props): ReactElement => {
   const handleSeat = (seat: ISeat) => {
     dispatch(setSelectedSeat({ seat }));
   };
+  console.log("seats", seats);
+  const createTicket = async (): Promise<void | undefined> => {
+    setLoading(true);
+
+    const ticketData: ITicketData = {
+      show: {
+        _id: show._id,
+        city: show.city,
+        hall: show.hall,
+        movie: show.movie,
+        time: show.time,
+      },
+      price: parseFloat((Utils.calculatePrice(seats) + 0.5).toFixed(2)),
+      seats: Utils.omitId(seats),
+      name: name!,
+    };
+
+    try {
+      await ticketService.create(ticketData);
+      const response = await ticketService.checkout({ seats: seats });
+      setUrl(response.data.url);
+      setLoading(false);
+      console.log("created ticket");
+    } catch (error) {
+      if (
+        axios.isAxiosError<ValidationError, Record<string, unknown>>(error) &&
+        error.response
+      ) {
+        setLoading(false);
+        // setErrorMessage(error?.response?.data.message as string);
+      } else {
+        console.error(error);
+      }
+    }
+  };
+
+  // const checkout = async (): Promise<void> => {
+  //   await fetch("http://localhost:5000/checkout", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       seats: seats,
+  //     }),
+  //   })
+  //     .then((res) => {
+  //       return res.json();
+  //     })
+  //     .then((response) => {
+  //       if (response.url) {
+  //         window.location.assign(response.url); // Forwarding user to Stripe
+  //       }
+  //     });
+  // };
+
+  useEffect(() => {
+    if (url) {
+      window.location.assign(url);
+    }
+  }, [url]);
 
   return (
     <FooterStyles>
@@ -70,15 +140,27 @@ const Footer: FC<IFooter> = (props): ReactElement => {
               )}
             </SelectedSeats>
           ) : null}
-          <RightButton onClick={nextStep}>
-            <Button
-              color={ButtonColor.secondary}
-              disabled={selectedSeats.length === 0}
-            >
-              <h4>Next Step</h4>
-              <IoMdArrowRoundForward />
-            </Button>
-          </RightButton>
+          {currentStep === 4 ? (
+            <RightButton>
+              <Button color={ButtonColor.secondary} onClick={createTicket}>
+                {loading ? <h5>Busy...</h5> : <h5>Pay</h5>}
+                {loading ? <Spinner size={30} /> : null}
+              </Button>
+            </RightButton>
+          ) : (
+            <RightButton onClick={nextStep}>
+              <Button
+                color={ButtonColor.secondary}
+                disabled={
+                  selectedSeats.length === 0 &&
+                  (currentStep === 3 && !name ? false : true)
+                }
+              >
+                <h4>Next Step</h4>
+                <IoMdArrowRoundForward />
+              </Button>
+            </RightButton>
+          )}
         </FooterInner>
       </Container>
     </FooterStyles>
