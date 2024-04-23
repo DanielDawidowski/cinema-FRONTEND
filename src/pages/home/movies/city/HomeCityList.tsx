@@ -7,10 +7,10 @@ import type {
 } from "react";
 import type { Dispatch as ReduxDispatch } from "@reduxjs/toolkit";
 import { motion } from "framer-motion";
-import { useAppDispatch } from "../../../redux-toolkit/hooks";
-import { CityList } from "../Home.styles";
-import { CityName, cities } from "../../../interfaces/city/city.interface";
-import { setCity } from "../../../redux-toolkit/reducers/city/city.reducer";
+import { useAppDispatch } from "../../../../redux-toolkit/hooks";
+import { CityList } from "../../Home.styles";
+import { CityName, cities } from "../../../../interfaces/city/city.interface";
+import { setCity } from "../../../../redux-toolkit/reducers/city/city.reducer";
 
 interface IHomeCityList {
   setCityName: ReactDispatch<SetStateAction<string>>;

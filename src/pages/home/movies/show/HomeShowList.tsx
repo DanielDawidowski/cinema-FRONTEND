@@ -9,12 +9,12 @@ import { IoMdArrowRoundForward } from "react-icons/io";
 import { FaInfoCircle } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ShowList, ShowListItem } from "../Home.styles";
-import { Grid } from "../../../components/layout/globalStyles/global.styles";
-import { IShow } from "../../../interfaces/show/show.interface";
-import Tooltip from "../../../components/tooltip/Tooltip";
-import { themeGlobal } from "../../../components/layout/globalStyles/variables";
-import { IHall } from "../../../interfaces/hall/hall.interface";
+import { ShowList, ShowListItem } from "../../Home.styles";
+import { Grid } from "../../../../components/layout/globalStyles/global.styles";
+import { IShow } from "../../../../interfaces/show/show.interface";
+import Tooltip from "../../../../components/tooltip/Tooltip";
+import { themeGlobal } from "../../../../components/layout/globalStyles/variables";
+import { IHall } from "../../../../interfaces/hall/hall.interface";
 
 interface IHomeShowList {
   shows: IShow[];

@@ -15,7 +15,10 @@ export const LayoutStyles = styled.div<ILayout>`
             }
           `
         : css`
-            margin-top: 0;
+            margin-top: 10%;
+            @media (min-width: ${(props) => props.theme.breakpoint_small}) {
+              margin-top: 2%;
+            }
           `}
   }
 `;

@@ -7,40 +7,44 @@ import React, {
 } from "react";
 import type { FC, ReactElement } from "react";
 import { IoCloseCircle } from "react-icons/io5";
-import { useAppSelector } from "../../../redux-toolkit/hooks";
-import { showService } from "../../../services/api/show/show.service";
-import { IShow } from "../../../interfaces/show/show.interface";
-import { movieService } from "../../../services/api/movie/movie.service";
-import { IMovie } from "../../../interfaces/movie/movie.interface";
-import useWindowSize from "../../../hooks/useWindowSize";
-import { Utils } from "../../../utils/utils";
-import useDetectOutsideClick from "../../../hooks/useDetectOutsideClick";
-import { IHall } from "../../../interfaces/hall/hall.interface";
-import { hallService } from "../../../services/api/hall/hall.service";
-import { Flex } from "../../../components/layout/globalStyles/global.styles";
+import { useAppSelector } from "../../../../redux-toolkit/hooks";
+import { showService } from "../../../../services/api/show/show.service";
+import { IShow } from "../../../../interfaces/show/show.interface";
+import { IMovie } from "../../../../interfaces/movie/movie.interface";
+import useWindowSize from "../../../../hooks/useWindowSize";
+import { Utils } from "../../../../utils/utils";
+import useDetectOutsideClick from "../../../../hooks/useDetectOutsideClick";
+import { IHall } from "../../../../interfaces/hall/hall.interface";
+import { hallService } from "../../../../services/api/hall/hall.service";
+import { Flex } from "../../../../components/layout/globalStyles/global.styles";
 import {
   MoviesList,
   SelectedMovie,
   ToggleBar,
   ToggleContent,
-} from "../Home.styles";
-import HomeCityList from "./HomeCityList";
+} from "../../Home.styles";
+import HomeCityList from "../city/HomeCityList";
 import HomeMovieColumn from "./HomeMovieColumn";
-import HomeShowList from "./HomeShowList";
+import HomeShowList from "../show/HomeShowList";
+import { getMoviesList } from "../../../../redux-toolkit/api/movies";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../../redux-toolkit/store";
 
 const HomeMovieList: FC = (): ReactElement => {
   const { city } = useAppSelector((state) => state.city);
+  const { movies, filteredMovies } = useAppSelector((state) => state.movies);
   const [expandedGroup, setExpandedGroup] = useState<number | null>(null);
   const [selected, setSelected] = useState<IMovie | null>({} as IMovie);
   const [movieId, setMovieId] = useState<string>("");
   const [shows, setShows] = useState<IShow[]>([]);
   const [show, setShow] = useState<IShow>({} as IShow);
-  const [movies, setMovies] = useState<IMovie[]>([]);
   const [cityName, setCityName] = useState<string>("");
   const [hall, setHall] = useState<IHall>({} as IHall);
   const size = useWindowSize();
   const movieRef = useRef<HTMLDivElement>(null);
   const [toggle, setToggle] = useDetectOutsideClick(movieRef, false);
+
+  const dispatch = useDispatch<AppDispatch>();
 
   const getAllShows = useCallback(async (): Promise<void> => {
     try {
@@ -59,16 +63,6 @@ const HomeMovieList: FC = (): ReactElement => {
       console.error("error", error);
     }
   }, [city, movieId]);
-
-  const getAllMovies = useCallback(async (): Promise<void> => {
-    try {
-      const response = await movieService.getAllMovies();
-      setMovies(response.data.list);
-      // console.log("response", response.data.events);
-    } catch (error) {
-      console.error("error", error);
-    }
-  }, []);
 
   const getHall = useCallback(async () => {
     try {
@@ -174,14 +168,21 @@ const HomeMovieList: FC = (): ReactElement => {
   );
 
   const memorizeMovies = useMemo(
-    () => renderObjectsInGroups(movies, Utils.emitNumber(size.width as number)),
-    [renderObjectsInGroups, movies, size]
+    () =>
+      renderObjectsInGroups(
+        filteredMovies.length > 0 ? filteredMovies : movies,
+        Utils.emitNumber(size.width as number)
+      ),
+    [renderObjectsInGroups, filteredMovies, movies, size]
   );
 
   useEffect(() => {
     getAllShows();
-    getAllMovies();
-  }, [getAllShows, getAllMovies, selected]);
+  }, [getAllShows]);
+
+  useEffect(() => {
+    dispatch(getMoviesList());
+  }, [dispatch]);
 
   useEffect(() => {
     getHall();

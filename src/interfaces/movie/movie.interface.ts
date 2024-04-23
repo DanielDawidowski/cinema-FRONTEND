@@ -6,6 +6,7 @@ export interface IMovie {
   director: string;
   actors: string[];
   img: string;
+  createdAt?: Date;
 }
 
 export enum IMovieCategory {
@@ -42,3 +43,7 @@ export const movieCategories: IMovieCategory[] = [
   IMovieCategory.crime,
   IMovieCategory.history,
 ];
+
+export interface IMovieList {
+  list: IMovie[];
+}

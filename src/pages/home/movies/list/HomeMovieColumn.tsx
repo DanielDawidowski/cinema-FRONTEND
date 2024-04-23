@@ -1,7 +1,7 @@
 import React from "react";
 import type { FC, ReactElement } from "react";
-import { Mask, MovieColumn, MovieItem } from "../Home.styles";
-import { IMovie } from "../../../interfaces/movie/movie.interface";
+import { Mask, MovieColumn, MovieItem } from "../../Home.styles";
+import { IMovie } from "../../../../interfaces/movie/movie.interface";
 
 interface IHomeMovieColumn {
   i: number;

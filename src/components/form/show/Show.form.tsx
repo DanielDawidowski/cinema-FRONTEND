@@ -28,15 +28,8 @@ interface ICreateShowForm {
 }
 
 const ShowForm: FC<ICreateShowForm> = (props): ReactElement => {
-  const {
-    values,
-    setValues,
-    loading,
-    eventAction,
-    hasError,
-    errorMessage,
-    show,
-  } = props;
+  const { values, setValues, loading, eventAction, hasError, errorMessage } =
+    props;
 
   const { hall, movie, time } = values;
   const [city, setCity] = useState<string>("");

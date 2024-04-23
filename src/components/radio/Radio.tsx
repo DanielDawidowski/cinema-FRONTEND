@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { RadioProps } from "./Radio.interface";
+import { GenericRadioProps, OptionType } from "./Radio.interface";
 import {
   HiddenRadioInput,
   RadioContainer,
@@ -7,18 +7,18 @@ import {
   RadioText,
   StyledRadio,
 } from "./Radio.styles";
-import {
-  ITicketType,
-  ITicketTypes,
-} from "../../interfaces/ticket/ticket.interface";
-import { SeatTypes } from "../../interfaces/hall/hall.interface";
 
-const Radio: React.FC<RadioProps> = ({ options, onChange, seat }) => {
-  const [selectedValue, setSelectedValue] = useState<string>("");
+const Radio = <T extends OptionType>({
+  options,
+  onChange,
+  seat,
+}: GenericRadioProps<T>) => {
+  const [selectedValue, setSelectedValue] = useState<T | null>(null);
 
-  const handleOptionChange = (seat: SeatTypes, option: ITicketTypes) => {
+  const handleOptionChange = (option: T) => {
     setSelectedValue(option);
-    onChange(seat, option);
+    onChange(seat!, option);
+    console.log("option", option);
   };
 
   return (
@@ -29,17 +29,13 @@ const Radio: React.FC<RadioProps> = ({ options, onChange, seat }) => {
             type="radio"
             value={option}
             checked={
-              !selectedValue
-                ? option === ITicketType.standard
-                : selectedValue === option
+              !selectedValue ? option === options[0] : selectedValue === option
             }
-            onChange={() => handleOptionChange(seat, option)}
+            onChange={() => handleOptionChange(option)}
           />
           <StyledRadio
             $checked={
-              !selectedValue
-                ? option === ITicketType.standard
-                : selectedValue === option
+              !selectedValue ? option === options[0] : selectedValue === option
             }
           />
           <RadioText

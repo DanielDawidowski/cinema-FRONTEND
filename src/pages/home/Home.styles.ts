@@ -56,13 +56,65 @@ export const FilterIcon = styled.div`
       display: block;
     }
   }
+  span {
+    background: ${(props) => props.theme.gradient};
+    border-radius: 50%;
+    width: 30px;
+    height: 24px;
+    display: grid;
+    place-items: center;
+    color: ${(props) => props.theme.black};
+    margin-left: 4px;
+    @media (min-width: ${(props) => props.theme.breakpoint_small}) {
+      width: 40px;
+      height: 24px;
+      margin-left: ${(props) => props.theme.size1};
+    }
+  }
+`;
+
+export const FilterModal = styled.div`
+  padding: ${(props) => props.theme.size1};
+`;
+
+export const FilterItem = styled.div`
+  display: grid;
+  width: 300px;
+  margin: ${(props) => props.theme.size1} 0;
+  @media (min-width: ${(props) => props.theme.breakpoint_small}) {
+    width: 500px;
+  }
+  h5 {
+    color: ${(props) => props.theme.orange};
+    cursor: pointer;
+  }
+`;
+
+export const FilterItemHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: ${(props) => props.theme.size2};
+  margin-bottom: ${(props) => props.theme.size2};
+  border-bottom: 1px solid ${(props) => props.theme.grey};
+`;
+
+export const FilterItemBody = styled(motion.ul)`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: ${(props) => props.theme.size2};
+`;
+
+export const FilterRadio = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 export const StickyFilter = styled(FilterIcon)`
   position: fixed;
   top: ${(props) => props.theme.size6};
-  width: 30%;
-  left: 37%;
+  width: 35%;
+  left: 34%;
   z-index: 10;
   @media (min-width: ${(props) => props.theme.breakpoint_small}) {
     width: 10%;

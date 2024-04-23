@@ -33,8 +33,8 @@ const Tickets: FC = (): ReactElement => {
 
   const dispatch: ReduxDispatch = useAppDispatch();
 
-  const handleOptionChange = (seat: SeatTypes, ticketType: ITicketTypes) => {
-    const emitPrice = Utils.emitTicketPrice(seat, ticketType);
+  const handleOptionChange = (seat: SeatTypes, option: ITicketTypes) => {
+    const emitPrice = Utils.emitTicketPrice(seat, option);
     dispatch(addPrice({ selectedId, price: emitPrice }));
   };
 

@@ -33,11 +33,6 @@ const Menu: FC = (): ReactElement => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <MenuItem>
-        <Link to="/films">
-          <h4>Films</h4>
-        </Link>
-      </MenuItem>
       {!profile ? (
         <MenuItem>
           <Link to="/login">
