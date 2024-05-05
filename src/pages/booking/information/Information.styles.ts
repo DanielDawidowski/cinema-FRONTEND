@@ -16,3 +16,20 @@ export const InformationInner = styled.div`
     width: 70%;
   }
 `;
+
+export const InformationCard = styled.div`
+  display: grid;
+  h3 {
+    margin-bottom: ${(props) => props.theme.size2};
+  }
+`;
+
+export const InformationCardItem = styled.div`
+  display: flex;
+  h4 {
+    margin-right: ${(props) => props.theme.size3};
+    &:first-child {
+      color: ${(props) => props.theme.grey};
+    }
+  }
+`;

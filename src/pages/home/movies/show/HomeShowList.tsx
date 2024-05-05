@@ -29,7 +29,7 @@ const HomeShowList: FC<IHomeShowList> = (props): ReactElement => {
     <ShowList>
       <Grid>
         {shows.map((show: IShow, i: number) => (
-          <Link to={`/booking/${show._id}`}>
+          <Link key={i} to={`/booking/${show._id}`}>
             <ShowListItem key={i}>
               <div>
                 <h5>{show.time}</h5>

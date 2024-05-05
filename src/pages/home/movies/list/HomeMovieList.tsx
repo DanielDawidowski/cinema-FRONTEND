@@ -8,7 +8,6 @@ import React, {
 import type { FC, ReactElement } from "react";
 import { IoCloseCircle } from "react-icons/io5";
 import { useAppSelector } from "../../../../redux-toolkit/hooks";
-import { showService } from "../../../../services/api/show/show.service";
 import { IShow } from "../../../../interfaces/show/show.interface";
 import { IMovie } from "../../../../interfaces/movie/movie.interface";
 import useWindowSize from "../../../../hooks/useWindowSize";
@@ -29,14 +28,15 @@ import HomeShowList from "../show/HomeShowList";
 import { getMoviesList } from "../../../../redux-toolkit/api/movies";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../../redux-toolkit/store";
+import { getShowsList } from "../../../../redux-toolkit/api/shows";
 
 const HomeMovieList: FC = (): ReactElement => {
   const { city } = useAppSelector((state) => state.city);
+  const { showsList } = useAppSelector((state) => state.shows);
   const { movies, filteredMovies } = useAppSelector((state) => state.movies);
   const [expandedGroup, setExpandedGroup] = useState<number | null>(null);
   const [selected, setSelected] = useState<IMovie | null>({} as IMovie);
   const [movieId, setMovieId] = useState<string>("");
-  const [shows, setShows] = useState<IShow[]>([]);
   const [show, setShow] = useState<IShow>({} as IShow);
   const [cityName, setCityName] = useState<string>("");
   const [hall, setHall] = useState<IHall>({} as IHall);
@@ -45,24 +45,6 @@ const HomeMovieList: FC = (): ReactElement => {
   const [toggle, setToggle] = useDetectOutsideClick(movieRef, false);
 
   const dispatch = useDispatch<AppDispatch>();
-
-  const getAllShows = useCallback(async (): Promise<void> => {
-    try {
-      if (city || movieId) {
-        const response = await showService.getShowsByFilters(
-          city ? city : movieId,
-          movieId
-        );
-        setShows(response.data.list);
-      } else {
-        const response = await showService.getAllShow();
-        setShows(response.data.list);
-      }
-      // console.log("response", response.data.events);
-    } catch (error) {
-      console.error("error", error);
-    }
-  }, [city, movieId]);
 
   const getHall = useCallback(async () => {
     try {
@@ -97,7 +79,7 @@ const HomeMovieList: FC = (): ReactElement => {
       for (let i = 0; i < objects.length; i += groupSize) {
         const group = objects.slice(i, i + groupSize);
         const groupDiv = (
-          <div ref={movieRef}>
+          <div key={i} ref={movieRef}>
             <HomeMovieColumn
               i={i}
               group={group}
@@ -132,12 +114,12 @@ const HomeMovieList: FC = (): ReactElement => {
                     <Flex $align="flex-start" $justify="flex-end">
                       <IoCloseCircle onClick={() => setToggle(false)} />
                     </Flex>
-                    {!cityName ? (
+                    {!cityName && !city ? (
                       <HomeCityList setCityName={setCityName} />
                     ) : null}
-                    {cityName ? (
+                    {city ? (
                       <HomeShowList
-                        shows={shows}
+                        shows={showsList} //shows
                         hall={hall}
                         setShow={setShow}
                       />
@@ -157,8 +139,9 @@ const HomeMovieList: FC = (): ReactElement => {
     [
       expandedGroup,
       cityName,
+      city,
       selected,
-      shows,
+      showsList, //shows
       handleMovie,
       handleClick,
       toggle,
@@ -177,16 +160,16 @@ const HomeMovieList: FC = (): ReactElement => {
   );
 
   useEffect(() => {
-    getAllShows();
-  }, [getAllShows]);
-
-  useEffect(() => {
     dispatch(getMoviesList());
   }, [dispatch]);
 
   useEffect(() => {
+    dispatch(getShowsList({ city, movieId }));
+  }, [dispatch, city, movieId]);
+
+  useEffect(() => {
     getHall();
-  }, [getHall]);
+  }, [getHall, showsList]);
 
   return <MoviesList>{memorizeMovies}</MoviesList>;
 };

@@ -26,13 +26,31 @@ export const StepMenu = styled.div`
   display: flex;
 `;
 
-export const StepMenuItem = styled.div<{ $step: boolean }>`
+export const StepMenuItem = styled.div<{
+  $step: boolean;
+  $currentStep: boolean;
+}>`
+  width: ${(props) => (props.$currentStep ? "100%" : "10%")};
   display: grid;
   border-left: 1px solid ${(props) => props.theme.grey};
   border-right: 1px solid ${(props) => props.theme.grey};
+  @media (min-width: ${(props) => props.theme.breakpoint_small}) {
+    width: 20%;
+  }
+
   h4 {
+    display: flex;
     color: ${(props) => (props.$step ? props.theme.white : props.theme.grey)};
     padding: ${(props) => props.theme.size1} ${(props) => props.theme.size2};
+  }
+
+  span {
+    display: ${(props) => (props.$currentStep ? "block" : "none")};
+    margin-left: ${(props) => (props.$currentStep ? props.theme.size2 : 0)};
+    @media (min-width: ${(props) => props.theme.breakpoint_small}) {
+      margin-left: 4px;
+      display: block;
+    }
   }
 `;
 

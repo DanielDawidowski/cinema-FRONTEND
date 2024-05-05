@@ -7,13 +7,16 @@ import axios from "axios";
 import { useAppDispatch } from "../../../redux-toolkit/hooks";
 import { authService } from "../../../services/api/auth/auth.service";
 import { addUser } from "../../../redux-toolkit/reducers/user/user.reducer";
-import { IRegisterData } from "../../../interfaces/auth/auth.interface";
+import {
+  IRedirect,
+  IRegisterData,
+} from "../../../interfaces/auth/auth.interface";
 import Input from "../../../components/input/Input";
 import Button from "../../../components/button/Button";
 import { ButtonColor } from "../../../components/button/Button.interface";
 import { ValidationError } from "../../../interfaces/error/Error.interface";
 
-const Register: FC = (): ReactElement => {
+const Register: FC<IRedirect> = ({ information = false }): ReactElement => {
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -53,8 +56,13 @@ const Register: FC = (): ReactElement => {
 
   useEffect(() => {
     if (loading && !user) return;
-    if (user) navigate("/");
-  }, [loading, user, navigate]);
+    if (user && !information) {
+      navigate("/");
+    }
+    if (user && information) {
+      return undefined;
+    }
+  }, [loading, user, navigate, information]);
 
   return (
     <form onSubmit={registerUser}>

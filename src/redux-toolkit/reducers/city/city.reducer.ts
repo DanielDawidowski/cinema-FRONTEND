@@ -5,7 +5,7 @@ const initialState: ICity = {
   city: "",
 };
 
-const hallSlice = createSlice({
+const citySlice = createSlice({
   name: "city",
   initialState,
   reducers: {
@@ -16,5 +16,5 @@ const hallSlice = createSlice({
   },
 });
 
-export const { setCity } = hallSlice.actions;
-export default hallSlice.reducer;
+export const { setCity } = citySlice.actions;
+export default citySlice.reducer;

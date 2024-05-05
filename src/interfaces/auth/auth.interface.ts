@@ -37,7 +37,10 @@ export interface IUser {
 export type IProfileProps = Pick<ISignUpData, "authId" | "username">;
 
 export interface IGuest {
-  name: string;
-  lastName: string;
-  email: string;
+  name?: string;
+  email?: string;
+}
+
+export interface IRedirect {
+  information?: boolean;
 }

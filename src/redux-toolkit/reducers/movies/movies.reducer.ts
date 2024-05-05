@@ -6,14 +6,14 @@ import {
 } from "../../../interfaces/movie/movie.interface";
 import { getMoviesList } from "../../api/movies";
 
-interface MoviesState {
+interface IMoviesState {
   isLoading: boolean;
   movies: IMovie[];
   filteredMovies: IMovie[];
   filterCount: number;
 }
 
-const initialState: MoviesState = {
+const initialState: IMoviesState = {
   isLoading: false,
   movies: [],
   filteredMovies: [],

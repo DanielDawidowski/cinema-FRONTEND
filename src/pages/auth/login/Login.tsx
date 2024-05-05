@@ -9,7 +9,10 @@ import { useAppDispatch } from "../../../redux-toolkit/hooks";
 import useLocalStorage from "../../../hooks/useLocalStorage";
 import { authService } from "../../../services/api/auth/auth.service";
 import { addUser } from "../../../redux-toolkit/reducers/user/user.reducer";
-import { ISignUpData } from "../../../interfaces/auth/auth.interface";
+import {
+  IRedirect,
+  ISignUpData,
+} from "../../../interfaces/auth/auth.interface";
 import Input from "../../../components/input/Input";
 import Button from "../../../components/button/Button";
 import { ValidationError } from "../../../interfaces/error/Error.interface";
@@ -17,7 +20,7 @@ import { ButtonColor } from "../../../components/button/Button.interface";
 import { Line } from "../../../components/layout/globalStyles/global.styles";
 import { Forget } from "../auth-tabs/Auth.styles";
 
-const Login: FC = (): ReactElement => {
+const Login: FC<IRedirect> = ({ information = false }): ReactElement => {
   const [email, setEmail] = useState<string>("dvds1987@gmail.com");
   const [password, setPassword] = useState<string>("qwerty");
   const [loading, setLoading] = useState<boolean>(false);
@@ -64,8 +67,13 @@ const Login: FC = (): ReactElement => {
 
   useEffect(() => {
     if (loading && !user) return;
-    if (user) navigate("/");
-  }, [loading, user, navigate]);
+    if (user && !information) {
+      navigate("/");
+    }
+    if (user && information) {
+      return undefined;
+    }
+  }, [loading, user, navigate, information]);
 
   return (
     <form onSubmit={loginUser}>

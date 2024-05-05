@@ -11,6 +11,7 @@ import {
   closeModal,
   toggleFilterModal,
 } from "../../../../redux-toolkit/reducers/modal/modal.reducer";
+import { Tabs } from "../../Home.styles";
 import {
   FilterActions,
   FilterIcon,
@@ -19,8 +20,7 @@ import {
   FilterItemHeader,
   FilterModal,
   StickyFilter,
-  Tabs,
-} from "../../Home.styles";
+} from "./Filters.styles";
 import { TabsElement, TabsStyles } from "../../../auth/auth-tabs/Auth.styles";
 import useSticky from "../../../../hooks/useSticky";
 import Modal from "../../../../components/modal/Modal";
@@ -109,7 +109,7 @@ const Filters: FC<IFilters> = ({ type, setType }): ReactElement => {
         movies,
       })
     );
-    // dispatch(closeModal());
+    dispatch(closeModal());
   };
 
   const confirmToReset = () => {
@@ -129,7 +129,7 @@ const Filters: FC<IFilters> = ({ type, setType }): ReactElement => {
       })
     );
     dispatch(clearFilters({ movies }));
-    // dispatch(closeModal());
+    dispatch(closeModal());
   };
 
   return (

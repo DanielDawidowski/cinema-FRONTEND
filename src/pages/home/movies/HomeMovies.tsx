@@ -8,7 +8,7 @@ const HomeMovies: FC = (): ReactElement => {
   const [type, setType] = useState<string>("Per movie");
 
   return (
-    <Container style={{ height: "200vh" }}>
+    <Container>
       <Filters type={type} setType={setType} />
       {type === "Per movie" ? <HomeMovieList /> : null}
     </Container>

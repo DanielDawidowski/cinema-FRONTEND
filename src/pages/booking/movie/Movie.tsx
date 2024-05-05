@@ -29,10 +29,6 @@ const Movie: FC<IMovieProps> = (props): ReactElement => {
     getMovie();
   }, [getMovie]);
 
-  useEffect(() => {
-    console.log("movie", movie);
-  }, [movie]);
-
   return (
     <MovieStyles>
       <img src={movie.img} alt={movie.name} />

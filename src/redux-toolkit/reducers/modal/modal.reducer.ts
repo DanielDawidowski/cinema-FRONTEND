@@ -9,7 +9,7 @@ export interface IModalProps {
 const initialState: IModalProps = {
   isModalOpen: false,
   isHallModal: false,
-  isFilterModal: true,
+  isFilterModal: false,
 };
 
 const modalSlice = createSlice({

@@ -37,9 +37,9 @@ const Header: FC<IHeader> = (props): ReactElement => {
 
   const dispatch: Dispatch = useAppDispatch();
 
-  const handleChange = (name: string): void => {
-    setSelected(name);
-    dispatch(setCity({ city: name }));
+  const handleChange = (city: string): void => {
+    setSelected(city);
+    dispatch(setCity({ city }));
   };
 
   return (

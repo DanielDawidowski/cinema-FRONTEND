@@ -32,7 +32,7 @@ const Booking: FC = (): ReactElement => {
 
   const getHall = useCallback(async () => {
     try {
-      const response = await hallService.getHall(show.hall as string);
+      const response = await hallService.getHall(show.hall);
       setHall(response.data.hall);
     } catch (error) {
       console.error(error);

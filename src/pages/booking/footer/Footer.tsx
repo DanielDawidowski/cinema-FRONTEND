@@ -53,7 +53,7 @@ const Footer: FC<IFooter> = (props): ReactElement => {
   const handleSeat = (seat: ISeat) => {
     dispatch(setSelectedSeat({ seat }));
   };
-  console.log("seats", seats);
+
   const createTicket = async (): Promise<void | undefined> => {
     setLoading(true);
 
@@ -119,9 +119,11 @@ const Footer: FC<IFooter> = (props): ReactElement => {
     <FooterStyles>
       <Container>
         <FooterInner>
-          <LeftButton onClick={prevStep}>
-            <IoMdArrowRoundBack />
-          </LeftButton>
+          {currentStep !== 1 ? (
+            <LeftButton onClick={prevStep}>
+              <IoMdArrowRoundBack />
+            </LeftButton>
+          ) : null}
           {currentStep === 1 ? (
             <SelectedSeats>
               <Seats $limit={selectedSeats.length === 10}>

@@ -20,8 +20,14 @@ const StepNav: FC<IHeader> = ({ currentStep }): ReactElement => {
       <Container>
         <StepMenu>
           {bookingSteps.map((step: BookingStep, i: number) => (
-            <StepMenuItem $step={currentStep === i + 1}>
-              <h4 key={i}>{`${i + 1}. ${step}`}</h4>
+            <StepMenuItem
+              key={i}
+              $currentStep={currentStep === i + 1}
+              $step={currentStep === i + 1 || i < currentStep}
+            >
+              <h4>
+                {`${i + 1}.`} <span>{`${step}`}</span>
+              </h4>
               {currentStep === i + 1 ? <Line $gradient $width="100%" /> : null}
             </StepMenuItem>
           ))}

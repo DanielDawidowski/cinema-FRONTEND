@@ -10,7 +10,6 @@ const initialState: ITicketWithUser = {
   seats: [],
   name: {
     name: "",
-    lastName: "",
     email: "",
   },
 };
@@ -50,7 +49,6 @@ const ticketSlice = createSlice({
 
       const newName = {
         name: name.name,
-        lastName: name.lastName,
         email: name.email,
       };
 

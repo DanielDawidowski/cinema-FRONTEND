@@ -9,13 +9,12 @@ import { addName } from "../../../redux-toolkit/reducers/ticket/ticket.reduer";
 
 const initialState: IGuest = {
   name: "Daniel",
-  lastName: "Dawid",
   email: "dvds1987@gmail.com",
 };
 
 const Guest: FC = (): ReactElement => {
   const [values, setValues] = useState<IGuest>(initialState);
-  const { name, lastName, email } = values;
+  const { name, email } = values;
 
   const dispatch: ReduxDispatch = useAppDispatch();
 
@@ -38,15 +37,7 @@ const Guest: FC = (): ReactElement => {
         placeholder="Enter name"
         handleChange={handleChange}
       />
-      <Input
-        id="lastName"
-        labelText="Last Name"
-        name="lastName"
-        type="lastName"
-        value={lastName}
-        placeholder="Enter Last Name"
-        handleChange={handleChange}
-      />
+
       <Input
         id="email"
         labelText="email"

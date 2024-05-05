@@ -6,3 +6,9 @@ export interface IShow {
   time: string;
   createdAt?: string;
 }
+
+export interface IShowsList {
+  list: IShow[];
+  city: string;
+  movieId: string;
+}

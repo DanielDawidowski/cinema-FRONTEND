@@ -1,6 +1,6 @@
 import React from "react";
 import type { FC, ReactElement } from "react";
-import { FilterRadio } from "../../Home.styles";
+import { FilterRadio } from "./Filters.styles";
 import {
   HiddenRadioInput,
   RadioLabel,
