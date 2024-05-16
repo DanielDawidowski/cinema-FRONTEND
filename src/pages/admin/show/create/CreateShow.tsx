@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import type { FC, ReactElement, FormEvent } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import type { NavigateFunction } from "react-router-dom";
 import Layout from "../../../../components/layout/Layout";
 import { ValidationError } from "../../../../interfaces/error/Error.interface";
 import {
@@ -17,10 +15,13 @@ import ShowForm from "../../../../components/form/show/Show.form";
 const initialState: IShow = {
   city: "",
   hall: "",
-  movie: "",
+  movie: {
+    _id: "",
+    name: "",
+    img: "",
+  },
   time: "",
 };
-
 const CreateShow: FC = (): ReactElement => {
   const [values, setValues] = useState<IShow>(initialState);
   const [loading, setLoading] = useState<boolean>(false);
@@ -36,9 +37,10 @@ const CreateShow: FC = (): ReactElement => {
       await showService.create(values);
       setLoading(false);
       setHasError(false);
-      // setValues(initialState);
+      setValues(initialState);
       console.log("created show");
       // navigate("/admin/shows");
+      // console.log("values", values);
     } catch (error) {
       if (
         axios.isAxiosError<ValidationError, Record<string, unknown>>(error) &&

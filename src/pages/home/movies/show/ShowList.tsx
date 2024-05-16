@@ -16,13 +16,13 @@ import Tooltip from "../../../../components/tooltip/Tooltip";
 import { themeGlobal } from "../../../../components/layout/globalStyles/variables";
 import { IHall } from "../../../../interfaces/hall/hall.interface";
 
-interface IHomeShowList {
+interface IShowList {
   shows: IShow[];
   hall: IHall;
   setShow: ReactDispatch<SetStateAction<IShow>>;
 }
 
-const HomeShowList: FC<IHomeShowList> = (props): ReactElement => {
+const HomeShowList: FC<IShowList> = (props): ReactElement => {
   const { shows, setShow, hall } = props;
 
   return (

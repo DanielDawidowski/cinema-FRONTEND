@@ -26,11 +26,11 @@ import Navigation from "../navigation/Navigation";
 import Dropdown from "../../dropdown/Dropdown";
 import { CityName, cities } from "../../../interfaces/city/city.interface";
 import Search from "../../search/Search";
-import { setCity } from "../../../redux-toolkit/reducers/city/city.reducer";
+import { setCity } from "../../../redux-toolkit/reducers/shows/shows.reducer";
 import { useAppDispatch, useAppSelector } from "../../../redux-toolkit/hooks";
 
 const Header: FC<IHeader> = (props): ReactElement => {
-  const { city } = useAppSelector((state) => state.city);
+  const { city } = useAppSelector((state) => state.shows);
   const { toggleMenu, setToggleMenu } = props;
   const [openSearch, setOpenSearch] = useState<boolean>(false);
   const [selected, setSelected] = useState<string | null>("");

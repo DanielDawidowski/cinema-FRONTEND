@@ -32,7 +32,6 @@ const Information: FC = (): ReactElement => {
       email: profile?.email,
     };
     dispatch(addName({ name: values }));
-    console.log("values", values);
   }, [dispatch, profile]);
 
   return (

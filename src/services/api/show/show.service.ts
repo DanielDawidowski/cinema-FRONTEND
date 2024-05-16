@@ -8,8 +8,10 @@ class ShowService {
     return response;
   }
 
-  async getAllShow(): Promise<AxiosResponse> {
-    const response: Awaited<AxiosResponse> = await axios.get(`/shows/all`);
+  async getAllShow(page: number): Promise<AxiosResponse> {
+    const response: Awaited<AxiosResponse> = await axios.get(
+      `/shows/all/${page}`
+    );
     return response;
   }
 
@@ -34,10 +36,11 @@ class ShowService {
 
   async getShowsByFilters(
     city: string | undefined,
-    movieId: string | undefined
+    movieId: string | undefined,
+    page: number
   ): Promise<AxiosResponse> {
     const response: Awaited<AxiosResponse> = await axios.get(
-      `/shows/${city}/${movieId}`
+      `/shows/${city}${movieId ? "/" : ""}${movieId}/${page}`
     );
     return response;
   }

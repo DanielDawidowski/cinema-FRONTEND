@@ -1,31 +1,20 @@
 import React, { useCallback } from "react";
-import type {
-  FC,
-  ReactElement,
-  Dispatch as ReactDispatch,
-  SetStateAction,
-} from "react";
+import type { FC, ReactElement } from "react";
 import type { Dispatch as ReduxDispatch } from "@reduxjs/toolkit";
 import { motion } from "framer-motion";
 import { useAppDispatch } from "../../../../redux-toolkit/hooks";
 import { CityList } from "../../Home.styles";
 import { CityName, cities } from "../../../../interfaces/city/city.interface";
-import { setCity } from "../../../../redux-toolkit/reducers/city/city.reducer";
+import { setCity } from "../../../../redux-toolkit/reducers/shows/shows.reducer";
 
-interface IHomeCityList {
-  setCityName: ReactDispatch<SetStateAction<string>>;
-}
-
-const HomeCityList: FC<IHomeCityList> = (props): ReactElement => {
-  const { setCityName } = props;
+const HomeCityList: FC = (): ReactElement => {
   const dispatch: ReduxDispatch = useAppDispatch();
 
   const handleCity = useCallback(
     (city: string): void => {
       dispatch(setCity({ city }));
-      setCityName(city);
     },
-    [dispatch, setCityName]
+    [dispatch]
   );
 
   return (

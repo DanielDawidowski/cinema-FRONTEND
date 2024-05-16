@@ -12,7 +12,10 @@ import {
 } from "../../../../interfaces/movie/movie.interface";
 import { CreateMovieStyles } from "../Movie.styles";
 import MovieForm from "../../../../components/form/movie/Movie.form";
-import { Grid } from "../../../../components/layout/globalStyles/global.styles";
+import {
+  Container,
+  Grid,
+} from "../../../../components/layout/globalStyles/global.styles";
 
 const initialState: IMovie = {
   name: "",
@@ -61,22 +64,24 @@ const CreateMovie: FC = (): ReactElement => {
 
   return (
     <Layout>
-      <CreateMovieStyles>
-        <Grid>
-          <MovieForm
-            values={values}
-            setValues={setValues}
-            eventAction={createMovie}
-            setCategoryList={setCategoryList}
-            categoryList={categoryList}
-            actors={actors}
-            setActors={setActors}
-            loading={loading}
-            hasError={hasError}
-            errorMessage={errorMessage}
-          />
-        </Grid>
-      </CreateMovieStyles>
+      <Container $small>
+        <CreateMovieStyles>
+          <Grid>
+            <MovieForm
+              values={values}
+              setValues={setValues}
+              eventAction={createMovie}
+              setCategoryList={setCategoryList}
+              categoryList={categoryList}
+              actors={actors}
+              setActors={setActors}
+              loading={loading}
+              hasError={hasError}
+              errorMessage={errorMessage}
+            />
+          </Grid>
+        </CreateMovieStyles>
+      </Container>
     </Layout>
   );
 };

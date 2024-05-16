@@ -7,6 +7,7 @@ interface MoviesState {
   showsList: IShow[];
   city: string;
   movieId: string;
+  totalShows: number;
 }
 
 const initialState: MoviesState = {
@@ -14,6 +15,7 @@ const initialState: MoviesState = {
   showsList: [],
   city: "",
   movieId: "",
+  totalShows: 0,
 };
 
 const showsSlice = createSlice({
@@ -28,6 +30,10 @@ const showsSlice = createSlice({
       const { movieId } = action.payload;
       state.movieId = movieId;
     },
+    clear: (state) => {
+      state.movieId = "";
+      state.city = "";
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getShowsList.pending, (state) => {
@@ -37,9 +43,9 @@ const showsSlice = createSlice({
       getShowsList.fulfilled,
       (state, action: PayloadAction<IShowsList>) => {
         state.isLoading = false;
-        const { list } = action.payload;
+        const { list, totalShows } = action.payload;
         state.showsList = list;
-        console.log("action", action);
+        state.totalShows = totalShows;
         // const { city, movieId } = action.meta.arg;
         // Use city and movieId as needed
         // state.city = city;
@@ -52,4 +58,5 @@ const showsSlice = createSlice({
   },
 });
 
+export const { setCity, setMovieId, clear } = showsSlice.actions;
 export default showsSlice.reducer;

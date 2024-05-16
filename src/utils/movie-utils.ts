@@ -1,4 +1,5 @@
 import { IMovie } from "../interfaces/movie/movie.interface";
+import { IMovieShow } from "../interfaces/show/show.interface";
 
 export class MovieUtils {
   static readAsBase64(file: File): Promise<string> {
@@ -29,5 +30,14 @@ export class MovieUtils {
   static movieId = (movies: IMovie[], name: string): string => {
     const matchingMovie = movies.find((item) => item.name === name);
     return matchingMovie?._id!;
+  };
+
+  static movieShow = (movies: IMovie[], name: string): IMovieShow => {
+    const matchingMovie = movies.find((item) => item.name === name);
+    return {
+      _id: matchingMovie?._id!,
+      name: matchingMovie?.name!,
+      img: matchingMovie?.img!,
+    };
   };
 }

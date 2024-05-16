@@ -48,12 +48,36 @@ const COLOR = {
     border-radius: 8px;
     padding: 1px;
     background: ${(props) => props.theme.primary};
-    width: 90px;
+
     h6 {
       border-radius: 8px;
       background: ${(props) => props.theme.black_light};
       text-transform: uppercase;
       padding: ${(props) => props.theme.size1};
+    }
+  `,
+  ACTIVE: css`
+    border-radius: 8px;
+    padding: 1px;
+    background: ${(props) => props.theme.primary};
+
+    h6 {
+      border-radius: 8px;
+      text-transform: uppercase;
+      padding: ${(props) => props.theme.size1};
+      color: ${(props) => props.theme.black_light};
+    }
+  `,
+  DISABLED: css`
+    border-radius: 8px;
+    padding: 1px;
+    background: ${(props) => props.theme.black_light};
+
+    h6 {
+      border-radius: 8px;
+      text-transform: uppercase;
+      padding: ${(props) => props.theme.size1};
+      color: ${(props) => props.theme.orange};
     }
   `,
 };

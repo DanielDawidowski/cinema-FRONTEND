@@ -111,30 +111,18 @@ export const ListStyles = styled.ul`
   width: 100%;
 `;
 
-export const ListItem = styled.li<{ $img?: boolean }>`
-  display: grid;
-  grid-template-columns: ${(props) => (props.$img ? "20% 40% 1fr" : "70% 1fr")};
+export const ListItem = styled.tr<{ $img?: boolean }>`
   border: 1px solid ${(props) => props.theme.white};
   border-radius: ${(props) => props.theme.size1};
-  padding: ${(props) => props.theme.size1} 0;
-  margin: ${(props) => props.theme.size1} 0;
   position: relative;
   overflow: hidden;
-  width: 100%;
 
   @media (min-width: ${(props) => props.theme.breakpoint_small}) {
-    grid-template-columns: ${(props) =>
-      props.$img ? "30% 45% 1fr" : "80% 1fr"};
   }
 
-  img {
-    border-radius: ${(props) => props.theme.size1};
-  }
-
-  h4 {
-    width: 100%;
-    margin: ${(props) => props.theme.size1};
-    text-align: center;
+  img,
+  td {
+    width: 10%;
   }
 
   &::before {
@@ -155,6 +143,55 @@ export const ListItem = styled.li<{ $img?: boolean }>`
 
   &:hover h3 {
     color: ${(props) => props.theme.black};
+  }
+`;
+
+export const StyledTr = styled.tr``;
+
+export const ListTable = styled.div`
+  overflow-x: hidden;
+  width: 100%;
+`;
+
+export const ListTableInner = styled.div`
+  margin: ${(props) => props.theme.size1};
+  overflow-x: scroll;
+  @media (min-width: ${(props) => props.theme.breakpoint_small}) {
+    overflow-x: unset;
+    margin: 0;
+  }
+`;
+
+export const StyledTable = styled.table`
+  border-collapse: collapse;
+  width: 100%;
+
+  /* @media (min-width: ${(props) => props.theme.breakpoint_small}) {
+    width: 100%;
+  } */
+`;
+
+export const StyledTh = styled.th<{ $img?: boolean }>`
+  padding: 8px;
+  text-align: center;
+  width: 100%;
+  @media (min-width: ${(props) => props.theme.breakpoint_small}) {
+    width: ${(props) => (props.$img ? "10px" : "150px")};
+  }
+`;
+// width: ${(props) => (props.$img ? "10px" : "150px")};
+
+export const StyledTd = styled.td`
+  border: 1px solid ${(props) => props.theme.white};
+  padding: 8px;
+  text-align: center;
+
+  img {
+    width: 100%;
+    @media (min-width: ${(props) => props.theme.breakpoint_small}) {
+      width: 50px;
+      height: 75px;
+    }
   }
 `;
 

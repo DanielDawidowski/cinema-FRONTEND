@@ -77,10 +77,10 @@ const ShowForm: FC<ICreateShowForm> = (props): ReactElement => {
     setSelectedHall(name);
   };
 
-  const handleMovie = (name: string): void => {
-    const movieId = MovieUtils.movieId(movies, name);
-    setValues({ ...values, movie: movieId });
-    setSelectedMovie(name);
+  const handleMovie = (movieName: string): void => {
+    const movie = MovieUtils.movieShow(movies, movieName);
+    setValues({ ...values, movie: movie });
+    setSelectedMovie(movieName);
   };
 
   useEffect(() => {

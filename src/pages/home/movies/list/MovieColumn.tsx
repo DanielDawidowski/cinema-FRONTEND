@@ -1,9 +1,9 @@
 import React from "react";
 import type { FC, ReactElement } from "react";
-import { Mask, MovieColumn, MovieItem } from "../../Home.styles";
+import { Mask, MovieColumn, MovieItem } from "./HomeMovies.styles";
 import { IMovie } from "../../../../interfaces/movie/movie.interface";
 
-interface IHomeMovieColumn {
+interface IMovieColumn {
   i: number;
   group: IMovie[];
   toggle: boolean;
@@ -13,7 +13,7 @@ interface IHomeMovieColumn {
   handleClick: (obj: IMovie, i: number) => void;
 }
 
-const HomeMovieColumn: FC<IHomeMovieColumn> = (props): ReactElement => {
+const HomeMovieColumn: FC<IMovieColumn> = (props): ReactElement => {
   const { groupSize, i, group, selected, toggle, handleClick, handleMovie } =
     props;
 

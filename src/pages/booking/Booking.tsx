@@ -79,7 +79,7 @@ const Booking: FC = (): ReactElement => {
             <StepContainer $currentStep={currentStep} $step={4}>
               <Payment />
             </StepContainer>
-            <Movie movieId={show.movie} hall={hall} time={show.time} />
+            <Movie movieId={show.movie._id!} hall={hall} time={show.time} />
           </StepContent>
         </Container>
         <Footer

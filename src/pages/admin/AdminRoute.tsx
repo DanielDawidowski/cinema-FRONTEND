@@ -10,6 +10,7 @@ import {
 } from "../../redux-toolkit/reducers/user/user.reducer";
 import useEffectOnce from "../../hooks/useEffectOnce";
 import { ISignUpData } from "../../interfaces/auth/auth.interface";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 interface ProtectedRouteProps {
   children: ReactNode;
@@ -19,15 +20,18 @@ const ProtectedRoute: FC<ProtectedRouteProps> = ({
   children,
 }): ReactElement => {
   const { profile, token } = useAppSelector((state) => state.user);
-  const [userData, setUserData] = useState<ISignUpData | null>(null);
   const [tokenIsValid, setTokenIsValid] = useState<boolean>(false);
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const userStorage = useLocalStorage<ISignUpData>("user");
+
+  const user = userStorage.get();
 
   const checkUser = useCallback(async (): Promise<void> => {
     try {
       const response = await userService.checkCurrentUser();
-      setUserData(response.data.user);
       setTokenIsValid(true);
       dispatch(
         addUser({
@@ -49,7 +53,7 @@ const ProtectedRoute: FC<ProtectedRouteProps> = ({
     checkUser();
   });
 
-  if (userData || (profile && token)) {
+  if (user || (profile && token)) {
     if (!tokenIsValid) {
       return <></>;
     } else {

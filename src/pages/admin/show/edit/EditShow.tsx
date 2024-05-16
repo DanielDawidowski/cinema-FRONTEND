@@ -18,7 +18,11 @@ import ShowForm from "../../../../components/form/show/Show.form";
 const initialState: IShow = {
   city: "",
   hall: "",
-  movie: "",
+  movie: {
+    _id: "",
+    name: "",
+    img: "",
+  },
   time: "",
 };
 
@@ -55,8 +59,12 @@ const EditShow: FC = (): ReactElement => {
     setLoading(true);
     values.city = values.city ? values.city : show.city;
     values.hall = values.hall ? values.hall : show.hall;
-    values.movie = values.movie ? values.movie : show.movie;
     values.time = values.time ? values.time : show.time;
+    values.movie = {
+      _id: values.movie._id ? values.movie._id : show.movie._id,
+      name: values.movie.name ? values.movie.name : show.movie.name,
+      img: values.movie.img ? values.movie.img : show ? show.movie.img : "",
+    };
 
     try {
       await showService.updateShow(showId as string, values);

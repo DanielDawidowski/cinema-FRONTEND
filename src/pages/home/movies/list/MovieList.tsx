@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import type { FC, ReactElement } from "react";
 import { IoCloseCircle } from "react-icons/io5";
+import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../../../redux-toolkit/hooks";
 import { IShow } from "../../../../interfaces/show/show.interface";
 import { IMovie } from "../../../../interfaces/movie/movie.interface";
@@ -21,24 +22,21 @@ import {
   SelectedMovie,
   ToggleBar,
   ToggleContent,
-} from "../../Home.styles";
-import HomeCityList from "../city/HomeCityList";
-import HomeMovieColumn from "./HomeMovieColumn";
-import HomeShowList from "../show/HomeShowList";
+} from "./HomeMovies.styles";
+import CityList from "../city/CityList";
+import MovieColumn from "./MovieColumn";
+import HomeShowList from "../show/ShowList";
 import { getMoviesList } from "../../../../redux-toolkit/api/movies";
-import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../../redux-toolkit/store";
 import { getShowsList } from "../../../../redux-toolkit/api/shows";
 
 const HomeMovieList: FC = (): ReactElement => {
-  const { city } = useAppSelector((state) => state.city);
-  const { showsList } = useAppSelector((state) => state.shows);
+  const { showsList, city } = useAppSelector((state) => state.shows);
   const { movies, filteredMovies } = useAppSelector((state) => state.movies);
   const [expandedGroup, setExpandedGroup] = useState<number | null>(null);
   const [selected, setSelected] = useState<IMovie | null>({} as IMovie);
   const [movieId, setMovieId] = useState<string>("");
   const [show, setShow] = useState<IShow>({} as IShow);
-  const [cityName, setCityName] = useState<string>("");
   const [hall, setHall] = useState<IHall>({} as IHall);
   const size = useWindowSize();
   const movieRef = useRef<HTMLDivElement>(null);
@@ -80,7 +78,7 @@ const HomeMovieList: FC = (): ReactElement => {
         const group = objects.slice(i, i + groupSize);
         const groupDiv = (
           <div key={i} ref={movieRef}>
-            <HomeMovieColumn
+            <MovieColumn
               i={i}
               group={group}
               toggle={toggle}
@@ -114,9 +112,7 @@ const HomeMovieList: FC = (): ReactElement => {
                     <Flex $align="flex-start" $justify="flex-end">
                       <IoCloseCircle onClick={() => setToggle(false)} />
                     </Flex>
-                    {!cityName && !city ? (
-                      <HomeCityList setCityName={setCityName} />
-                    ) : null}
+                    {!city ? <CityList /> : null}
                     {city ? (
                       <HomeShowList
                         shows={showsList} //shows
@@ -138,7 +134,6 @@ const HomeMovieList: FC = (): ReactElement => {
     },
     [
       expandedGroup,
-      cityName,
       city,
       selected,
       showsList, //shows
@@ -164,7 +159,7 @@ const HomeMovieList: FC = (): ReactElement => {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(getShowsList({ city, movieId }));
+    dispatch(getShowsList({ city, movieId, page: 1 }));
   }, [dispatch, city, movieId]);
 
   useEffect(() => {

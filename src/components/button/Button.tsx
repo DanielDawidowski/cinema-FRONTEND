@@ -20,6 +20,8 @@ Button.propTypes = {
     ButtonColor.secondary,
     ButtonColor.success,
     ButtonColor.pagination,
+    ButtonColor.active,
+    ButtonColor.disabled,
   ]),
   onClick: PropTypes.func,
   children: PropTypes.node.isRequired,

@@ -1,3 +1,6 @@
+import type { Dispatch, SetStateAction } from "react";
+import { format, isToday } from "date-fns";
+import { enGB } from "date-fns/locale";
 import { BreakPoint } from "../components/layout/Layout.interface";
 import { SeatType, SeatTypes } from "../interfaces/hall/hall.interface";
 import {
@@ -105,6 +108,34 @@ export class Utils {
     );
     return seats as Omit<ITicket, "_id">[];
   };
+
+  static formatDate(date: Date): string {
+    if (isToday(date)) {
+      return "Today";
+    }
+
+    const dayOfWeek = format(date, "eee", { locale: enGB });
+    const dayOfMonth = format(date, "d");
+    const month = format(date, "MMM", { locale: enGB });
+
+    return `${dayOfWeek} ${dayOfMonth} ${month}`;
+  }
+
+  static getCurrentSixDays(
+    setDays: Dispatch<SetStateAction<string[]>>
+  ): string[] {
+    const currentDate: Date = new Date();
+    const datesArray: string[] = [this.formatDate(currentDate)];
+
+    for (let i = 1; i <= 6; i++) {
+      const futureDate: Date = new Date(
+        currentDate.getTime() + i * 24 * 60 * 60 * 1000
+      ); // Adding i days (i * 24 hours * 60 minutes * 60 seconds * 1000 milliseconds)
+      datesArray.push(this.formatDate(futureDate));
+    }
+    setDays(datesArray);
+    return datesArray;
+  }
 }
 
 // export enum BreakPoint {
