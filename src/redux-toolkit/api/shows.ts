@@ -10,26 +10,24 @@ export interface IShowsList {
 export interface IShowsReducer {
   city: string;
   movieId: string;
-  page: number;
 }
 
 // Define the payload creator function
 export const getShowsList = createAsyncThunk<IShowsList, IShowsReducer>(
   "shows/getShowsList",
-  async ({ city, movieId, page }: IShowsReducer) => {
+  async ({ city, movieId }: IShowsReducer) => {
     try {
       if (city || movieId) {
         const response = await showService.getShowsByFilters(
           city ? city : movieId,
-          movieId,
-          page
+          movieId
         );
         return {
           list: response.data.list,
           totalShows: response.data.totalShows,
         };
       } else {
-        const response = await showService.getAllShow(page);
+        const response = await showService.getAllShow();
         return {
           list: response.data.list,
           totalShows: response.data.totalShows,

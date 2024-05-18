@@ -40,19 +40,18 @@ import { AppDispatch } from "../../../../redux-toolkit/store";
 import {
   clear,
   setCity,
+  setMovieId,
 } from "../../../../redux-toolkit/reducers/shows/shows.reducer";
 import Pagination from "../../../../components/pagination/Pagination";
 
 const ShowList: FC = (): ReactElement => {
-  const { showsList, city, totalShows } = useAppSelector(
+  const { showsList, city, movieId, totalShows } = useAppSelector(
     (state) => state.shows
   );
 
-  const [movieId, setMovieId] = useState<string>("");
   const [movies, setMovies] = useState<IMovie[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const [selectedMovie, setSelectedMovie] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const dispatch: ReduxDispatch = useAppDispatch();
@@ -90,35 +89,47 @@ const ShowList: FC = (): ReactElement => {
 
   const handleCity = (city: string): void => {
     dispatch(setCity({ city }));
+    setCurrentPage(1);
   };
 
   const handleMovie = (name: string): void => {
     const movieId = MovieUtils.movieId(movies, name);
-    setMovieId(movieId);
-    setSelectedMovie(name);
+    dispatch(setMovieId({ movieId }));
+    setCurrentPage(1);
+  };
+
+  const handleTitle = (_id: string): string => {
+    const movieTitle = MovieUtils.movieTitleFromId(movies, _id);
+    return movieTitle;
   };
 
   const clearFilters = (): void => {
     dispatch(clear());
+    setCurrentPage(1);
   };
-
-  const sortedShows = useMemo(() => showsList, [showsList]);
 
   useEffect(() => {
     getAllMovies();
   }, [getAllMovies]);
 
   useEffect(() => {
-    console.log("showsList", showsList);
-    console.log("length", showsList.length);
-  }, [showsList]);
-
-  useEffect(() => {
-    appDispatch(getShowsList({ city, movieId, page: currentPage }));
+    appDispatch(getShowsList({ city, movieId }));
   }, [appDispatch, city, movieId, currentPage]);
 
   const headers = ["Image", "Movie", "City", "Hall", "Time", "Actions"];
+  const PAGE_SIZE = 10;
 
+  const startIndex = (currentPage - 1) * PAGE_SIZE;
+  const endIndex = Math.min(startIndex + PAGE_SIZE, showsList.length);
+
+  // Slice the showsList array to get the items for the current page
+  const currentItems = showsList.slice(startIndex, endIndex);
+  const sortedShows = useMemo(() => currentItems, [currentItems]);
+
+  useEffect(() => {
+    console.log("showsList", showsList);
+    console.log("sortedShows", sortedShows);
+  }, [showsList, sortedShows]);
   return (
     <Layout>
       <Container>
@@ -148,7 +159,7 @@ const ShowList: FC = (): ReactElement => {
                   <Select
                     label="Pick Movie"
                     options={MovieUtils.movieTitles(movies)}
-                    selectedOption={selectedMovie!}
+                    selectedOption={handleTitle(movieId)!}
                     onSelect={(option: string) => handleMovie(option)}
                   />
                 </FilterItem>
@@ -179,6 +190,13 @@ const ShowList: FC = (): ReactElement => {
                 </StyledTable>
               </ListTableInner>
             </ListTable>
+            {sortedShows.length > 10 ? (
+              <Pagination
+                total={totalShows}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+              />
+            ) : null}
           </ShowStyles>
         )}
       </Container>

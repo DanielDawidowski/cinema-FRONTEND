@@ -106,9 +106,10 @@ export const ErrorMessage = styled.h4`
 `;
 
 export const ListStyles = styled.ul`
-  display: grid;
-  margin: ${(props) => props.theme.size1} 0;
-  width: 100%;
+  margin: ${(props) => props.theme.size1};
+  @media (min-width: ${(props) => props.theme.breakpoint_small}) {
+    margin: ${(props) => props.theme.size1} 0;
+  }
 `;
 
 export const ListItem = styled.tr<{ $img?: boolean }>`
@@ -174,12 +175,8 @@ export const StyledTable = styled.table`
 export const StyledTh = styled.th<{ $img?: boolean }>`
   padding: 8px;
   text-align: center;
-  width: 100%;
-  @media (min-width: ${(props) => props.theme.breakpoint_small}) {
-    width: ${(props) => (props.$img ? "10px" : "150px")};
-  }
+  width: ${(props) => (props.$img ? "10px" : "150px")};
 `;
-// width: ${(props) => (props.$img ? "10px" : "150px")};
 
 export const StyledTd = styled.td`
   border: 1px solid ${(props) => props.theme.white};

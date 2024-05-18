@@ -54,30 +54,6 @@ const ShowItem: FC<IShowProps> = ({
   }, [getMovie]);
 
   return (
-    // <ListItem $img>
-    //   <h4>{movie?.name}</h4>
-    //   <Grid>
-    //     <Flex $align="center" $justify="space-around" style={{ width: "100%" }}>
-    //       <h5>{show.time}</h5>
-    //     </Flex>
-    //     <Flex $align="center" $justify="space-around" style={{ width: "100%" }}>
-    //       <h5> {show?.city!}</h5>
-    //       <h5>
-    //         hall nr
-    //         {show.hall === hall?._id ? hall.hallNumber : null}
-    //       </h5>
-    //     </Flex>
-    //   </Grid>
-    //   <Icons>
-    //     <Link to={`/admin/show/edit/${show._id}`}>
-    //       <AiOutlineEdit style={{ fill: themeGlobal.blue }} />
-    //     </Link>
-    //     <MdDeleteForever
-    //       style={{ fill: themeGlobal.red }}
-    //       onClick={() => deleteShow(show._id as string)}
-    //     />
-    //   </Icons>
-    // </ListItem>
     <StyledTr>
       <StyledTd>
         <img src={show.movie.img} alt={show.movie.name} />

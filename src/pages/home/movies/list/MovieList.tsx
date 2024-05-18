@@ -159,7 +159,7 @@ const HomeMovieList: FC = (): ReactElement => {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(getShowsList({ city, movieId, page: 1 }));
+    dispatch(getShowsList({ city, movieId }));
   }, [dispatch, city, movieId]);
 
   useEffect(() => {

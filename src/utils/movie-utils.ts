@@ -32,6 +32,11 @@ export class MovieUtils {
     return matchingMovie?._id!;
   };
 
+  static movieTitleFromId = (movies: IMovie[], movieId: string): string => {
+    const matchingMovie = movies.find((item) => item._id === movieId);
+    return matchingMovie?.name!;
+  };
+
   static movieShow = (movies: IMovie[], name: string): IMovieShow => {
     const matchingMovie = movies.find((item) => item.name === name);
     return {
