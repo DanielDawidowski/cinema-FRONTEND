@@ -9,6 +9,7 @@ import { ValidationError } from "../../../../interfaces/error/Error.interface";
 import {
   Container,
   ErrorMessage,
+  ListStyles,
   ListTable,
   ListTableInner,
   StyledTable,
@@ -29,7 +30,6 @@ import {
   FilterItem,
   Filters,
   FiltersContainer,
-  ShowStyles,
 } from "../Show.styles";
 import {
   useAppDispatch,
@@ -122,21 +122,16 @@ const ShowList: FC = (): ReactElement => {
   const startIndex = (currentPage - 1) * PAGE_SIZE;
   const endIndex = Math.min(startIndex + PAGE_SIZE, showsList.length);
 
-  // Slice the showsList array to get the items for the current page
   const currentItems = showsList.slice(startIndex, endIndex);
   const sortedShows = useMemo(() => currentItems, [currentItems]);
 
-  useEffect(() => {
-    console.log("showsList", showsList);
-    console.log("sortedShows", sortedShows);
-  }, [showsList, sortedShows]);
   return (
     <Layout>
       <Container>
         {loading ? (
           <Spinner />
         ) : (
-          <ShowStyles>
+          <ListStyles>
             <FiltersContainer>
               <DisplayError>
                 {errorMessage ? (
@@ -190,14 +185,12 @@ const ShowList: FC = (): ReactElement => {
                 </StyledTable>
               </ListTableInner>
             </ListTable>
-            {sortedShows.length > 10 ? (
-              <Pagination
-                total={totalShows}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-              />
-            ) : null}
-          </ShowStyles>
+            <Pagination
+              total={totalShows}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
+          </ListStyles>
         )}
       </Container>
     </Layout>

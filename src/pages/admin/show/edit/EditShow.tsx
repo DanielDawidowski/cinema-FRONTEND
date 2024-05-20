@@ -8,11 +8,11 @@ import { ValidationError } from "../../../../interfaces/error/Error.interface";
 import {
   Container,
   Grid,
+  ListStyles,
 } from "../../../../components/layout/globalStyles/global.styles";
 import useEffectOnce from "../../../../hooks/useEffectOnce";
 import { IShow } from "../../../../interfaces/show/show.interface";
 import { showService } from "../../../../services/api/show/show.service";
-import { ShowStyles } from "../Show.styles";
 import ShowForm from "../../../../components/form/show/Show.form";
 
 const initialState: IShow = {
@@ -94,7 +94,7 @@ const EditShow: FC = (): ReactElement => {
   return (
     <Layout>
       <Container $small>
-        <ShowStyles>
+        <ListStyles>
           <Grid>
             <ShowForm
               values={values}
@@ -105,7 +105,7 @@ const EditShow: FC = (): ReactElement => {
               errorMessage={errorMessage}
             />
           </Grid>
-        </ShowStyles>
+        </ListStyles>
       </Container>
     </Layout>
   );

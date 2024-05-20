@@ -1,12 +1,5 @@
 import styled from "styled-components";
 
-export const ShowStyles = styled.section`
-  margin: ${(props) => props.theme.size1};
-  @media (min-width: ${(props) => props.theme.breakpoint_small}) {
-    margin: ${(props) => props.theme.size1} 0;
-  }
-`;
-
 export const Filters = styled.div`
   display: grid;
   margin: ${(props) => props.theme.size1};

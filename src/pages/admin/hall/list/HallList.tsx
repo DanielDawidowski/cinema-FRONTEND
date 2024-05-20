@@ -8,6 +8,11 @@ import {
   Container,
   ErrorMessage,
   ListStyles,
+  ListTable,
+  ListTableInner,
+  StyledTable,
+  StyledTh,
+  StyledTr,
 } from "../../../../components/layout/globalStyles/global.styles";
 import Spinner from "../../../../components/spinner/Spinner";
 import { IHall } from "../../../../interfaces/hall/hall.interface";
@@ -68,33 +73,47 @@ const HallList: FC = (): ReactElement => {
     getHallsByCity();
   }, [getHallsByCity]);
 
+  const headers = ["Hall", "Actions"];
+
   return (
     <Layout>
       <Container $small>
-        <ListStyles>
-          {loading ? (
-            <Spinner />
-          ) : (
-            <>
-              {errorMessage ? (
-                <ErrorMessage>{errorMessage}</ErrorMessage>
-              ) : null}
-              <FormStyles>
-                <FormItemStyles>
-                  <Select
-                    label="City"
-                    options={cities}
-                    selectedOption={selectedOption!}
-                    onSelect={(option: string) => handleCity(option)}
-                  />
-                </FormItemStyles>
-              </FormStyles>
-              {filteredHalls.map((hall, i) => (
-                <HallItem key={i} hall={hall} deleteHall={deleteHall} />
-              ))}
-            </>
-          )}
-        </ListStyles>
+        {loading ? (
+          <Spinner />
+        ) : (
+          <ListStyles>
+            {errorMessage ? <ErrorMessage>{errorMessage}</ErrorMessage> : null}
+            <FormStyles>
+              <FormItemStyles>
+                <Select
+                  label="City"
+                  options={cities}
+                  selectedOption={selectedOption!}
+                  onSelect={(option: string) => handleCity(option)}
+                />
+              </FormItemStyles>
+            </FormStyles>
+
+            <ListTable>
+              <ListTableInner>
+                <StyledTable>
+                  <thead>
+                    <StyledTr>
+                      {headers.map((header, index) => (
+                        <StyledTh key={index}>{header}</StyledTh>
+                      ))}
+                    </StyledTr>
+                  </thead>
+                  <tbody>
+                    {filteredHalls.map((hall, i) => (
+                      <HallItem key={i} hall={hall} deleteHall={deleteHall} />
+                    ))}
+                  </tbody>
+                </StyledTable>
+              </ListTableInner>
+            </ListTable>
+          </ListStyles>
+        )}
       </Container>
     </Layout>
   );
