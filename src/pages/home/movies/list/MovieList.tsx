@@ -9,8 +9,7 @@ import type { FC, ReactElement } from "react";
 import { IoCloseCircle } from "react-icons/io5";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../../../redux-toolkit/hooks";
-import { IShow, IShows } from "../../../../interfaces/show/show.interface";
-import { IMovie } from "../../../../interfaces/movie/movie.interface";
+import { IShows } from "../../../../interfaces/show/show.interface";
 import useWindowSize from "../../../../hooks/useWindowSize";
 import { Utils } from "../../../../utils/utils";
 import useDetectOutsideClick from "../../../../hooks/useDetectOutsideClick";
@@ -24,17 +23,16 @@ import {
 import CityList from "../city/CityList";
 import MovieColumn from "./MovieColumn";
 import HomeShowList from "../show/ShowList";
-import { getMoviesList } from "../../../../redux-toolkit/api/movies";
 import { AppDispatch } from "../../../../redux-toolkit/store";
 import { getShowsList } from "../../../../redux-toolkit/api/shows";
 
 const HomeMovieList: FC = (): ReactElement => {
-  const { showsList, city } = useAppSelector((state) => state.shows);
-  const { movies, filteredMovies } = useAppSelector((state) => state.movies);
+  const { filteredShows, showsList, city } = useAppSelector(
+    (state) => state.shows
+  );
   const [expandedGroup, setExpandedGroup] = useState<number | null>(null);
   const [selected, setSelected] = useState<IShows | null>({} as IShows);
-  const [movieId, setMovieId] = useState<string>("");
-  const [show, setShow] = useState<IShow>({} as IShow);
+
   const size = useWindowSize();
   const movieRef = useRef<HTMLDivElement>(null);
   const [toggle, setToggle] = useDetectOutsideClick(movieRef, false);
@@ -45,7 +43,6 @@ const HomeMovieList: FC = (): ReactElement => {
     (obj: IShows, i: number): void => {
       setExpandedGroup(i);
       setSelected(obj);
-      setMovieId(obj._id!);
       setToggle(true);
       setTimeout(() => {
         Utils.scrollToElement(obj._id!, 1000);
@@ -105,11 +102,7 @@ const HomeMovieList: FC = (): ReactElement => {
                     </Flex>
                     {!city ? <CityList /> : null}
                     {city ? (
-                      <HomeShowList
-                        shows={showsList}
-                        selected={selected}
-                        setShow={setShow}
-                      />
+                      <HomeShowList shows={showsList} selected={selected} />
                     ) : null}
                   </ToggleContent>
                 </ToggleBar>
@@ -137,13 +130,16 @@ const HomeMovieList: FC = (): ReactElement => {
 
   const memorizeMovies = useMemo(
     () =>
-      renderObjectsInGroups(showsList, Utils.emitNumber(size.width as number)),
-    [renderObjectsInGroups, showsList, size]
+      renderObjectsInGroups(
+        filteredShows.length > 0 ? filteredShows : showsList,
+        Utils.emitNumber(size.width as number)
+      ),
+    [renderObjectsInGroups, filteredShows, showsList, size]
   );
 
   useEffect(() => {
-    dispatch(getMoviesList());
-  }, [dispatch]);
+    console.log("shows", showsList);
+  }, [showsList]);
 
   useEffect(() => {
     dispatch(getShowsList({ city }));

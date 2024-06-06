@@ -79,7 +79,6 @@ const EditShow: FC = (): ReactElement => {
       setLoading(false);
       setHasError(false);
       setValues(initialState);
-      console.log("edited show");
       navigate("/admin/shows");
     } catch (error) {
       if (

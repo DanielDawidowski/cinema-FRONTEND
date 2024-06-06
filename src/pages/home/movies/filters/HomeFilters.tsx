@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import type { FC, ReactElement } from "react";
 import type { Dispatch as ReduxDispatch } from "@reduxjs/toolkit";
 import { IoIosArrowDown } from "react-icons/io";
@@ -34,12 +34,12 @@ import { AnimatePresence } from "framer-motion";
 import Button from "../../../../components/button/Button";
 import { ButtonColor } from "../../../../components/button/Button.interface";
 import { Flex } from "../../../../components/layout/globalStyles/global.styles";
-import {
-  clearFilters,
-  filterMovies,
-} from "../../../../redux-toolkit/reducers/movies/movies.reducer";
 import SortFilters from "./SortFilters";
 import useDetectOutsideClick from "../../../../hooks/useDetectOutsideClick";
+import {
+  filterShows,
+  clearFilters,
+} from "../../../../redux-toolkit/reducers/shows/shows.reducer";
 
 const variants = {
   open: {
@@ -72,7 +72,7 @@ const Filters: FC<IFilters> = ({ type, setType }): ReactElement => {
   const isSticky = useSticky("filters");
 
   const { isFilterModal } = useAppSelector((state) => state.modal);
-  const { movies, filterCount } = useAppSelector((state) => state.movies);
+  const { showsList, filterCount } = useAppSelector((state) => state.shows);
 
   const dispatch: ReduxDispatch = useAppDispatch();
 
@@ -102,11 +102,11 @@ const Filters: FC<IFilters> = ({ type, setType }): ReactElement => {
 
   const addFilters = () => {
     dispatch(
-      filterMovies({
+      filterShows({
         categories,
         alphabet: selectedFilter === "alphabet" ? true : false,
         latest: selectedFilter === "latest" ? true : false,
-        movies,
+        showsList,
       })
     );
     dispatch(closeModal());
@@ -121,16 +121,20 @@ const Filters: FC<IFilters> = ({ type, setType }): ReactElement => {
     setCategories([]);
     setSelectedFilter(null);
     dispatch(
-      filterMovies({
+      filterShows({
         categories: [],
         alphabet: false,
         latest: false,
-        movies,
+        showsList,
       })
     );
-    dispatch(clearFilters({ movies }));
+    dispatch(clearFilters({ showsList }));
     dispatch(closeModal());
   };
+
+  useEffect(() => {
+    console.log("categories", categories);
+  }, [categories]);
 
   return (
     <FilterActions id="filters">

@@ -76,7 +76,6 @@ const CreateHall: FC = (): ReactElement => {
       setLoading(false);
       setHasError(false);
       setValues(initialState);
-      console.log("created hall");
       dispatch(closeModal());
       navigate("/admin/halls");
     } catch (error) {

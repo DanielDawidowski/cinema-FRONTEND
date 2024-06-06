@@ -81,9 +81,9 @@ const Selection: FC<ISelection> = ({ show }): ReactElement => {
     <SelectionStyles>
       <Screen />
       <SelectionSeats $rows={hallRows!} $columns={hallColumns!}>
-        {seats?.map((seat: ISeat, i) => (
+        {seats?.map((seat: ISeat, i: number) => (
           <Seat
-            key={seat._id}
+            key={i}
             seat={seat}
             onClick={() => handleSeat(seat)}
             selection

@@ -1,7 +1,6 @@
 import React from "react";
 import type { FC, ReactElement } from "react";
 import { Mask, MovieColumn, MovieItem } from "./HomeMovies.styles";
-import { IMovie } from "../../../../interfaces/movie/movie.interface";
 import { IShows } from "../../../../interfaces/show/show.interface";
 
 interface IMovieColumn {

@@ -87,10 +87,6 @@ const ShowForm: FC<ICreateShowForm> = (props): ReactElement => {
     getAllMovies();
   }, [getHallsByCity, getAllMovies]);
 
-  useEffect(() => {
-    console.log("halls", halls);
-  }, [halls]);
-
   return (
     <>
       {hasError ? <ErrorMessage>{errorMessage}</ErrorMessage> : null}

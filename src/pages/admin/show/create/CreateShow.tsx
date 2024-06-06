@@ -40,7 +40,6 @@ const CreateShow: FC = (): ReactElement => {
       setLoading(false);
       setHasError(false);
       setValues(initialState);
-      console.log("created show");
       // navigate("/admin/shows");
       // console.log("values", values);
     } catch (error) {

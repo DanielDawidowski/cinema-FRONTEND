@@ -72,7 +72,6 @@ const EditMovie: FC = (): ReactElement => {
       setLoading(false);
       setHasError(false);
       setValues(initialState);
-      console.log("edited movie");
       navigate("/admin/movies");
     } catch (error) {
       if (

@@ -18,7 +18,6 @@ const Radio = <T extends OptionType>({
   const handleOptionChange = (option: T) => {
     setSelectedValue(option);
     onChange(seat!, option);
-    console.log("option", option);
   };
 
   return (

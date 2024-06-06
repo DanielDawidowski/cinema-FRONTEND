@@ -46,7 +46,6 @@ const CreateMovie: FC = (): ReactElement => {
       setLoading(false);
       setHasError(false);
       setValues(initialState);
-      console.log("created movie");
       navigate("/admin/movies");
     } catch (error) {
       if (

@@ -40,11 +40,6 @@ const Booking: FC = (): ReactElement => {
     getShow();
   }, [getShow]);
 
-  useEffect(() => {
-    console.log("hall", show.hall);
-    console.log("showId", showId);
-  }, [show, showId]);
-
   return (
     <Layout header={false}>
       <BookingStyles>

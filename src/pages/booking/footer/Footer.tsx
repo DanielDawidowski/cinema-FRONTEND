@@ -81,7 +81,6 @@ const Footer: FC<IFooter> = (props): ReactElement => {
       const response = await ticketService.checkout({ seats: seats });
       setUrl(response.data.url);
       setLoading(false);
-      console.log("created ticket");
     } catch (error) {
       if (
         axios.isAxiosError<ValidationError, Record<string, unknown>>(error) &&
