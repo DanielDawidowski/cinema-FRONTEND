@@ -9,12 +9,11 @@ export interface IShowsList {
 
 export interface IShowsReducer {
   city: string;
-  movieId?: string;
 }
 
 export const getShowsList = createAsyncThunk<IShowsList, IShowsReducer>(
   "shows/getShowsList",
-  async ({ city, movieId }: IShowsReducer) => {
+  async ({ city }: IShowsReducer) => {
     try {
       const response = await showService.getShowsByCity(city);
       return {

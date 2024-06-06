@@ -1,13 +1,6 @@
-import React, {
-  useState,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-} from "react";
+import React, { useState, useCallback, useMemo, useRef } from "react";
 import type { FC, ReactElement } from "react";
 import { IoCloseCircle } from "react-icons/io5";
-import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../../../redux-toolkit/hooks";
 import { IShows } from "../../../../interfaces/show/show.interface";
 import useWindowSize from "../../../../hooks/useWindowSize";
@@ -23,8 +16,6 @@ import {
 import CityList from "../city/CityList";
 import MovieColumn from "./MovieColumn";
 import HomeShowList from "../show/ShowList";
-import { AppDispatch } from "../../../../redux-toolkit/store";
-import { getShowsList } from "../../../../redux-toolkit/api/shows";
 
 const HomeMovieList: FC = (): ReactElement => {
   const { filteredShows, showsList, city } = useAppSelector(
@@ -36,8 +27,6 @@ const HomeMovieList: FC = (): ReactElement => {
   const size = useWindowSize();
   const movieRef = useRef<HTMLDivElement>(null);
   const [toggle, setToggle] = useDetectOutsideClick(movieRef, false);
-
-  const dispatch = useDispatch<AppDispatch>();
 
   const handleClick = useCallback(
     (obj: IShows, i: number): void => {
@@ -136,14 +125,6 @@ const HomeMovieList: FC = (): ReactElement => {
       ),
     [renderObjectsInGroups, filteredShows, showsList, size]
   );
-
-  useEffect(() => {
-    console.log("shows", showsList);
-  }, [showsList]);
-
-  useEffect(() => {
-    dispatch(getShowsList({ city }));
-  }, [dispatch, city]);
 
   return <MoviesList>{memorizeMovies}</MoviesList>;
 };

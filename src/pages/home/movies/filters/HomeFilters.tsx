@@ -156,16 +156,16 @@ const Filters: FC<IFilters> = ({ type, setType }): ReactElement => {
       <Tabs>
         <TabsStyles>
           <TabsElement
-            $active={type === "Per day"}
-            onClick={() => setType("Per day")}
-          >
-            <h5>Per day</h5>
-          </TabsElement>
-          <TabsElement
             $active={type === "Per movie"}
             onClick={() => setType("Per movie")}
           >
             <h5>Per movie</h5>
+          </TabsElement>
+          <TabsElement
+            $active={type === "Per day"}
+            onClick={() => setType("Per day")}
+          >
+            <h5>Per day</h5>
           </TabsElement>
         </TabsStyles>
       </Tabs>

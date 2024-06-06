@@ -12,7 +12,7 @@ import { themeGlobal } from "../../../../components/layout/globalStyles/variable
 
 interface IShowList {
   shows: IShows[];
-  selected: IShows | null;
+  selected?: IShows | null;
 }
 
 const HomeShowList: FC<IShowList> = (props): ReactElement => {
