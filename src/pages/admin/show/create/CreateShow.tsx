@@ -14,11 +14,13 @@ import ShowForm from "../../../../components/form/show/Show.form";
 
 const initialState: IShow = {
   city: "",
-  hall: "",
+  hall: 0,
   movie: {
     _id: "",
     name: "",
     img: "",
+    category: [],
+    description: "",
   },
   time: "",
 };

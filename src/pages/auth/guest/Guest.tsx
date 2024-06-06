@@ -8,8 +8,8 @@ import { useAppDispatch } from "../../../redux-toolkit/hooks";
 import { addName } from "../../../redux-toolkit/reducers/ticket/ticket.reduer";
 
 const initialState: IGuest = {
-  name: "Daniel",
-  email: "dvds1987@gmail.com",
+  name: "",
+  email: "",
 };
 
 const Guest: FC = (): ReactElement => {

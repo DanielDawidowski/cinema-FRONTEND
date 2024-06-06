@@ -17,11 +17,13 @@ import ShowForm from "../../../../components/form/show/Show.form";
 
 const initialState: IShow = {
   city: "",
-  hall: "",
+  hall: 0,
   movie: {
     _id: "",
     name: "",
     img: "",
+    category: [],
+    description: "",
   },
   time: "",
 };
@@ -38,7 +40,7 @@ const EditShow: FC = (): ReactElement => {
 
   const getShow = useCallback(async () => {
     try {
-      const response = await showService.getShow(showId as string);
+      const response = await showService.getShow(showId);
       setShow(response.data.show);
     } catch (error) {
       if (
@@ -64,6 +66,12 @@ const EditShow: FC = (): ReactElement => {
       _id: values.movie._id ? values.movie._id : show.movie._id,
       name: values.movie.name ? values.movie.name : show.movie.name,
       img: values.movie.img ? values.movie.img : show ? show.movie.img : "",
+      category: values.movie.category
+        ? values.movie.category
+        : show.movie.category,
+      description: values.movie.description
+        ? values.movie.description
+        : show.movie.description,
     };
 
     try {

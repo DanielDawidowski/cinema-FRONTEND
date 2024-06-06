@@ -10,10 +10,6 @@ import {
   StyledTr,
 } from "../../../../components/layout/globalStyles/global.styles";
 import { IShow } from "../../../../interfaces/show/show.interface";
-import { IMovie } from "../../../../interfaces/movie/movie.interface";
-import { movieService } from "../../../../services/api/movie/movie.service";
-import { hallService } from "../../../../services/api/hall/hall.service";
-import { IHall } from "../../../../interfaces/hall/hall.interface";
 
 interface IShowProps {
   show: IShow;
@@ -24,35 +20,6 @@ const ShowItem: FC<IShowProps> = ({
   show,
   deleteShow,
 }): ReactElement | null => {
-  const [movie, setMovie] = useState<IMovie>({} as IMovie);
-  const [hall, setHall] = useState<IHall>({} as IHall);
-
-  const getMovie = useCallback(async () => {
-    try {
-      const response = await movieService.getMovie(show.movie._id as string);
-      setMovie(response.data.movie);
-    } catch (error) {
-      console.error(error);
-    }
-  }, [show.movie._id]);
-
-  const getHall = useCallback(async () => {
-    try {
-      const response = await hallService.getHall(show.hall);
-      setHall(response.data.hall);
-    } catch (error) {
-      console.error(error);
-    }
-  }, [show.hall]);
-
-  useEffect(() => {
-    getHall();
-  }, [getHall]);
-
-  useEffect(() => {
-    getMovie();
-  }, [getMovie]);
-
   return (
     <StyledTr>
       <StyledTd>
@@ -60,7 +27,7 @@ const ShowItem: FC<IShowProps> = ({
       </StyledTd>
       <StyledTd>{show.movie.name}</StyledTd>
       <StyledTd>{show.city}</StyledTd>
-      <StyledTd>{hall.hallNumber}</StyledTd>
+      <StyledTd>{show.hall}</StyledTd>
       <StyledTd>{show.time}</StyledTd>
 
       <StyledTd>

@@ -17,8 +17,6 @@ import { IShow } from "../../interfaces/show/show.interface";
 import Footer from "./footer/Footer";
 import Tickets from "./tickets/Tickets";
 import Movie from "./movie/Movie";
-import { IHall } from "../../interfaces/hall/hall.interface";
-import { hallService } from "../../services/api/hall/hall.service";
 import Information from "./information/Information";
 import Payment from "./payment/Payment";
 import StepNav from "./header/Header";
@@ -26,18 +24,8 @@ import StepNav from "./header/Header";
 const Booking: FC = (): ReactElement => {
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [show, setShow] = useState<IShow>({} as IShow);
-  const [hall, setHall] = useState<IHall>({} as IHall);
 
   const { showId } = useParams();
-
-  const getHall = useCallback(async () => {
-    try {
-      const response = await hallService.getHall(show.hall);
-      setHall(response.data.hall);
-    } catch (error) {
-      console.error(error);
-    }
-  }, [show.hall]);
 
   const getShow = useCallback(async () => {
     try {
@@ -50,8 +38,12 @@ const Booking: FC = (): ReactElement => {
 
   useEffect(() => {
     getShow();
-    getHall();
-  }, [getShow, getHall]);
+  }, [getShow]);
+
+  useEffect(() => {
+    console.log("hall", show.hall);
+    console.log("showId", showId);
+  }, [show, showId]);
 
   return (
     <Layout header={false}>
@@ -68,7 +60,7 @@ const Booking: FC = (): ReactElement => {
         <Container>
           <StepContent>
             <StepContainer $currentStep={currentStep} $step={1}>
-              <Selection hall={hall} />
+              <Selection show={show} />
             </StepContainer>
             <StepContainer $currentStep={currentStep} $step={2}>
               <Tickets />
@@ -79,7 +71,7 @@ const Booking: FC = (): ReactElement => {
             <StepContainer $currentStep={currentStep} $step={4}>
               <Payment />
             </StepContainer>
-            <Movie movieId={show.movie._id!} hall={hall} time={show.time} />
+            <Movie show={show} />
           </StepContent>
         </Container>
         <Footer

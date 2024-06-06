@@ -43,6 +43,8 @@ export class MovieUtils {
       _id: matchingMovie?._id!,
       name: matchingMovie?.name!,
       img: matchingMovie?.img!,
+      category: matchingMovie?.category!,
+      description: matchingMovie?.description!,
     };
   };
 }

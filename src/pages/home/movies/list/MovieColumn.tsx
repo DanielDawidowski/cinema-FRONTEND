@@ -2,15 +2,16 @@ import React from "react";
 import type { FC, ReactElement } from "react";
 import { Mask, MovieColumn, MovieItem } from "./HomeMovies.styles";
 import { IMovie } from "../../../../interfaces/movie/movie.interface";
+import { IShows } from "../../../../interfaces/show/show.interface";
 
 interface IMovieColumn {
   i: number;
-  group: IMovie[];
+  group: IShows[];
   toggle: boolean;
-  selected: IMovie | null;
+  selected: IShows | null;
   groupSize: number;
   handleMovie: () => void;
-  handleClick: (obj: IMovie, i: number) => void;
+  handleClick: (obj: IShows, i: number) => void;
 }
 
 const HomeMovieColumn: FC<IMovieColumn> = (props): ReactElement => {
@@ -19,16 +20,16 @@ const HomeMovieColumn: FC<IMovieColumn> = (props): ReactElement => {
 
   return (
     <MovieColumn key={i} $length={groupSize}>
-      {group.map((obj: IMovie, index: number) => (
+      {group.map((obj: IShows, index: number) => (
         <MovieItem key={index} onClick={() => handleClick(obj, i)}>
-          <img src={obj.img} alt={obj.name} />
+          <img src={obj?.movie?.img} alt={obj?.movie?.name} />
           {selected ? (
             <Mask
-              $selected={obj._id === selected?._id || !toggle}
+              $selected={obj?.movie?._id === selected?.movie?._id || !toggle}
               onClick={() => handleMovie()}
             />
           ) : null}
-          <h5>{obj.name}</h5>
+          <h5>{obj?.movie?.name}</h5>
         </MovieItem>
       ))}
     </MovieColumn>

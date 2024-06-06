@@ -27,7 +27,7 @@ const Information: FC = (): ReactElement => {
 
   const dispatch: ReduxDispatch = useAppDispatch();
   useEffect(() => {
-    const values: Omit<IGuest, "lastName"> = {
+    const values: IGuest = {
       name: profile?.username,
       email: profile?.email,
     };

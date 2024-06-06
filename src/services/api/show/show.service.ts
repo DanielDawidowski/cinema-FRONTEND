@@ -8,8 +8,15 @@ class ShowService {
     return response;
   }
 
-  async getAllShow(): Promise<AxiosResponse> {
-    const response: Awaited<AxiosResponse> = await axios.get(`/shows/all`);
+  async filterShows(
+    city: string | undefined,
+    movieId: string | undefined
+  ): Promise<AxiosResponse> {
+    const response: Awaited<AxiosResponse> = await axios.get(
+      `/shows/filter?${city ? `city=${city}` : ""}${
+        movieId ? `&movieId=${movieId}` : ""
+      }`
+    );
     return response;
   }
 
@@ -37,7 +44,9 @@ class ShowService {
     movieId: string | undefined
   ): Promise<AxiosResponse> {
     const response: Awaited<AxiosResponse> = await axios.get(
-      `/shows/${city}/${movieId}`
+      `/shows${city ? `?city=${city}` : ""}${
+        movieId ? `&movieId=${movieId}` : ""
+      }`
     );
     return response;
   }

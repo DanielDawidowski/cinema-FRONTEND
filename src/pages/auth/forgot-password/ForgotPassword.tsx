@@ -21,7 +21,7 @@ import {
 } from "../auth-tabs/Auth.styles";
 
 const ForgotPassword: FC = (): ReactElement => {
-  const [email, setEmail] = useState<string>("dvds1987@gmail.com");
+  const [email, setEmail] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
 

@@ -1,38 +1,26 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { showService } from "../../services/api/show/show.service";
-import { IShow } from "../../interfaces/show/show.interface";
+import { IShows } from "../../interfaces/show/show.interface";
 
 export interface IShowsList {
-  list: IShow[];
+  list: IShows[];
   totalShows: number;
 }
 
 export interface IShowsReducer {
   city: string;
-  movieId: string;
+  movieId?: string;
 }
 
-// Define the payload creator function
 export const getShowsList = createAsyncThunk<IShowsList, IShowsReducer>(
   "shows/getShowsList",
   async ({ city, movieId }: IShowsReducer) => {
     try {
-      if (city || movieId) {
-        const response = await showService.getShowsByFilters(
-          city ? city : movieId,
-          movieId
-        );
-        return {
-          list: response.data.list,
-          totalShows: response.data.totalShows,
-        };
-      } else {
-        const response = await showService.getAllShow();
-        return {
-          list: response.data.list,
-          totalShows: response.data.totalShows,
-        };
-      }
+      const response = await showService.getShowsByCity(city);
+      return {
+        list: response.data.list,
+        totalShows: response.data.totalShows,
+      };
     } catch (error) {
       console.error("error", error);
       throw error; // Rethrow the error to indicate the failure of the async operation

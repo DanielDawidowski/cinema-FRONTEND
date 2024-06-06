@@ -9,13 +9,11 @@ import type { FC, ReactElement } from "react";
 import { IoCloseCircle } from "react-icons/io5";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../../../redux-toolkit/hooks";
-import { IShow } from "../../../../interfaces/show/show.interface";
+import { IShow, IShows } from "../../../../interfaces/show/show.interface";
 import { IMovie } from "../../../../interfaces/movie/movie.interface";
 import useWindowSize from "../../../../hooks/useWindowSize";
 import { Utils } from "../../../../utils/utils";
 import useDetectOutsideClick from "../../../../hooks/useDetectOutsideClick";
-import { IHall } from "../../../../interfaces/hall/hall.interface";
-import { hallService } from "../../../../services/api/hall/hall.service";
 import { Flex } from "../../../../components/layout/globalStyles/global.styles";
 import {
   MoviesList,
@@ -34,27 +32,17 @@ const HomeMovieList: FC = (): ReactElement => {
   const { showsList, city } = useAppSelector((state) => state.shows);
   const { movies, filteredMovies } = useAppSelector((state) => state.movies);
   const [expandedGroup, setExpandedGroup] = useState<number | null>(null);
-  const [selected, setSelected] = useState<IMovie | null>({} as IMovie);
+  const [selected, setSelected] = useState<IShows | null>({} as IShows);
   const [movieId, setMovieId] = useState<string>("");
   const [show, setShow] = useState<IShow>({} as IShow);
-  const [hall, setHall] = useState<IHall>({} as IHall);
   const size = useWindowSize();
   const movieRef = useRef<HTMLDivElement>(null);
   const [toggle, setToggle] = useDetectOutsideClick(movieRef, false);
 
   const dispatch = useDispatch<AppDispatch>();
 
-  const getHall = useCallback(async () => {
-    try {
-      const response = await hallService.getHall(show.hall);
-      setHall(response.data.hall);
-    } catch (error) {
-      console.error(error);
-    }
-  }, [show.hall]);
-
   const handleClick = useCallback(
-    (obj: IMovie, i: number): void => {
+    (obj: IShows, i: number): void => {
       setExpandedGroup(i);
       setSelected(obj);
       setMovieId(obj._id!);
@@ -71,7 +59,7 @@ const HomeMovieList: FC = (): ReactElement => {
   }, [setToggle]);
 
   const renderObjectsInGroups = useCallback(
-    (objects: IMovie[], groupSize: number) => {
+    (objects: IShows[], groupSize: number) => {
       const result: JSX.Element[] = [];
 
       for (let i = 0; i < objects.length; i += groupSize) {
@@ -105,8 +93,11 @@ const HomeMovieList: FC = (): ReactElement => {
                   }}
                 >
                   <SelectedMovie>
-                    <img src={selected?.img} alt={selected?.name} />
-                    <p>{selected?.description}</p>
+                    <img
+                      src={selected?.movie?.img}
+                      alt={selected?.movie?.name}
+                    />
+                    <p>{selected?.movie?.description}</p>
                   </SelectedMovie>
                   <ToggleContent>
                     <Flex $align="flex-start" $justify="flex-end">
@@ -115,8 +106,8 @@ const HomeMovieList: FC = (): ReactElement => {
                     {!city ? <CityList /> : null}
                     {city ? (
                       <HomeShowList
-                        shows={showsList} //shows
-                        hall={hall}
+                        shows={showsList}
+                        selected={selected}
                         setShow={setShow}
                       />
                     ) : null}
@@ -140,18 +131,14 @@ const HomeMovieList: FC = (): ReactElement => {
       handleMovie,
       handleClick,
       toggle,
-      hall,
       setToggle,
     ]
   );
 
   const memorizeMovies = useMemo(
     () =>
-      renderObjectsInGroups(
-        filteredMovies.length > 0 ? filteredMovies : movies,
-        Utils.emitNumber(size.width as number)
-      ),
-    [renderObjectsInGroups, filteredMovies, movies, size]
+      renderObjectsInGroups(showsList, Utils.emitNumber(size.width as number)),
+    [renderObjectsInGroups, showsList, size]
   );
 
   useEffect(() => {
@@ -159,12 +146,8 @@ const HomeMovieList: FC = (): ReactElement => {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(getShowsList({ city, movieId }));
-  }, [dispatch, city, movieId]);
-
-  useEffect(() => {
-    getHall();
-  }, [getHall, showsList]);
+    dispatch(getShowsList({ city }));
+  }, [dispatch, city]);
 
   return <MoviesList>{memorizeMovies}</MoviesList>;
 };

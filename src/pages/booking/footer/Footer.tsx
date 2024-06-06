@@ -62,7 +62,13 @@ const Footer: FC<IFooter> = (props): ReactElement => {
         _id: show._id,
         city: show.city,
         hall: show.hall,
-        movie: show.movie,
+        movie: {
+          _id: show.movie._id,
+          name: show.movie.name,
+          img: show.movie.img,
+          category: show.movie.category,
+          description: show.movie.description,
+        },
         time: show.time,
       },
       price: parseFloat((Utils.calculatePrice(seats) + 0.5).toFixed(2)),
@@ -88,26 +94,6 @@ const Footer: FC<IFooter> = (props): ReactElement => {
       }
     }
   };
-
-  // const checkout = async (): Promise<void> => {
-  //   await fetch("http://localhost:5000/checkout", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       seats: seats,
-  //     }),
-  //   })
-  //     .then((res) => {
-  //       return res.json();
-  //     })
-  //     .then((response) => {
-  //       if (response.url) {
-  //         window.location.assign(response.url); // Forwarding user to Stripe
-  //       }
-  //     });
-  // };
 
   useEffect(() => {
     if (url) {

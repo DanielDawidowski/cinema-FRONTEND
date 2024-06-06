@@ -21,7 +21,7 @@ import { Line } from "../../../components/layout/globalStyles/global.styles";
 import { Forget } from "../auth-tabs/Auth.styles";
 
 const Login: FC<IRedirect> = ({ information = false }): ReactElement => {
-  const [email, setEmail] = useState<string>("dvds1987@gmail.com");
+  const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("qwerty");
   const [loading, setLoading] = useState<boolean>(false);
   const [user, setUser] = useState<ISignUpData | null>();

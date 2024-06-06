@@ -72,8 +72,7 @@ const ShowForm: FC<ICreateShowForm> = (props): ReactElement => {
   };
 
   const handleHall = (name: number): void => {
-    const hallId = HallUtils.hallId(halls, city, name);
-    setValues({ ...values, hall: hallId });
+    setValues({ ...values, hall: name });
     setSelectedHall(name);
   };
 
@@ -87,6 +86,10 @@ const ShowForm: FC<ICreateShowForm> = (props): ReactElement => {
     getHallsByCity();
     getAllMovies();
   }, [getHallsByCity, getAllMovies]);
+
+  useEffect(() => {
+    console.log("halls", halls);
+  }, [halls]);
 
   return (
     <>

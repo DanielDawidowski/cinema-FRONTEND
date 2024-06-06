@@ -99,6 +99,12 @@ export class HallUtils {
     return halls.map((el) => el.hallNumber);
   };
 
+  static hallNumber = (halls: IHall[], city: string): number => {
+    const matchingHall = halls.find((item) => item.city === city);
+
+    return matchingHall?.hallNumber!;
+  };
+
   static hallId = (
     halls: IHall[],
     city: string,

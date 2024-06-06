@@ -2,7 +2,6 @@ import { AxiosResponse } from "axios";
 import axios from "../../axios";
 import {
   ICheckout,
-  ITicket,
   ITicketData,
 } from "../../../interfaces/ticket/ticket.interface";
 

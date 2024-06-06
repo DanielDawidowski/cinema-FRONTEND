@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import type { FC, ReactElement } from "react";
 import axios from "axios";
-import { useDispatch } from "react-redux";
-import type { Dispatch as ReduxDispatch } from "@reduxjs/toolkit";
 import { RxReset } from "react-icons/rx";
 import Layout from "../../../../components/layout/Layout";
 import { ValidationError } from "../../../../interfaces/error/Error.interface";
@@ -31,31 +29,16 @@ import {
   Filters,
   FiltersContainer,
 } from "../Show.styles";
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "../../../../redux-toolkit/hooks";
-import { getShowsList } from "../../../../redux-toolkit/api/shows";
-import { AppDispatch } from "../../../../redux-toolkit/store";
-import {
-  clear,
-  setCity,
-  setMovieId,
-} from "../../../../redux-toolkit/reducers/shows/shows.reducer";
 import Pagination from "../../../../components/pagination/Pagination";
 
 const ShowList: FC = (): ReactElement => {
-  const { showsList, city, movieId, totalShows } = useAppSelector(
-    (state) => state.shows
-  );
-
+  const [shows, setShows] = useState<IShow[]>([]);
+  const [city, setCity] = useState<string>("");
+  const [movieId, setMovieId] = useState<string>("");
   const [movies, setMovies] = useState<IMovie[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
-
-  const dispatch: ReduxDispatch = useAppDispatch();
-  const appDispatch = useDispatch<AppDispatch>();
 
   const getAllMovies = useCallback(async (): Promise<void> => {
     try {
@@ -66,6 +49,19 @@ const ShowList: FC = (): ReactElement => {
       console.log("error", error);
     }
   }, []);
+
+  const filterShows = useCallback(
+    async (city: string, movieId: string): Promise<void> => {
+      try {
+        const response = await showService.filterShows(city, movieId);
+        setShows(response.data.list);
+        // console.log("response", response.data.events);
+      } catch (error) {
+        console.log("error", error);
+      }
+    },
+    []
+  );
 
   const deleteShow = async (showId: string): Promise<void> => {
     const result = window.confirm("Czy na pewno chcesz usunąć?");
@@ -88,13 +84,13 @@ const ShowList: FC = (): ReactElement => {
   };
 
   const handleCity = (city: string): void => {
-    dispatch(setCity({ city }));
+    setCity(city);
     setCurrentPage(1);
   };
 
   const handleMovie = (name: string): void => {
     const movieId = MovieUtils.movieId(movies, name);
-    dispatch(setMovieId({ movieId }));
+    setMovieId(movieId);
     setCurrentPage(1);
   };
 
@@ -104,25 +100,27 @@ const ShowList: FC = (): ReactElement => {
   };
 
   const clearFilters = (): void => {
-    dispatch(clear());
+    setCity("");
+    setMovieId("");
     setCurrentPage(1);
   };
 
   useEffect(() => {
     getAllMovies();
-  }, [getAllMovies]);
+    console.log("shows", shows);
+  }, [getAllMovies, shows]);
 
   useEffect(() => {
-    appDispatch(getShowsList({ city, movieId }));
-  }, [appDispatch, city, movieId, currentPage]);
+    filterShows(city, movieId);
+  }, [filterShows, city, movieId]);
 
   const headers = ["Image", "Movie", "City", "Hall", "Time", "Actions"];
   const PAGE_SIZE = 10;
 
   const startIndex = (currentPage - 1) * PAGE_SIZE;
-  const endIndex = Math.min(startIndex + PAGE_SIZE, showsList.length);
+  const endIndex = Math.min(startIndex + PAGE_SIZE, shows.length);
 
-  const currentItems = showsList.slice(startIndex, endIndex);
+  const currentItems = shows.slice(startIndex, endIndex);
   const sortedShows = useMemo(() => currentItems, [currentItems]);
 
   return (
@@ -161,7 +159,7 @@ const ShowList: FC = (): ReactElement => {
               </Filters>
             </FiltersContainer>
             <Pagination
-              total={totalShows}
+              total={shows.length}
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
             />
@@ -186,7 +184,7 @@ const ShowList: FC = (): ReactElement => {
               </ListTableInner>
             </ListTable>
             <Pagination
-              total={totalShows}
+              total={shows.length}
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
             />

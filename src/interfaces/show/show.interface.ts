@@ -3,7 +3,7 @@ import { IMovie } from "../movie/movie.interface";
 export interface IShow {
   _id?: string;
   city: string;
-  hall: string;
+  hall: number;
   movie: IMovieShow;
   time: string;
   createdAt?: string;
@@ -15,4 +15,13 @@ export interface IShowsList {
   movieId: string;
 }
 
-export type IMovieShow = Pick<IMovie, "_id" | "name" | "img">;
+export type IMovieShow = Pick<
+  IMovie,
+  "_id" | "name" | "img" | "category" | "description"
+>;
+
+export interface IShows extends IShow {
+  _id: string;
+  movie: IMovieShow;
+  shows: IShow[];
+}

@@ -1,16 +1,16 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IShowsList, getShowsList } from "../../api/shows";
-import { IShow } from "../../../interfaces/show/show.interface";
+import { IShows } from "../../../interfaces/show/show.interface";
 
-interface MoviesState {
+interface ShowsState {
   isLoading: boolean;
-  showsList: IShow[];
+  showsList: IShows[];
   city: string;
   movieId: string;
   totalShows: number;
 }
 
-const initialState: MoviesState = {
+const initialState: ShowsState = {
   isLoading: false,
   showsList: [],
   city: "",
