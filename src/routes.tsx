@@ -18,6 +18,7 @@ import EditShow from "./pages/admin/show/edit/EditShow";
 import Booking from "./pages/booking/Booking";
 import Cancel from "./pages/booking/checkout/Cancel";
 import Success from "./pages/booking/checkout/Success";
+import Movie from "./pages/movie/Movie";
 
 export const AppRouter: FC = () => {
   return (
@@ -27,6 +28,7 @@ export const AppRouter: FC = () => {
       <Route path="/login" element={<AuthTabs />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password" element={<ResetPassword />} />
+      <Route path="/movie/:movieId" element={<Movie />} />
       <Route
         path="/admin/hall/create"
         element={

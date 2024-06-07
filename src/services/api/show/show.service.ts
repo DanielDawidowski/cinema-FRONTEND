@@ -51,6 +51,16 @@ class ShowService {
     return response;
   }
 
+  async getShowsByMovieName(
+    city: string | undefined,
+    movieId: string | undefined
+  ): Promise<AxiosResponse> {
+    const response: Awaited<AxiosResponse> = await axios.get(
+      `/shows/movie${city ? `/${city}` : ""}${city ? `/${movieId}` : ""}`
+    );
+    return response;
+  }
+
   async updateShow(showId: string, body: IShow): Promise<AxiosResponse> {
     const response: Awaited<AxiosResponse> = await axios.put(
       `/show/${showId}`,

@@ -10,6 +10,7 @@ export const themeGlobal = {
   black: "#171717",
   black_light: "#1e2020",
   black_opacity: "#000000c6",
+  black_opacity_1: "#18171745",
   primary: "linear-gradient(90deg, #ff6600, #ffcc00)",
   primary_dark: "#2E4F4F",
   primary_light: "#CBE4DE",

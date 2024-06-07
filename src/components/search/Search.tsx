@@ -67,7 +67,7 @@ const Search: FC<ISearchProps> = (props): ReactElement | null => {
         <Inner>
           {search.length > 0 && filteredMovies.length !== 0
             ? filteredMovies.slice(0, 5).map((movie: IMovie) => (
-                <Link to={`/movie/${movie._id}`} key={movie._id}>
+                <Link to={`/movie/${movie.name}`} key={movie._id}>
                   <SearchListItem>
                     <img src={movie.img} alt={movie.name} />
                     <div>

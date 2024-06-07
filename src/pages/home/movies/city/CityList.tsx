@@ -6,6 +6,7 @@ import { useAppDispatch } from "../../../../redux-toolkit/hooks";
 import { CityList } from "../../Home.styles";
 import { CityName, cities } from "../../../../interfaces/city/city.interface";
 import { setCity } from "../../../../redux-toolkit/reducers/shows/shows.reducer";
+import { Grid } from "../../../../components/layout/globalStyles/global.styles";
 
 const HomeCityList: FC = (): ReactElement => {
   const dispatch: ReduxDispatch = useAppDispatch();
@@ -19,6 +20,10 @@ const HomeCityList: FC = (): ReactElement => {
 
   return (
     <CityList>
+      <Grid>
+        <h4>Choose a location to see shows</h4>
+      </Grid>
+      <br />
       {cities.map((city: CityName, i: number) => (
         <motion.div
           key={i}
