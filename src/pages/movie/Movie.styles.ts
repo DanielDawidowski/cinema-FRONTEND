@@ -26,6 +26,9 @@ export const Left = styled.div`
 export const ImageWrapper = styled.div`
   position: fixed;
   max-width: 17%;
+  @media (min-width: ${(props) => props.theme.breakpoint_small}) {
+    max-width: 15%;
+  }
 `;
 
 export const Right = styled.div``;
@@ -60,15 +63,22 @@ export const Ratings = styled.div`
 `;
 
 export const BuyButton = styled.div`
-  margin: ${(props) => props.theme.size2} 0;
+  margin: ${(props) => props.theme.size4} 0;
   ${ButtonStyles} {
     width: 100%;
     justify-content: center;
+    @media (min-width: ${(props) => props.theme.breakpoint_small}) {
+      width: unset;
+    }
   }
 `;
 
 export const Description = styled.div`
-  margin: ${(props) => props.theme.size1} 0;
+  margin: ${(props) => props.theme.size4} 0;
+
+  p {
+    text-align: justify;
+  }
 
   h3 {
     display: grid;
