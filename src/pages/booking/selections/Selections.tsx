@@ -10,7 +10,7 @@ import {
 } from "../../../redux-toolkit/reducers/hall/hall.reducer";
 import { useAppDispatch, useAppSelector } from "../../../redux-toolkit/hooks";
 import { HallUtils } from "../../../utils/hall-utils";
-import { Screen, SelectionSeats, SelectionStyles } from "./Selection.styles";
+import { Screen, SelectionSeats, SelectionStyles } from "./Selections.styles";
 import Legend from "../../../components/legend/Legenda";
 import { IShow } from "../../../interfaces/show/show.interface";
 import { hallService } from "../../../services/api/hall/hall.service";

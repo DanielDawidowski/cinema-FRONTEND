@@ -11,7 +11,7 @@ import {
 } from "./Booking.styles";
 import Layout from "../../components/layout/Layout";
 import Logo from "../../components/logo/Logo";
-import Selection from "./selection/Selection";
+import Selection from "./selections/Selections";
 import { showService } from "../../services/api/show/show.service";
 import { IShow } from "../../interfaces/show/show.interface";
 import Footer from "./footer/Footer";
