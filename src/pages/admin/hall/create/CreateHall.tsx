@@ -37,7 +37,7 @@ import {
   DisplayMedia,
   Line,
 } from "../../../../components/layout/globalStyles/global.styles";
-import Legend from "../../../../components/legend/Legend";
+import Legend from "../../../../components/legend/Legenda";
 import { HallUtils } from "../../../../utils/hall-utils";
 
 const initialState: IHall = {

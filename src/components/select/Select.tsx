@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import propTypes from "prop-types";
 import { SelectProps } from "./Select.interface";
 import {

@@ -1,12 +1,12 @@
 import React, { ReactElement } from "react";
 import type { FC } from "react";
 import type { Dispatch } from "@reduxjs/toolkit";
-import { LegendList, LegendListItem, LegendStyles } from "./Legend.styles";
+import { LegendList, LegendListItem, LegendStyles } from "./Legenda.styles";
 import { SeatType } from "../../interfaces/hall/hall.interface";
 import { changeSeatType } from "../../redux-toolkit/reducers/hall/hall.reducer";
 import { useAppDispatch } from "../../redux-toolkit/hooks";
 import SeatSVG from "../seat/seatSVG";
-import { ILegend, ILegendProps } from "./Legend.interface";
+import { ILegend, ILegendProps } from "./Legenda.interface";
 
 const legends: ILegend[] = [
   {
