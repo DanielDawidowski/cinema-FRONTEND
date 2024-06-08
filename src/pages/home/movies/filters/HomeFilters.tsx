@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import type { FC, ReactElement } from "react";
 import type { Dispatch as ReduxDispatch } from "@reduxjs/toolkit";
 import { IoIosArrowDown } from "react-icons/io";
@@ -131,10 +131,6 @@ const Filters: FC<IFilters> = ({ type, setType }): ReactElement => {
     dispatch(clearFilters({ showsList }));
     dispatch(closeModal());
   };
-
-  useEffect(() => {
-    console.log("categories", categories);
-  }, [categories]);
 
   return (
     <FilterActions id="filters">
