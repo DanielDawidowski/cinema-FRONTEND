@@ -103,11 +103,6 @@ const Movie: FC = (): ReactElement => {
     getShows();
   }, [getMovie, getShows]);
 
-  useEffect(() => {
-    console.log("shows", shows);
-    console.log("movieId", movieId);
-  }, [shows, movieId]);
-
   return (
     <Layout>
       <Container>
