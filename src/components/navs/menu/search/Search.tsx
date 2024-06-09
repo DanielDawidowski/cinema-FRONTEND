@@ -50,10 +50,6 @@ const Search: FC = (props): ReactElement | null => {
     getAllMovies();
   }, [getAllMovies]);
 
-  useEffect(() => {
-    console.log("movies", movies);
-  }, [movies]);
-
   return (
     <SearchContainer ref={dropdownRef}>
       <SearchStyles>

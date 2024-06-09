@@ -107,7 +107,6 @@ const EditHall: FC = (): ReactElement => {
       setLoading(false);
       setHasError(false);
       setValues(initialState);
-      console.log("hall edited");
       dispatch(closeModal());
       navigate("/admin/halls");
     } catch (error) {
@@ -156,7 +155,6 @@ const EditHall: FC = (): ReactElement => {
 
   useEffect(() => {
     HallUtils.changeOrientation();
-    console.log("hall", hall);
   }, [hall]);
 
   return (

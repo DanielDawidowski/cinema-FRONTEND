@@ -48,10 +48,6 @@ const Search: FC<ISearchProps> = (props): ReactElement | null => {
     getAllMovies();
   }, [getAllMovies]);
 
-  useEffect(() => {
-    console.log("movies", movies);
-  }, [movies]);
-
   return openSearch ? (
     <>
       <SearchContainer>

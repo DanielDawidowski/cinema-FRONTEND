@@ -107,7 +107,6 @@ const ShowList: FC = (): ReactElement => {
 
   useEffect(() => {
     getAllMovies();
-    console.log("shows", shows);
   }, [getAllMovies, shows]);
 
   useEffect(() => {

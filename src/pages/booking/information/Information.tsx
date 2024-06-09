@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from "react";
 import type { FC, ReactElement } from "react";
 import type { Dispatch as ReduxDispatch } from "@reduxjs/toolkit";
-
 import {
-  InformationCard,
-  InformationCardItem,
+  // InformationCard,
+  // InformationCardItem,
   InformationInner,
   InformationStyles,
 } from "./Information.styles";
 import {
   AuthContainer,
   AuthInner,
-  TabsElement,
-  TabsStyles,
+  // TabsElement,
+  // TabsStyles,
 } from "../../auth/auth-tabs/Auth.styles";
-import { Login, Register } from "../../auth";
+// import { Login, Register } from "../../auth";
 import Guest from "../../auth/guest/Guest";
 import { useAppSelector, useAppDispatch } from "../../../redux-toolkit/hooks";
 import { addName } from "../../../redux-toolkit/reducers/ticket/ticket.reduer";
@@ -23,7 +22,7 @@ import { IGuest } from "../../../interfaces/auth/auth.interface";
 const Information: FC = (): ReactElement => {
   const { profile } = useAppSelector((state) => state.user);
 
-  const [type, setType] = useState<string>("Sign In");
+  // const [type, setType] = useState<string>("Sign In");
 
   const dispatch: ReduxDispatch = useAppDispatch();
   useEffect(() => {
