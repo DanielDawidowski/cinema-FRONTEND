@@ -37,7 +37,7 @@ const Information: FC = (): ReactElement => {
   return (
     <InformationStyles>
       <InformationInner>
-        {!profile ? (
+        {/* {!profile ? (
           <TabsStyles>
             <TabsElement
               $active={type === "Sign In"}
@@ -58,10 +58,10 @@ const Information: FC = (): ReactElement => {
               <h4>Guest</h4>
             </TabsElement>
           </TabsStyles>
-        ) : null}
+        ) : null} */}
         <AuthContainer>
           <AuthInner>
-            {type === "Sign In" &&
+            {/* {type === "Sign In" &&
               (!profile ? (
                 <Login information />
               ) : (
@@ -93,7 +93,8 @@ const Information: FC = (): ReactElement => {
                   </InformationCardItem>
                 </InformationCard>
               ))}
-            {type === "Guest" && <Guest />}
+            {type === "Guest" && <Guest />} */}
+            <Guest />
           </AuthInner>
         </AuthContainer>
       </InformationInner>

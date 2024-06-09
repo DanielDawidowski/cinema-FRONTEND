@@ -29,78 +29,15 @@ export const AppRouter: FC = () => {
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="/movie/:movieId" element={<Movie />} />
-      <Route
-        path="/admin/hall/create"
-        element={
-          <ProtectedRoute>
-            <CreateHall />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/admin/hall/edit/:hallId"
-        element={
-          <ProtectedRoute>
-            <EditHall />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/admin/halls"
-        element={
-          <ProtectedRoute>
-            <HallList />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/admin/movies"
-        element={
-          <ProtectedRoute>
-            <MovieList />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/admin/movie/create"
-        element={
-          <ProtectedRoute>
-            <CreateMovie />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/admin/movie/edit/:movieId"
-        element={
-          <ProtectedRoute>
-            <EditMovie />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/admin/show/create"
-        element={
-          <ProtectedRoute>
-            <CreateShow />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/admin/shows"
-        element={
-          <ProtectedRoute>
-            <ShowList />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/admin/show/edit/:showId"
-        element={
-          <ProtectedRoute>
-            <EditShow />
-          </ProtectedRoute>
-        }
-      />
+      <Route path="/admin/hall/create" element={<CreateHall />} />
+      <Route path="/admin/hall/edit/:hallId" element={<EditHall />} />
+      <Route path="/admin/halls" element={<HallList />} />
+      <Route path="/admin/movies" element={<MovieList />} />
+      <Route path="/admin/movie/create" element={<CreateMovie />} />
+      <Route path="/admin/movie/edit/:movieId" element={<EditMovie />} />
+      <Route path="/admin/show/create" element={<CreateShow />} />
+      <Route path="/admin/shows" element={<ShowList />} />
+      <Route path="/admin/show/edit/:showId" element={<EditShow />} />
       <Route path="/success" element={<Success />} />
       <Route path="/cancel" element={<Cancel />} />
     </Routes>

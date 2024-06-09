@@ -38,7 +38,7 @@ const Search: FC = (props): ReactElement | null => {
     if (search === "") {
       return [];
     }
-    return movie.name.toLowerCase().includes(search.toLowerCase());
+    return movie?.name?.toLowerCase().includes(search.toLowerCase());
   });
 
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
@@ -49,6 +49,10 @@ const Search: FC = (props): ReactElement | null => {
   useEffect(() => {
     getAllMovies();
   }, [getAllMovies]);
+
+  useEffect(() => {
+    console.log("movies", movies);
+  }, [movies]);
 
   return (
     <SearchContainer ref={dropdownRef}>
