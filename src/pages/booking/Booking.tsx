@@ -1,7 +1,10 @@
 import React, { useState, useCallback, useEffect } from "react";
 import type { FC, ReactElement } from "react";
 import { useParams } from "react-router-dom";
-import { Container } from "../../components/layout/globalStyles/global.styles";
+import {
+  Container,
+  Grid,
+} from "../../components/layout/globalStyles/global.styles";
 import {
   Header,
   HeaderInner,
@@ -20,19 +23,24 @@ import Movie from "./movie/Movie";
 import Information from "./information/Information";
 import Payment from "./payment/Payment";
 import StepNav from "./header/Header";
+import Spinner from "../../components/spinner/Spinner";
 
 const Booking: FC = (): ReactElement => {
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [show, setShow] = useState<IShow>({} as IShow);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const { showId } = useParams();
 
   const getShow = useCallback(async () => {
+    setLoading(true);
     try {
       const response = await showService.getShow(showId as string);
       setShow(response.data.show);
+      setLoading(false);
     } catch (error) {
       console.error(error);
+      setLoading(false);
     }
   }, [showId]);
 
@@ -66,7 +74,14 @@ const Booking: FC = (): ReactElement => {
             <StepContainer $currentStep={currentStep} $step={4}>
               <Payment />
             </StepContainer>
-            <Movie show={show} />
+            {loading ? (
+              <Grid>
+                <Spinner size={30} />
+                ... loading
+              </Grid>
+            ) : (
+              <Movie show={show} />
+            )}
           </StepContent>
         </Container>
         <Footer

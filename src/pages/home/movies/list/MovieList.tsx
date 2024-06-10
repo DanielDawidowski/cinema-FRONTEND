@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-} from "react";
+import React, { useState, useCallback, useMemo, useRef } from "react";
 import type { FC, ReactElement } from "react";
 import { IoCloseCircle } from "react-icons/io5";
 import { useAppSelector } from "../../../../redux-toolkit/hooks";
@@ -12,7 +6,10 @@ import { IShows } from "../../../../interfaces/show/show.interface";
 import useWindowSize from "../../../../hooks/useWindowSize";
 import { Utils } from "../../../../utils/utils";
 import useDetectOutsideClick from "../../../../hooks/useDetectOutsideClick";
-import { Flex } from "../../../../components/layout/globalStyles/global.styles";
+import {
+  Flex,
+  Grid,
+} from "../../../../components/layout/globalStyles/global.styles";
 import {
   MoviesList,
   SelectedMovie,
@@ -22,9 +19,10 @@ import {
 import CityList from "../city/CityList";
 import MovieColumn from "./MovieColumn";
 import HomeShowList from "../show/ShowList";
+import Spinner from "../../../../components/spinner/Spinner";
 
 const HomeMovieList: FC = (): ReactElement => {
-  const { filteredShows, showsList, city } = useAppSelector(
+  const { filteredShows, showsList, city, isLoading } = useAppSelector(
     (state) => state.shows
   );
   const [expandedGroup, setExpandedGroup] = useState<number | null>(null);
@@ -132,7 +130,18 @@ const HomeMovieList: FC = (): ReactElement => {
     [renderObjectsInGroups, filteredShows, showsList, size]
   );
 
-  return <MoviesList>{memorizeMovies}</MoviesList>;
+  return (
+    <MoviesList>
+      {isLoading ? (
+        <Grid>
+          <Spinner size={30} />
+          ... loading
+        </Grid>
+      ) : (
+        memorizeMovies
+      )}
+    </MoviesList>
+  );
 };
 
 export default HomeMovieList;

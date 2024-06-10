@@ -13,7 +13,10 @@ import {
   TodaysMovieListItem,
 } from "./HomeMovies.styles";
 import CityList from "../city/CityList";
-import { Line } from "../../../../components/layout/globalStyles/global.styles";
+import {
+  Grid,
+  Line,
+} from "../../../../components/layout/globalStyles/global.styles";
 import { IShow, IShows } from "../../../../interfaces/show/show.interface";
 import { Link } from "react-router-dom";
 import { ShowListItem } from "../../Home.styles";
@@ -25,6 +28,7 @@ import { IMovieCategory } from "../../../../interfaces/movie/movie.interface";
 import useWindowSize from "../../../../hooks/useWindowSize";
 import { BreakPoint } from "../../../../components/layout/Layout.interface";
 import Select from "../../../../components/select/Select";
+import Spinner from "../../../../components/spinner/Spinner";
 
 const MovieTodaysList: FC = (): ReactElement => {
   const [days, setDays] = useState<string[]>([]);
@@ -32,7 +36,7 @@ const MovieTodaysList: FC = (): ReactElement => {
 
   const size = useWindowSize();
 
-  const { filteredShows, showsList, city } = useAppSelector(
+  const { filteredShows, showsList, city, isLoading } = useAppSelector(
     (state) => state.shows
   );
 
@@ -88,33 +92,42 @@ const MovieTodaysList: FC = (): ReactElement => {
 
   return (
     <MoviesList>
-      {!city ? <CityList /> : null}
-      {city ? (
+      {isLoading ? (
+        <Grid>
+          <Spinner size={30} />
+          ... loading
+        </Grid>
+      ) : (
         <>
-          {size.width > BreakPoint.small ? (
-            <Days>
-              {days.map((d, i) => (
-                <Day
-                  key={i}
-                  $selected={d === day}
-                  onClick={() => handleClick(d)}
-                >
-                  <h4>{d}</h4>
-                  {d === day ? <Line $gradient $width="100%" /> : null}
-                </Day>
-              ))}
-            </Days>
-          ) : (
-            <Select
-              label="City"
-              options={days}
-              selectedOption={day!}
-              onSelect={(day: string) => handleClick(day)}
-            />
-          )}
-          <TodaysMovieList>{memorizeShows}</TodaysMovieList>
+          {!city ? <CityList /> : null}
+          {city ? (
+            <>
+              {size.width > BreakPoint.small ? (
+                <Days>
+                  {days.map((d, i) => (
+                    <Day
+                      key={i}
+                      $selected={d === day}
+                      onClick={() => handleClick(d)}
+                    >
+                      <h4>{d}</h4>
+                      {d === day ? <Line $gradient $width="100%" /> : null}
+                    </Day>
+                  ))}
+                </Days>
+              ) : (
+                <Select
+                  label="City"
+                  options={days}
+                  selectedOption={day!}
+                  onSelect={(day: string) => handleClick(day)}
+                />
+              )}
+              <TodaysMovieList>{memorizeShows}</TodaysMovieList>
+            </>
+          ) : null}
         </>
-      ) : null}
+      )}
     </MoviesList>
   );
 };

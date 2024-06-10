@@ -14,6 +14,10 @@ import { Screen, SelectionSeats, SelectionStyles } from "./Selections.styles";
 import Legend from "../../../components/legend/Legenda";
 import { IShow } from "../../../interfaces/show/show.interface";
 import { hallService } from "../../../services/api/hall/hall.service";
+import axios from "axios";
+import { ValidationError } from "../../../interfaces/error/Error.interface";
+import { Grid } from "../../../components/layout/globalStyles/global.styles";
+import Spinner from "../../../components/spinner/Spinner";
 
 interface ISelection {
   show: IShow;
@@ -23,6 +27,7 @@ const Selection: FC<ISelection> = ({ show }): ReactElement => {
   const [seats, setSeats] = useState<ISeat[]>([] as ISeat[]);
   const [hall, setHall] = useState<IHall>({} as IHall);
   const [halls, setHalls] = useState<IHall[]>([] as IHall[]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const { selectedSeats } = useAppSelector((state) => state.hall);
   const dispatch: ReduxDispatch = useAppDispatch();
@@ -40,11 +45,20 @@ const Selection: FC<ISelection> = ({ show }): ReactElement => {
   const hallId = HallUtils.hallId(halls, show.city, show.hall);
 
   const getHall = useCallback(async () => {
+    setLoading(true);
     try {
       const response = await hallService.getHall(hallId);
       setHall(response.data.hall);
+      setLoading(false);
     } catch (error) {
-      console.error(error);
+      if (
+        axios.isAxiosError<ValidationError, Record<string, unknown>>(error) &&
+        error.response
+      ) {
+        setLoading(false);
+      } else {
+        console.error(error);
+      }
     }
   }, [hallId]);
 
@@ -79,19 +93,28 @@ const Selection: FC<ISelection> = ({ show }): ReactElement => {
 
   return (
     <SelectionStyles>
-      <Screen />
-      <SelectionSeats $rows={hallRows!} $columns={hallColumns!}>
-        {seats?.map((seat: ISeat, i: number) => (
-          <Seat
-            key={i}
-            seat={seat}
-            onClick={() => handleSeat(seat)}
-            selection
-            totalColumns={hallColumns!}
-          />
-        ))}
-      </SelectionSeats>
-      <Legend flex />
+      {loading ? (
+        <Grid>
+          <Spinner size={30} />
+          ... loading
+        </Grid>
+      ) : (
+        <>
+          <Screen />
+          <SelectionSeats $rows={hallRows!} $columns={hallColumns!}>
+            {seats?.map((seat: ISeat, i: number) => (
+              <Seat
+                key={i}
+                seat={seat}
+                onClick={() => handleSeat(seat)}
+                selection
+                totalColumns={hallColumns!}
+              />
+            ))}
+          </SelectionSeats>
+          <Legend flex />
+        </>
+      )}
     </SelectionStyles>
   );
 };

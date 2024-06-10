@@ -12,6 +12,7 @@ export const SelectionStyles = styled.div`
   margin-left: ${(props) => props.theme.size1};
   margin-right: ${(props) => props.theme.size1};
   margin-bottom: 30%;
+  padding: ${(props) => props.theme.size3} 0;
 
   ${LegendStyles} {
     grid-area: legend;

@@ -6,7 +6,7 @@ export const MovieStyles = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   grid-column-gap: 0;
-
+  padding: ${(props) => props.theme.size3} 0;
   @media (min-width: ${(props) => props.theme.breakpoint_small}) {
     grid-template-columns: 1fr 2fr;
     grid-column-gap: ${(props) => props.theme.size1};

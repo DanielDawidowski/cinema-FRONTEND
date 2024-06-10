@@ -25,6 +25,7 @@ import {
 import {
   Container,
   Flex,
+  Grid,
   Line,
 } from "../../components/layout/globalStyles/global.styles";
 import { movieService } from "../../services/api/movie/movie.service";
@@ -106,132 +107,137 @@ const Movie: FC = (): ReactElement => {
   return (
     <Layout>
       <Container>
-        {loading ? (
-          <Spinner />
-        ) : (
-          <MovieStyles>
-            <Left id="image">
-              <ImageWrapper>
-                <img src={movie?.img} alt={movie?.name} />
-              </ImageWrapper>
-            </Left>
-            <Right>
-              <MovieHeader>
-                <img src={movie?.img} alt={movie?.name} />
-                <MovieHeaderContent>
-                  <Line $gradient $width="45%" />
-                  <h3>{movie?.name}</h3>
-                  <Ratings>
-                    {Array.from(Array(4).keys()).map((i) => (
-                      <FaStar style={{ fill: themeGlobal.orange }} />
-                    ))}
-                    <FaStarHalfAlt style={{ fill: themeGlobal.orange }} />
-                  </Ratings>
-                </MovieHeaderContent>
-              </MovieHeader>
-              <BuyButton>
-                <Button
-                  color={ButtonColor.secondary}
-                  onClick={() => handleScroll("movieId")}
-                >
-                  <h4>Buy Tickets</h4>
-                </Button>
-              </BuyButton>
-              <Description>
-                <p>{isExpanded ? movie.description : firstHalf}</p>
-                <h3 role="button" onClick={handleToggle}>
-                  {isExpanded ? (
-                    <Flex $align="center" $justify="center">
-                      Show Less
-                      <Arrow
-                        initial={{ rotate: 0 }}
-                        animate={{
-                          rotate: isExpanded ? 180 : 0,
-                          originX: 0.5,
-                        }}
-                      >
-                        <IoIosArrowDown />
-                      </Arrow>
-                    </Flex>
-                  ) : (
-                    <Flex $align="center" $justify="center">
-                      Show More
-                      <Arrow
-                        initial={{ rotate: 0 }}
-                        animate={{
-                          rotate: isExpanded ? 180 : 0,
-                          originX: 0.5,
-                        }}
-                      >
-                        <IoIosArrowDown />
-                      </Arrow>
-                    </Flex>
-                  )}
-                </h3>
-              </Description>
-              <Table>
-                <tbody>
-                  <tr>
-                    <td>genre</td>
-                    <td>
-                      {movie?.category?.map(
-                        (cat: IMovieCategory, i: number) => (
-                          <span key={i}>{cat}</span>
-                        )
-                      )}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>cast</td>
-                    <td>
-                      {movie?.actors?.map((actor: string, i: number) => (
-                        <span key={i}>{actor}</span>
+        <MovieStyles>
+          {loading ? (
+            <Grid>
+              <Spinner size={30} />
+              ... loading
+            </Grid>
+          ) : (
+            <>
+              <Left id="image">
+                <ImageWrapper>
+                  <img src={movie?.img} alt={movie?.name} />
+                </ImageWrapper>
+              </Left>
+              <Right>
+                <MovieHeader>
+                  <img src={movie?.img} alt={movie?.name} />
+                  <MovieHeaderContent>
+                    <Line $gradient $width="45%" />
+                    <h3>{movie?.name}</h3>
+                    <Ratings>
+                      {Array.from(Array(4).keys()).map((i) => (
+                        <FaStar key={i} style={{ fill: themeGlobal.orange }} />
                       ))}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>director</td>
-                    <td>{movie?.director}</td>
-                  </tr>
-                </tbody>
-              </Table>
-              <Shows id="movieId">
-                <ShowsHeader>
-                  <Line $gradient $width="45%" />
-
-                  <h2>Buy Tickets</h2>
-                </ShowsHeader>
-                {!city ? (
-                  <CityList />
-                ) : (
-                  <ShowsList>
-                    {shows.map((show: IShows) => (
-                      <ShowsListElement>
-                        {show.shows.map((s: IShow, index: number) => (
-                          <Link key={index} to={`/booking/${s._id}`}>
-                            <ShowListItem>
-                              <div>
-                                <h5>{s.time}</h5>
-                                <IoMdArrowRoundForward />
-                              </div>
-                              <motion.div>
-                                <Tooltip text={`Hall ${s.hall}`}>
-                                  <FaInfoCircle
-                                    style={{ fill: themeGlobal.white }}
-                                  />
-                                </Tooltip>
-                              </motion.div>
-                            </ShowListItem>
-                          </Link>
+                      <FaStarHalfAlt style={{ fill: themeGlobal.orange }} />
+                    </Ratings>
+                  </MovieHeaderContent>
+                </MovieHeader>
+                <BuyButton>
+                  <Button
+                    color={ButtonColor.secondary}
+                    onClick={() => handleScroll("movieId")}
+                  >
+                    <h4>Buy Tickets</h4>
+                  </Button>
+                </BuyButton>
+                <Description>
+                  <p>{isExpanded ? movie.description : firstHalf}</p>
+                  <h3 role="button" onClick={handleToggle}>
+                    {isExpanded ? (
+                      <Flex $align="center" $justify="center">
+                        Show Less
+                        <Arrow
+                          initial={{ rotate: 0 }}
+                          animate={{
+                            rotate: isExpanded ? 180 : 0,
+                            originX: 0.5,
+                          }}
+                        >
+                          <IoIosArrowDown />
+                        </Arrow>
+                      </Flex>
+                    ) : (
+                      <Flex $align="center" $justify="center">
+                        Show More
+                        <Arrow
+                          initial={{ rotate: 0 }}
+                          animate={{
+                            rotate: isExpanded ? 180 : 0,
+                            originX: 0.5,
+                          }}
+                        >
+                          <IoIosArrowDown />
+                        </Arrow>
+                      </Flex>
+                    )}
+                  </h3>
+                </Description>
+                <Table>
+                  <tbody>
+                    <tr>
+                      <td>genre</td>
+                      <td>
+                        {movie?.category?.map(
+                          (cat: IMovieCategory, i: number) => (
+                            <span key={i}>{cat}</span>
+                          )
+                        )}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>cast</td>
+                      <td>
+                        {movie?.actors?.map((actor: string, i: number) => (
+                          <span key={i}>{actor}</span>
                         ))}
-                      </ShowsListElement>
-                    ))}
-                  </ShowsList>
-                )}
-              </Shows>
-            </Right>
-          </MovieStyles>
-        )}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>director</td>
+                      <td>{movie?.director}</td>
+                    </tr>
+                  </tbody>
+                </Table>
+                <Shows id="movieId">
+                  <ShowsHeader>
+                    <Line $gradient $width="45%" />
+
+                    <h2>Buy Tickets</h2>
+                  </ShowsHeader>
+                  {!city ? (
+                    <CityList />
+                  ) : (
+                    <ShowsList>
+                      {shows.map((show: IShows, i: number) => (
+                        <ShowsListElement key={i}>
+                          {show.shows.map((s: IShow, index: number) => (
+                            <Link key={index} to={`/booking/${s._id}`}>
+                              <ShowListItem>
+                                <div>
+                                  <h5>{s.time}</h5>
+                                  <IoMdArrowRoundForward />
+                                </div>
+                                <motion.div>
+                                  <Tooltip text={`Hall ${s.hall}`}>
+                                    <FaInfoCircle
+                                      style={{ fill: themeGlobal.white }}
+                                    />
+                                  </Tooltip>
+                                </motion.div>
+                              </ShowListItem>
+                            </Link>
+                          ))}
+                        </ShowsListElement>
+                      ))}
+                    </ShowsList>
+                  )}
+                </Shows>
+              </Right>
+            </>
+          )}
+        </MovieStyles>
       </Container>
     </Layout>
   );
