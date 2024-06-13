@@ -11,8 +11,7 @@ A comprehensive web application for managing cinema halls, movies, shows, and ti
   - [Installation](#installation)
   - [Running the Application](#running-the-application)
 - [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
+
 
 ## Features
 
