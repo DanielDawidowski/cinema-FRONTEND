@@ -1,46 +1,103 @@
-# Getting Started with Create React App
+# Cinema Booking System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A comprehensive web application for managing cinema halls, movies, shows, and ticket bookings. This application is built using React, Node.js, Redux Toolkit, TypeScript, and Styled Components, with Stripe integration for handling payments.
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Running the Application](#running-the-application)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- **Manage Cinema Halls**: Create and configure cinema halls with different seating arrangements.
+- **Movies Management**: Add, update, and delete movies.
+- **Schedule Shows**: Create and manage showtimes for movies in different halls.
+- **Seat Selection**: Users can select seats for a specific show.
+- **Ticket Booking**: Book tickets and proceed to payment.
+- **Stripe Integration**: Securely handle payments using Stripe.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Tech Stack
 
-### `npm test`
+- **Frontend**: React, TypeScript, Redux Toolkit, Styled Components
+- **Backend**: Node.js, Express
+- **Database**: MongoDB (or any other database of your choice)
+- **Payments**: Stripe
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Getting Started
 
-### `npm run build`
+### Prerequisites
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Node.js**: Ensure you have Node.js installed. You can download it [here](https://nodejs.org/).
+- **MongoDB**: Make sure you have MongoDB running locally or have access to a MongoDB server. You can download it [here](https://www.mongodb.com/).
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Installation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. **Clone the repository**:
+    ```bash
+    git clone https://github.com/yourusername/cinema-booking-system.git
+    cd cinema-booking-system
+    ```
 
-### `npm run eject`
+2. **Install dependencies for the backend**:
+    ```bash
+    cd backend
+    npm install
+    ```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+3. **Install dependencies for the frontend**:
+    ```bash
+    cd ../frontend
+    npm install
+    ```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Running the Application
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+1. **Backend**:
+    - Create a `.env` file in the `backend` directory and add your environment variables:
+      ```env
+      PORT=5000
+      MONGO_URI=your_mongodb_uri
+      STRIPE_SECRET_KEY=your_stripe_secret_key
+      ```
+    - Start the backend server:
+      ```bash
+      npm run dev
+      ```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+2. **Frontend**:
+    - Create a `.env` file in the `frontend` directory and add your environment variables:
+      ```env
+      REACT_APP_API_URL=http://localhost:5000
+      REACT_APP_STRIPE_PUBLIC_KEY=your_stripe_public_key
+      ```
+    - Start the frontend development server:
+      ```bash
+      npm start
+      ```
 
-## Learn More
+## Usage
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Open your browser and navigate to `http://localhost:3000`.
+- Use the application to create cinema halls, movies, and shows.
+- Book tickets by selecting seats and proceed to payment using Stripe.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Contributing
+
+Contributions are welcome! Please fork the repository and create a pull request with your changes. Make sure to follow the coding standards and include relevant tests for your changes.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a pull request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
