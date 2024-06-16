@@ -1,46 +1,63 @@
-# Getting Started with Create React App
+# Cinema Booking System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A comprehensive web application for managing cinema halls, movies, shows, and ticket bookings. This application is built using React, Node.js, Redux Toolkit, TypeScript, and Styled Components, with Stripe integration for handling payments.
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Running the Application](#running-the-application)
+- [Usage](#usage)
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Features
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- **Manage Cinema Halls**: Create and configure cinema halls with different seating arrangements.
+- **Movies Management**: Add, update, and delete movies.
+- **Schedule Shows**: Create and manage showtimes for movies in different halls.
+- **Seat Selection**: Users can select seats for a specific show.
+- **Ticket Booking**: Book tickets and proceed to payment.
+- **Stripe Integration**: Securely handle payments using Stripe.
 
-### `npm test`
+## Tech Stack
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Frontend**: React, TypeScript, Redux Toolkit, Styled Components, Framer motion
+- **Backend**: Node.js, Express
+- **Database**: MongoDB (or any other database of your choice)
+- **Payments**: Stripe
 
-### `npm run build`
+## Getting Started
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Prerequisites
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **Node.js**: Ensure you have Node.js installed. You can download it [here](https://nodejs.org/).
+- **MongoDB**: Make sure you have MongoDB running locally or have access to a MongoDB server. You can download it [here](https://www.mongodb.com/).
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Installation
 
-### `npm run eject`
+1. **Clone the repository**:
+    ```bash
+    git clone https://github.com/DanielDawidowski/cinema-FRONTEND.git
+    cd cinema-booking-system
+    ```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+2. **Install dependencies for the backend**:
+    ```bash
+    git clone https://github.com/DanielDawidowski/cinema-BACKEND.git
+    npm install
+    ```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Usage
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Open your browser and navigate to `http://localhost:3000`.
+- Use the application to create cinema halls, movies, and shows.
+- Book tickets by selecting seats and proceed to payment using Stripe.
+
+
