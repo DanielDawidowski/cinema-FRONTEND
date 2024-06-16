@@ -73,7 +73,9 @@ const Tickets: FC = (): ReactElement => {
                 onChange={handleOptionChange}
                 seat={seat.type}
               />
-              <span style={{ color: themeGlobal.orange }}>{seat.price} $</span>
+              <span className="price" style={{ color: themeGlobal.orange }}>
+                {seat.price} $
+              </span>
             </TicketContent>
           </TicketItemInner>
         </TicketItem>

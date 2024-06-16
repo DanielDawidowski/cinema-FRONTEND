@@ -44,9 +44,13 @@ export const TicketTitle = styled.div`
 
 export const TicketContent = styled.div`
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   margin: 0 4px;
+  .price {
+    margin-right: ${(props) => props.theme.size1};
+    font-size: ${(props) => props.theme.size4};
+  }
 `;
 
 export const TypeSelect = styled.div<{ $selected: boolean | undefined }>`
